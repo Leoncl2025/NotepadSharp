@@ -32,7 +32,7 @@ static int QColorToScintillaColour(QColor c)
     return c.red() | (c.green() << 8) | (c.blue() << 16);
 }
 
-MarkerAppDecorator::MarkerAppDecorator(NotepadNextApplication *app)
+MarkerAppDecorator::MarkerAppDecorator(NotepadSharpApplication *app)
     : ApplicationDecorator(app)
 {
     // Any time an editor is created go ahead and allocate/set the required indicators

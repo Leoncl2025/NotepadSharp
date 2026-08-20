@@ -18,7 +18,7 @@
 
 
 #include "AutoCompletion.h"
-#include "NotepadNextApplication.h"
+#include "NotepadSharpApplication.h"
 
 #include <QApplication>
 #include <QSet>
@@ -35,7 +35,7 @@ AutoCompletion::AutoCompletion(ScintillaNext *editor) :
     editor->autoCSetMaxHeight(10);
 
     connect(editor, &ScintillaNext::lexerChanged, this, [this]() {
-        NotepadNextApplication *app = qobject_cast<NotepadNextApplication *>(qApp);
+        NotepadSharpApplication *app = qobject_cast<NotepadSharpApplication *>(qApp);
         keywords = app->getLanguageKeywords(this->editor->languageName);
     });
 }

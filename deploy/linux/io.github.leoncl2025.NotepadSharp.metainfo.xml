@@ -10,7 +10,7 @@
     <content_rating type="oars-1.1" />
 
     <name>Notepad #</name>
-    
+
     <summary>A compliance-focused and security-conscious reimplementation of Notepad++</summary>
     <description>
         <p>Notepad # is a modified version of Notepad Next.</p>
@@ -18,7 +18,7 @@
 
     <url type="homepage">https://github.com/Leoncl2025/NotepadSharp</url>
     <url type="bugtracker">https://github.com/Leoncl2025/NotepadSharp/issues</url>
-    
+
     <screenshots>
         <screenshot type="default">
             <image type="source">https://raw.githubusercontent.com/Leoncl2025/NotepadSharp/main/doc/screenshot.png</image>

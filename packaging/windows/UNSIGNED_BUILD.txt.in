@@ -1,7 +1,7 @@
 UNSIGNED INTERNAL TEST BUILD
 ============================
 
-Product: Notepad# @PROJECT_VERSION@
+Product: Notepad # @PROJECT_VERSION@
 Executable: NotepadSharp.exe
 Architecture: Windows x64
 

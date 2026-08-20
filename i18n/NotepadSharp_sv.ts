@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="de_DE" sourcelanguage="en">
+<TS version="2.1" language="sv_SE" sourcelanguage="en">
   <context>
     <name>ColumnEditorDialog</name>
     <message>
       <location filename="../src/dialogs/ColumnEditorDialog.ui" line="20"/>
       <source>Column Mode</source>
-      <translation>Spaltenmodus</translation>
+      <translation>Kolumnläge</translation>
     </message>
     <message>
       <location filename="../src/dialogs/ColumnEditorDialog.ui" line="32"/>
@@ -16,7 +16,7 @@
     <message>
       <location filename="../src/dialogs/ColumnEditorDialog.ui" line="47"/>
       <source>Numbers</source>
-      <translation>Zahlen</translation>
+      <translation>Siffror</translation>
     </message>
     <message>
       <location filename="../src/dialogs/ColumnEditorDialog.ui" line="59"/>
@@ -26,7 +26,7 @@
     <message>
       <location filename="../src/dialogs/ColumnEditorDialog.ui" line="76"/>
       <source>Step:</source>
-      <translation>Schritt:</translation>
+      <translation>Steg:</translation>
     </message>
   </context>
   <context>
@@ -34,7 +34,7 @@
     <message>
       <location filename="../src/docks/DebugLogDock.ui" line="14"/>
       <source>Debug Log</source>
-      <translation>Debug-Protokoll</translation>
+      <translation>Felsökningslogg</translation>
     </message>
   </context>
   <context>
@@ -42,22 +42,22 @@
     <message>
       <location filename="../src/widgets/EditorInfoStatusBar.cpp" line="100"/>
       <source>Length: %L1    Lines: %L2</source>
-      <translation>Länge: %L1 Zeile: %L2</translation>
+      <translation>Längd: %L1    Rader: %L2</translation>
     </message>
     <message>
       <location filename="../src/widgets/EditorInfoStatusBar.cpp" line="109"/>
       <source>Sel: N/A</source>
-      <translation>Sel: N/A</translation>
+      <translation>Markerat: Ej tillämpligt</translation>
     </message>
     <message>
       <location filename="../src/widgets/EditorInfoStatusBar.cpp" line="119"/>
       <source>Sel: %L1 | %L2</source>
-      <translation>Sel: %L1 | %L2</translation>
+      <translation>Mark: %L1 | %L2</translation>
     </message>
     <message>
       <location filename="../src/widgets/EditorInfoStatusBar.cpp" line="123"/>
       <source>Ln: %L1    Col: %L2    </source>
-      <translation>Zl: %L1    Sp: %L2    </translation>
+      <translation>Rad: %L1    Kol: %L2    </translation>
     </message>
     <message>
       <location filename="../src/widgets/EditorInfoStatusBar.cpp" line="139"/>
@@ -117,187 +117,187 @@
     <message>
       <location filename="../src/docks/EditorInspectorDock.ui" line="14"/>
       <source>Editor Inspector</source>
-      <translation>Editor-Inspektor</translation>
+      <translation>Redigeringsinspektör</translation>
     </message>
     <message>
       <location filename="../src/docks/EditorInspectorDock.cpp" line="36"/>
       <source>Position Information</source>
-      <translation>Positionsinformationen</translation>
+      <translation>Positionsinformation</translation>
     </message>
     <message>
       <location filename="../src/docks/EditorInspectorDock.cpp" line="39"/>
       <source>Current Position</source>
-      <translation>Aktuelle Position</translation>
+      <translation>Aktuell position</translation>
     </message>
     <message>
       <location filename="../src/docks/EditorInspectorDock.cpp" line="40"/>
       <source>Current Position (x, y)</source>
-      <translation>Aktuelle Position (x, y)</translation>
+      <translation>Aktuell position (x, y)</translation>
     </message>
     <message>
       <location filename="../src/docks/EditorInspectorDock.cpp" line="41"/>
       <source>Column</source>
-      <translation>Spalte</translation>
+      <translation>Kolumn</translation>
     </message>
     <message>
       <location filename="../src/docks/EditorInspectorDock.cpp" line="43"/>
       <source>Current Style</source>
-      <translation>Aktueller Stil</translation>
+      <translation>Aktuell stil</translation>
     </message>
     <message>
       <location filename="../src/docks/EditorInspectorDock.cpp" line="44"/>
       <source>Current Line</source>
-      <translation>Aktuelle Zeile</translation>
+      <translation>Aktuell rad</translation>
     </message>
     <message>
       <location filename="../src/docks/EditorInspectorDock.cpp" line="45"/>
       <source>Line Length</source>
-      <translation>Zeilenlänge</translation>
+      <translation>Radlängd</translation>
     </message>
     <message>
       <location filename="../src/docks/EditorInspectorDock.cpp" line="46"/>
       <source>Line End Position</source>
-      <translation>Zeilenende-Position</translation>
+      <translation>Radslutsposition</translation>
     </message>
     <message>
       <location filename="../src/docks/EditorInspectorDock.cpp" line="47"/>
       <source>Line Indentation</source>
-      <translation>Zeilenrückzug</translation>
+      <translation>Radindrag</translation>
     </message>
     <message>
       <location filename="../src/docks/EditorInspectorDock.cpp" line="48"/>
       <source>Line Indent Position</source>
-      <translation>Zeilenrückzugs Position</translation>
+      <translation>Radindragsposition</translation>
     </message>
     <message>
       <location filename="../src/docks/EditorInspectorDock.cpp" line="52"/>
       <source>Selection Information</source>
-      <translation>Auswahlinformationen</translation>
+      <translation>Markeringsinformation</translation>
     </message>
     <message>
       <location filename="../src/docks/EditorInspectorDock.cpp" line="55"/>
       <source>Mode</source>
-      <translation>Modus</translation>
+      <translation>Läge</translation>
     </message>
     <message>
       <location filename="../src/docks/EditorInspectorDock.cpp" line="69"/>
       <source>Is Rectangle</source>
-      <translation>Ist Rechteck</translation>
+      <translation>Är rektangel</translation>
     </message>
     <message>
       <location filename="../src/docks/EditorInspectorDock.cpp" line="70"/>
       <source>Selection Empty</source>
-      <translation>Auswahl leer</translation>
+      <translation>Markering tom</translation>
     </message>
     <message>
       <location filename="../src/docks/EditorInspectorDock.cpp" line="71"/>
       <source>Main Selection</source>
-      <translation>Hauptauswahl</translation>
+      <translation>Huvudsaklig markering</translation>
     </message>
     <message>
       <location filename="../src/docks/EditorInspectorDock.cpp" line="72"/>
       <source># of Selections</source>
-      <translation># Anzahl der Auswahlen</translation>
+      <translation># av markerat</translation>
     </message>
     <message>
       <location filename="../src/docks/EditorInspectorDock.cpp" line="75"/>
       <source>Multiple Selections</source>
-      <translation>Mehrfachauswahl</translation>
+      <translation>Flera markeringar</translation>
     </message>
     <message>
       <location filename="../src/docks/EditorInspectorDock.cpp" line="80"/>
       <source>Document Information</source>
-      <translation>Dokumentinformationen</translation>
+      <translation>Dokumentinformation</translation>
     </message>
     <message>
       <location filename="../src/docks/EditorInspectorDock.cpp" line="83"/>
       <source>Length</source>
-      <translation>Länge</translation>
+      <translation>Längd</translation>
     </message>
     <message>
       <location filename="../src/docks/EditorInspectorDock.cpp" line="84"/>
       <source>Line Count</source>
-      <translation>Zeilenanzahl</translation>
+      <translation>Radantal</translation>
     </message>
     <message>
       <location filename="../src/docks/EditorInspectorDock.cpp" line="88"/>
       <source>View Information</source>
-      <translation>Informationen anzeigen</translation>
+      <translation>Visa information</translation>
     </message>
     <message>
       <location filename="../src/docks/EditorInspectorDock.cpp" line="91"/>
       <source>Lines on Screen</source>
-      <translation>Zeilen auf dem Bildschirm</translation>
+      <translation>Rader på skärmen</translation>
     </message>
     <message>
       <location filename="../src/docks/EditorInspectorDock.cpp" line="92"/>
       <source>First Visible Line</source>
-      <translation>Erste sichtbare Zeile</translation>
+      <translation>Första synliga rad</translation>
     </message>
     <message>
       <location filename="../src/docks/EditorInspectorDock.cpp" line="93"/>
       <source>X Offset</source>
-      <translation>X-Versatz</translation>
+      <translation>X-förskjutning</translation>
     </message>
     <message>
       <location filename="../src/docks/EditorInspectorDock.cpp" line="97"/>
       <source>Fold Information</source>
-      <translation>Faltinformationen</translation>
+      <translation>Radbrytningsinformation</translation>
     </message>
     <message>
       <location filename="../src/docks/EditorInspectorDock.cpp" line="100"/>
       <source>Visible From Doc Line</source>
-      <translation>Sichtbar von der Dokumentzeile aus</translation>
+      <translation>Synlig från dokumentrad</translation>
     </message>
     <message>
       <location filename="../src/docks/EditorInspectorDock.cpp" line="101"/>
       <source>Doc Line From Visible</source>
-      <translation>Dokumentlinie von sichtbar</translation>
+      <translation>Dokumentrad från synlig</translation>
     </message>
     <message>
       <location filename="../src/docks/EditorInspectorDock.cpp" line="102"/>
       <source>Fold Level</source>
-      <translation>Faltstufe</translation>
+      <translation>Radbrytningsnivå</translation>
     </message>
     <message>
       <location filename="../src/docks/EditorInspectorDock.cpp" line="103"/>
       <source>Is Fold Header</source>
-      <translation>Ist Falzkopf</translation>
+      <translation>Är radbrytningsrubrik</translation>
     </message>
     <message>
       <location filename="../src/docks/EditorInspectorDock.cpp" line="104"/>
       <source>Fold Parent</source>
-      <translation>Übergeordnetes Element einklappen</translation>
+      <translation>Radbryt överordnad</translation>
     </message>
     <message>
       <location filename="../src/docks/EditorInspectorDock.cpp" line="105"/>
       <source>Last Child</source>
-      <translation>Letztes Element</translation>
+      <translation>Senast underordnad</translation>
     </message>
     <message>
       <location filename="../src/docks/EditorInspectorDock.cpp" line="106"/>
       <source>Contracted Fold Next</source>
-      <translation>Contracted Fold Next</translation>
+      <translation>Kontrakterad radbryt nästa</translation>
     </message>
     <message>
       <location filename="../src/docks/EditorInspectorDock.cpp" line="173"/>
       <source>Caret</source>
-      <translation>Caret</translation>
+      <translation>Textmarkör</translation>
     </message>
     <message>
       <location filename="../src/docks/EditorInspectorDock.cpp" line="177"/>
       <source>Anchor</source>
-      <translation>Anker</translation>
+      <translation>Ankare</translation>
     </message>
     <message>
       <location filename="../src/docks/EditorInspectorDock.cpp" line="181"/>
       <source>Caret Virtual Space</source>
-      <translation>Caret Virtual Space</translation>
+      <translation>Virtuellt avstånd för textmarkör</translation>
     </message>
     <message>
       <location filename="../src/docks/EditorInspectorDock.cpp" line="185"/>
       <source>Anchor Virtual Space</source>
-      <translation>Anker Virtueller Raum</translation>
+      <translation>Virtuellt avstånd för ankare</translation>
     </message>
   </context>
   <context>
@@ -305,7 +305,7 @@
     <message>
       <location filename="../src/docks/FileListDock.ui" line="14"/>
       <source>File List</source>
-      <translation>Dateiliste</translation>
+      <translation>Fillista</translation>
     </message>
     <message>
       <location filename="../src/docks/FileListDock.ui" line="51"/>
@@ -315,7 +315,7 @@
     <message>
       <location filename="../src/docks/FileListDock.ui" line="90"/>
       <source>Sort by File Name</source>
-      <translation>Nach Dateinamen sortieren</translation>
+      <translation>Sortera efter filnamn</translation>
     </message>
   </context>
   <context>
@@ -325,12 +325,12 @@
       <location filename="../src/dialogs/FindReplaceDialog.ui" line="247"/>
       <location filename="../src/dialogs/FindReplaceDialog.cpp" line="62"/>
       <source>Find</source>
-      <translation>Finden</translation>
+      <translation>Sök</translation>
     </message>
     <message>
       <location filename="../src/dialogs/FindReplaceDialog.ui" line="69"/>
       <source>Search Mode</source>
-      <translation>Suchmodus</translation>
+      <translation>Sökläge</translation>
     </message>
     <message>
       <location filename="../src/dialogs/FindReplaceDialog.ui" line="90"/>
@@ -340,62 +340,62 @@
     <message>
       <location filename="../src/dialogs/FindReplaceDialog.ui" line="106"/>
       <source>E&amp;xtended (\n, \r, \t, \0, \x...)</source>
-      <translation>Erweitert (\n, \r, \t, \0, \x...)</translation>
+      <translation>&amp;Utökat (\n, \r, \t, \0, \x...)</translation>
     </message>
     <message>
       <location filename="../src/dialogs/FindReplaceDialog.ui" line="124"/>
       <source>Re&amp;gular expression</source>
-      <translation>Re&amp;gulärer Ausdruck</translation>
+      <translation>&amp;Regular expression</translation>
     </message>
     <message>
       <location filename="../src/dialogs/FindReplaceDialog.ui" line="140"/>
       <source>&amp;. matches newline</source>
-      <translation>&amp;. entspricht einem Zeilenumbruch</translation>
+      <translation>&amp;. matchar ny rad</translation>
     </message>
     <message>
       <location filename="../src/dialogs/FindReplaceDialog.ui" line="179"/>
       <source>Transparenc&amp;y</source>
-      <translation>Transparenz</translation>
+      <translation>&amp;Transparens</translation>
     </message>
     <message>
       <location filename="../src/dialogs/FindReplaceDialog.ui" line="200"/>
       <source>On losing focus</source>
-      <translation>Fenster nicht im Vordergrund</translation>
+      <translation>Vid förlorat fokus</translation>
     </message>
     <message>
       <location filename="../src/dialogs/FindReplaceDialog.ui" line="210"/>
       <source>Always</source>
-      <translation>Immer</translation>
+      <translation>Alltid</translation>
     </message>
     <message>
       <location filename="../src/dialogs/FindReplaceDialog.ui" line="260"/>
       <source>Coun&amp;t</source>
-      <translation>Anzahl</translation>
+      <translation>&amp;Räkna</translation>
     </message>
     <message>
       <location filename="../src/dialogs/FindReplaceDialog.ui" line="270"/>
       <source>&amp;Replace</source>
-      <translation>Ersetzen</translation>
+      <translation>&amp;Ersätt</translation>
     </message>
     <message>
       <location filename="../src/dialogs/FindReplaceDialog.ui" line="277"/>
       <source>Replace &amp;All</source>
-      <translation>Ersetzen &amp;Alle</translation>
+      <translation>Ersätt &amp;alla</translation>
     </message>
     <message>
       <location filename="../src/dialogs/FindReplaceDialog.ui" line="284"/>
       <source>Replace All in &amp;Opened Documents</source>
-      <translation>Alle in geöffneten Dokumenten ersetzen</translation>
+      <translation>Ersätt alla i &amp;öppna dokument</translation>
     </message>
     <message>
       <location filename="../src/dialogs/FindReplaceDialog.ui" line="291"/>
       <source>Find All in All &amp;Opened Documents</source>
-      <translation>Finde Alles in Allen geöffneten Dokumenten</translation>
+      <translation>Sök alla i &amp;öppna dokument</translation>
     </message>
     <message>
       <location filename="../src/dialogs/FindReplaceDialog.ui" line="301"/>
       <source>Find All in Current Document</source>
-      <translation>Alles im aktuellen Dokument suchen</translation>
+      <translation>Sök alla i aktuellt dokument</translation>
     </message>
     <message>
       <location filename="../src/dialogs/FindReplaceDialog.ui" line="311"/>
@@ -415,17 +415,17 @@
     <message>
       <location filename="../src/dialogs/FindReplaceDialog.ui" line="341"/>
       <source>Close</source>
-      <translation>Schließen</translation>
+      <translation>Stäng</translation>
     </message>
     <message>
       <location filename="../src/dialogs/FindReplaceDialog.ui" line="397"/>
       <source>&amp;Find:</source>
-      <translation>&amp;Finden:</translation>
+      <translation>&amp;Sök:</translation>
     </message>
     <message>
       <location filename="../src/dialogs/FindReplaceDialog.ui" line="429"/>
       <source>Replace:</source>
-      <translation>Ersetzen:</translation>
+      <translation>Ersätt:</translation>
     </message>
     <message>
       <location filename="../src/dialogs/FindReplaceDialog.ui" line="475"/>
@@ -440,27 +440,27 @@
     <message>
       <location filename="../src/dialogs/FindReplaceDialog.ui" line="489"/>
       <source>Backward direction</source>
-      <translation>Rückwärtsrichtung</translation>
+      <translation>Bakåtriktning</translation>
     </message>
     <message>
       <location filename="../src/dialogs/FindReplaceDialog.ui" line="496"/>
       <source>Match &amp;whole word only</source>
-      <translation>Nur ganze Wörter</translation>
+      <translation>Matcha endast &amp;hela ord</translation>
     </message>
     <message>
       <location filename="../src/dialogs/FindReplaceDialog.ui" line="503"/>
       <source>Match &amp;case</source>
-      <translation>Groß-/Kleinschreibung beachten</translation>
+      <translation>Matcha &amp;skiftläge</translation>
     </message>
     <message>
       <location filename="../src/dialogs/FindReplaceDialog.ui" line="510"/>
       <source>Wra&amp;p Around</source>
-      <translation>Umwickeln</translation>
+      <translation>&amp;Radbryt</translation>
     </message>
     <message>
       <location filename="../src/dialogs/FindReplaceDialog.cpp" line="63"/>
       <source>Replace</source>
-      <translation>Ersetzen</translation>
+      <translation>Ersätt</translation>
     </message>
     <message>
       <location filename="../src/dialogs/FindReplaceDialog.cpp" line="64"/>
@@ -472,36 +472,36 @@
       <location filename="../src/dialogs/FindReplaceDialog.cpp" line="358"/>
       <source>Replaced %Ln matches</source>
       <translation>
-        <numerusform>Ersetzte %Ln Übereinstimmung</numerusform>
-        <numerusform>Ersetzte %Ln Übereinstimmungen</numerusform>
+        <numerusform>Ersatte %Ln träff</numerusform>
+        <numerusform>Ersatte %Ln träffar</numerusform>
       </translation>
     </message>
     <message>
       <location filename="../src/dialogs/FindReplaceDialog.cpp" line="256"/>
       <source>The end of the document has been reached. Found 1st occurrence from the top.</source>
-      <translation>Das Ende des Dokuments wurde erreicht. Erste Stelle von oben gefunden.</translation>
+      <translation>Slutet på dokumentet har nåtts. Hittade 1:a förekomsten från toppen.</translation>
     </message>
     <message>
       <location filename="../src/dialogs/FindReplaceDialog.cpp" line="267"/>
       <source>No matches found.</source>
-      <translation>Keine Übereinstimmungen gefunden.</translation>
+      <translation>Inga träffar.</translation>
     </message>
     <message>
       <location filename="../src/dialogs/FindReplaceDialog.cpp" line="330"/>
       <source>1 occurrence was replaced</source>
-      <translation>1 Vorkommen wurde ersetzt</translation>
+      <translation>1 förekomst ersattes</translation>
     </message>
     <message>
       <location filename="../src/dialogs/FindReplaceDialog.cpp" line="339"/>
       <source>No more occurrences were found</source>
-      <translation>Es wurden keine weiteren Vorkommen gefunden.</translation>
+      <translation>Inga fler förekomster hittades</translation>
     </message>
     <message numerus="yes">
       <location filename="../src/dialogs/FindReplaceDialog.cpp" line="369"/>
       <source>Found %Ln matches</source>
       <translation>
-        <numerusform>%Ln Übereinstimmung gefunden</numerusform>
-        <numerusform>%Ln Übereinstimmungen gefunden</numerusform>
+        <numerusform>Hittade %Ln träff</numerusform>
+        <numerusform>Hittade %Ln träffar</numerusform>
       </translation>
     </message>
     <message numerus="yes">
@@ -530,7 +530,7 @@
     <message>
       <location filename="../src/docks/FolderAsWorkspaceDock.ui" line="14"/>
       <source>Folder as Workspace</source>
-      <translation>Ordner als Arbeitsbereich</translation>
+      <translation>Mapp som arbetsyta</translation>
     </message>
   </context>
   <context>
@@ -538,12 +538,12 @@
     <message>
       <location filename="../src/docks/LanguageInspectorDock.ui" line="14"/>
       <source>Language Inspector</source>
-      <translation>Sprachinspektor</translation>
+      <translation>Språkinspektör</translation>
     </message>
     <message>
       <location filename="../src/docks/LanguageInspectorDock.ui" line="56"/>
       <source>Language:</source>
-      <translation>Sprache:</translation>
+      <translation>Språk:</translation>
     </message>
     <message>
       <location filename="../src/docks/LanguageInspectorDock.ui" line="70"/>
@@ -553,12 +553,12 @@
     <message>
       <location filename="../src/docks/LanguageInspectorDock.ui" line="86"/>
       <source>Properties:</source>
-      <translation>Eigenschaften:</translation>
+      <translation>Egenskaper:</translation>
     </message>
     <message>
       <location filename="../src/docks/LanguageInspectorDock.ui" line="100"/>
       <source>Property</source>
-      <translation>Eigentum</translation>
+      <translation>Egenskap</translation>
     </message>
     <message>
       <location filename="../src/docks/LanguageInspectorDock.ui" line="105"/>
@@ -569,17 +569,17 @@
       <location filename="../src/docks/LanguageInspectorDock.ui" line="110"/>
       <location filename="../src/docks/LanguageInspectorDock.ui" line="151"/>
       <source>Description</source>
-      <translation>Beschreibung</translation>
+      <translation>Beskrivning</translation>
     </message>
     <message>
       <location filename="../src/docks/LanguageInspectorDock.ui" line="115"/>
       <source>Value</source>
-      <translation>Wert</translation>
+      <translation>Värde</translation>
     </message>
     <message>
       <location filename="../src/docks/LanguageInspectorDock.ui" line="123"/>
       <source>Keywords:</source>
-      <translation>Schlüsselwörter:</translation>
+      <translation>Nyckelord:</translation>
     </message>
     <message>
       <location filename="../src/docks/LanguageInspectorDock.ui" line="146"/>
@@ -589,12 +589,12 @@
     <message>
       <location filename="../src/docks/LanguageInspectorDock.ui" line="159"/>
       <source>Styles:</source>
-      <translation>Stile:</translation>
+      <translation>Stilar:</translation>
     </message>
     <message>
       <location filename="../src/docks/LanguageInspectorDock.ui" line="166"/>
       <source>TextLabel</source>
-      <translation>Textbeschriftung</translation>
+      <translation>TextEtikett</translation>
     </message>
     <message>
       <location filename="../src/docks/LanguageInspectorDock.cpp" line="146"/>
@@ -607,7 +607,7 @@
     <message>
       <location filename="../src/docks/LuaConsoleDock.ui" line="17"/>
       <source>Lua Console</source>
-      <translation>Lua-Konsole</translation>
+      <translation>Lua-konsol</translation>
     </message>
   </context>
   <context>
@@ -615,67 +615,67 @@
     <message>
       <location filename="../src/dialogs/MacroEditorDialog.ui" line="14"/>
       <source>Macro Editor</source>
-      <translation>Makro-Editor</translation>
+      <translation>Makroredigerare</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MacroEditorDialog.ui" line="48"/>
       <source>Name</source>
-      <translation>Name</translation>
+      <translation>Namn</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MacroEditorDialog.ui" line="58"/>
       <source>Shortcut</source>
-      <translation>Shortcut</translation>
+      <translation>Genväg</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MacroEditorDialog.ui" line="67"/>
       <source>Steps:</source>
-      <translation>Schritte:</translation>
+      <translation>Steg:</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MacroEditorDialog.ui" line="95"/>
       <source>Insert Macro Step</source>
-      <translation>Makroschritt einfügen</translation>
+      <translation>Infoga makrosteg</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MacroEditorDialog.ui" line="110"/>
       <source>Delete Selected Macro Step</source>
-      <translation>Ausgewählten Makroschritt löschen</translation>
+      <translation>Ta bort markerat makrosteg</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MacroEditorDialog.ui" line="125"/>
       <source>Move Selected Macro Step Up</source>
-      <translation>Ausgewählten Makroschritt nach oben verschieben</translation>
+      <translation>Flytta upp markerat makrosteg</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MacroEditorDialog.ui" line="140"/>
       <source>Move Selected Macro Step Down</source>
-      <translation>Ausgewählten Makroschritt nach unten verschieben</translation>
+      <translation>Flytta ner markerat makrosteg</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MacroEditorDialog.ui" line="176"/>
       <source>Copy Selected Macro</source>
-      <translation>Ausgewähltes Makro kopieren</translation>
+      <translation>Kopiera markerat makrosteg</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MacroEditorDialog.ui" line="191"/>
       <source>Delete Selected Macro</source>
-      <translation>Ausgewähltes Makro löschen</translation>
+      <translation>Ta bort markerat makrosteg</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MacroEditorDialog.cpp" line="129"/>
       <source>Delete Macro</source>
-      <translation>Makro löschen</translation>
+      <translation>Ta bort makro</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MacroEditorDialog.cpp" line="129"/>
       <source>Are you sure you want to delete &lt;b&gt;%1&lt;/b&gt;?</source>
-      <translation>Möchten Sie &lt;b&gt;%1&lt;/b&gt; wirklich löschen?</translation>
+      <translation>Vill du verkligen ta bort &lt;b&gt;%1&lt;/b&gt;?</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MacroEditorDialog.cpp" line="150"/>
       <source>(Copy)</source>
-      <translation>(Kopie)</translation>
+      <translation>(Kopia)</translation>
     </message>
   </context>
   <context>
@@ -683,7 +683,7 @@
     <message>
       <location filename="../src/dialogs/MacroRunDialog.ui" line="14"/>
       <source>Run a Macro Multiple Times</source>
-      <translation>Makro mehrmals ausführen</translation>
+      <translation>Kör ett makro flera gånger</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MacroRunDialog.ui" line="31"/>
@@ -693,27 +693,27 @@
     <message>
       <location filename="../src/dialogs/MacroRunDialog.ui" line="56"/>
       <source>Run Until End of File</source>
-      <translation>Bis zum Ende der Datei ausführen</translation>
+      <translation>Kör till slutet på filen</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MacroRunDialog.ui" line="63"/>
       <source>Execute...</source>
-      <translation>Ausführen...</translation>
+      <translation>Exekvera...</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MacroRunDialog.ui" line="116"/>
       <source>times</source>
-      <translation>mal</translation>
+      <translation>gånger</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MacroRunDialog.ui" line="166"/>
       <source>Run</source>
-      <translation>Ausführen</translation>
+      <translation>Kör</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MacroRunDialog.ui" line="173"/>
       <source>Cancel</source>
-      <translation>Abbrechen</translation>
+      <translation>Avbryt</translation>
     </message>
   </context>
   <context>
@@ -721,17 +721,17 @@
     <message>
       <location filename="../src/dialogs/MacroSaveDialog.ui" line="14"/>
       <source>Save Macro</source>
-      <translation>Makro speichern</translation>
+      <translation>Spara makro</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MacroSaveDialog.ui" line="25"/>
       <source>Name:</source>
-      <translation>Name:</translation>
+      <translation>Namn:</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MacroSaveDialog.ui" line="39"/>
       <source>Shortcut:</source>
-      <translation>Shortcut:</translation>
+      <translation>Genväg:</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MacroSaveDialog.ui" line="82"/>
@@ -741,7 +741,7 @@
     <message>
       <location filename="../src/dialogs/MacroSaveDialog.ui" line="89"/>
       <source>Cancel</source>
-      <translation>Abbrechen</translation>
+      <translation>Avbryt</translation>
     </message>
   </context>
   <context>
@@ -749,7 +749,7 @@
     <message>
       <location filename="../src/MacroStepTableModel.cpp" line="34"/>
       <source>Name</source>
-      <translation>Name</translation>
+      <translation>Namn</translation>
     </message>
     <message>
       <location filename="../src/MacroStepTableModel.cpp" line="36"/>
@@ -761,8 +761,8 @@
     <name>MainWindow</name>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="17"/>
-      <source>Notepad Next[*]</source>
-      <translation>Notepad Next[*]</translation>
+      <source>Notepad #[*]</source>
+      <translation>Notepad #[*]</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="33"/>
@@ -772,94 +772,93 @@
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="48"/>
       <source>&amp;File</source>
-      <translation>&amp;Datei</translation>
+      <translation>&amp;Arkiv</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="52"/>
       <source>Close More</source>
-      <translation>Schließen Mehr</translation>
+      <translation>Stäng mer</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="60"/>
       <source>&amp;Recent Files</source>
-      <translation>&amp;Zuletzt verwendete Dateien</translation>
+      <translation>&amp;Tidigare filer</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="69"/>
-      <location filename="../src/dialogs/MainWindow.cpp" line="1492"/>
+      <location filename="../src/dialogs/MainWindow.cpp" line="1487"/>
       <source>Export As</source>
-      <translation>Exportieren als</translation>
+      <translation>Exportera som</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="97"/>
       <source>&amp;Edit</source>
-      <translation>&amp;Bearbeiten</translation>
+      <translation>&amp;Redigera</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="101"/>
       <source>Copy More</source>
-      <translation>Mehr kopieren
-</translation>
+      <translation>Kopiera mer</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="109"/>
       <source>Indent</source>
-      <translation>Einzug</translation>
+      <translation>Indrag</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="116"/>
       <source>EOL Conversion</source>
-      <translation>EOL-Umwandlung</translation>
+      <translation>EOL-konvertering</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="124"/>
       <source>Convert Case</source>
-      <translation>Groß-/Kleinschreibung umwandeln</translation>
+      <translation>Konvertera skiftläge</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="131"/>
       <source>Line Operations</source>
-      <translation>Linienbetrieb</translation>
+      <translation>Radoperationer</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="154"/>
       <source>Comment/Uncomment</source>
-      <translation>Kommentar/Kommentar entfernen</translation>
+      <translation>Kommentera/Avkommentera</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="162"/>
       <source>Copy As</source>
-      <translation>Kopieren als</translation>
+      <translation>Kopiera som</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="169"/>
       <source>Encoding/Decoding</source>
-      <translation>Kodierung/Dekodierung</translation>
+      <translation>Kodning/Avkodning</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="200"/>
       <source>Search</source>
-      <translation>Suche</translation>
+      <translation>Sök</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="204"/>
       <source>Bookmarks</source>
-      <translation>Lesezeichen</translation>
+      <translation>Bokmärken</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="221"/>
       <source>Mark All Occurrences</source>
-      <translation>Alle Vorkommen markieren</translation>
+      <translation>Mark All Occurrences</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="229"/>
       <source>Clear Marks</source>
-      <translation>Spuren Entfernen</translation>
+      <translation>Clear Marks</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="252"/>
       <source>&amp;View</source>
-      <translation>&amp;Ansicht</translation>
+      <translation>&amp;Visa</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="256"/>
@@ -869,27 +868,27 @@
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="265"/>
       <source>Show Symbol</source>
-      <translation>Symbol anzeigen</translation>
+      <translation>Visa symbol</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="276"/>
       <source>Fold Level</source>
-      <translation>Ebene falten</translation>
+      <translation>Komprimeringsnivå</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="290"/>
       <source>Unfold Level</source>
-      <translation>Ebene entfalten</translation>
+      <translation>Expansionsnivå</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="319"/>
       <source>Language</source>
-      <translation>Sprache</translation>
+      <translation>Språk</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="324"/>
       <source>Settings</source>
-      <translation>Einstellungen</translation>
+      <translation>Inställningar</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="330"/>
@@ -899,143 +898,143 @@
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="341"/>
       <source>Help</source>
-      <translation>Hilfe</translation>
+      <translation>Hjälp</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="352"/>
       <source>Encoding</source>
-      <translation>Kodierung</translation>
+      <translation>Kodning</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="368"/>
       <source>Main Tool Bar</source>
-      <translation>Hauptsymbolleiste</translation>
+      <translation>Verktygsfält</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="428"/>
       <source>&amp;New</source>
-      <translation>&amp;Neu</translation>
+      <translation>&amp;Nytt</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="431"/>
       <source>Create a new file</source>
-      <translation>Neue Datei erstellen</translation>
+      <translation>Skapa en ny fil</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="444"/>
       <source>&amp;Open...</source>
-      <translation>&amp;Öffnen...</translation>
+      <translation>&amp;Öppna...</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="460"/>
       <source>&amp;Save</source>
-      <translation>&amp;Speichern</translation>
+      <translation>&amp;Spara</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="463"/>
-      <location filename="../src/dialogs/MainWindow.cpp" line="2004"/>
+      <location filename="../src/dialogs/MainWindow.cpp" line="1999"/>
       <source>Save</source>
-      <translation>Speichern</translation>
+      <translation>Spara</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="471"/>
       <source>E&amp;xit</source>
-      <translation>Beenden</translation>
+      <translation>A&amp;vsluta</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="484"/>
       <source>&amp;Undo</source>
-      <translation>&amp;Rückgängig</translation>
+      <translation>&amp;Ångra</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="497"/>
       <source>&amp;Redo</source>
-      <translation>Wiede&amp;rholen</translation>
+      <translation>&amp;Upprepa</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="510"/>
       <source>Cu&amp;t</source>
-      <translation>Ausschneiden</translation>
+      <translation>Kli&amp;pp ut</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="523"/>
       <source>&amp;Copy</source>
-      <translation>&amp;Kopieren</translation>
+      <translation>&amp;Kopiera</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="536"/>
       <source>&amp;Paste</source>
-      <translation>&amp;Einfügen</translation>
+      <translation>Klistra &amp;in</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="544"/>
       <source>&amp;Delete</source>
-      <translation>&amp;Löschen</translation>
+      <translation>&amp;Ta bort</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="552"/>
       <source>Copy Full Path</source>
-      <translation>Vollständigen Pfad kopieren</translation>
+      <translation>Kopiera fullständig sökväg</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="557"/>
       <source>Copy File Name</source>
-      <translation>Dateinamen kopieren</translation>
+      <translation>Kopiera filnamn</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="562"/>
       <source>Copy File Directory</source>
-      <translation>Dateiverzeichnis kopieren</translation>
+      <translation>Kopiera filens mappnamn</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="571"/>
       <source>&amp;Close</source>
-      <translation>&amp;Schließen</translation>
+      <translation>St&amp;äng</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="574"/>
       <source>Close the current file</source>
-      <translation>Aktuelle Datei schließen</translation>
+      <translation>Stäng aktuell fil</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="582"/>
       <source>Save &amp;As...</source>
-      <translation>Speichern als...</translation>
+      <translation>Spara s&amp;om...</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="590"/>
       <source>Save a Copy As...</source>
-      <translation>Kopie Speichern als...</translation>
+      <translation>Spara en kopia som...</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="599"/>
       <source>Sav&amp;e All</source>
-      <translation>Alle speichern</translation>
+      <translation>Spa&amp;ra alla</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="607"/>
       <source>Select A&amp;ll</source>
-      <translation>Alle auswählen</translation>
+      <translation>&amp;Markera alla</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="619"/>
       <source>Increase Indent</source>
-      <translation>Einzug vergrößern</translation>
+      <translation>Öka indrag</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="628"/>
       <source>Decrease Indent</source>
-      <translation>Einzug verringern</translation>
+      <translation>Minska indrag</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="633"/>
       <source>Rename...</source>
-      <translation>Umbenennen...</translation>
+      <translation>Byt namn...</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="642"/>
       <source>Re&amp;load</source>
-      <translation>Neu laden</translation>
+      <translation>&amp;Läs om från disk</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="650"/>
@@ -1055,334 +1054,334 @@
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="671"/>
       <source>UPPER CASE</source>
-      <translation>Großbuchstaben</translation>
+      <translation>VERSALER</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="674"/>
       <source>Convert text to upper case</source>
-      <translation>Text in Großbuchstaben umwandeln</translation>
+      <translation>Konvertera text till VERSALER</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="679"/>
       <source>lower case</source>
-      <translation>Kleinbuchstaben</translation>
+      <translation>gemener</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="682"/>
       <source>Convert text to lower case</source>
-      <translation>Text in Kleinbuchstaben umwandeln</translation>
+      <translation>Konvertera text till gemener</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="687"/>
       <source>Duplicate Current Line</source>
-      <translation>Aktuelle Zeile duplizieren</translation>
+      <translation>Duplicera aktuell rad</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="695"/>
       <source>Split Lines</source>
-      <translation>Zeilen trennen</translation>
+      <translation>Dela rader</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="700"/>
       <source>Join Lines</source>
-      <translation>Zeilen verbinden</translation>
+      <translation>Sammanfoga rader</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="708"/>
       <source>Move Selected Lines Up</source>
-      <translation>Ausgewählte Zeilen nach oben verschieben</translation>
+      <translation>Flytta markerade rader uppåt</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="716"/>
       <source>Move Selected Lines Down</source>
-      <translation>Ausgewählte Zeilen nach unten verschieben</translation>
+      <translation>Flytta markerade rader neråt</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="728"/>
       <source>Clos&amp;e All</source>
-      <translation>Alle schließen</translation>
+      <translation>S&amp;täng alla</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="731"/>
       <source>Close All files</source>
-      <translation>Alle Dateien schließen</translation>
+      <translation>Stäng alla filer</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="739"/>
       <source>Close All Except Active Document</source>
-      <translation>Alle außer aktivem Dokument schließen</translation>
+      <translation>Stäng alla utom aktivt dokument</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="744"/>
       <source>Close All to the Left</source>
-      <translation>Alle links schließen</translation>
+      <translation>Stäng alla till vänster</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="749"/>
       <source>Close All to the Right</source>
-      <translation>Alle rechts schließen</translation>
+      <translation>Stäng alla till höger</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="759"/>
       <source>Zoom &amp;In</source>
-      <translation>Vergrößer</translation>
+      <translation>Zooma &amp;in</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="772"/>
       <source>Zoom &amp;Out</source>
-      <translation>Verkleinern</translation>
+      <translation>Zooma &amp;ut</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="780"/>
       <source>Reset Zoom</source>
-      <translation>Zoom zurücksetzen</translation>
+      <translation>Återställ zoom</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="788"/>
       <source>About Qt</source>
-      <translation>Über Qt</translation>
+      <translation>Om Qt</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="800"/>
-      <source>About Notepad Next</source>
-      <translation>Über Notepad Next</translation>
+      <source>About Notepad #</source>
+      <translation>Om Notepad #</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="811"/>
       <source>Show Whitespace</source>
-      <translation>Leerzeichen anzeigen</translation>
+      <translation>Visa blanksteg</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="819"/>
       <source>Show End of Line</source>
-      <translation>Zeilen Ende anzeigen</translation>
+      <translation>Visa radslut</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="832"/>
       <source>Show All Characters</source>
-      <translation>Alle Zeichen anzeigen</translation>
+      <translation>Visa alla tecken</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="845"/>
       <source>Show Indent Guide</source>
-      <translation>Einrückungshilfe anzeigen</translation>
+      <translation>Visa indragsguide</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="853"/>
       <source>Show Wrap Symbol</source>
-      <translation>Zeilenumbruch Symbol anzeigen</translation>
+      <translation>Visa radbrytningssymbol</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="866"/>
       <source>Word Wrap</source>
-      <translation>Zeilenumbruch</translation>
+      <translation>Ordbrytning</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="871"/>
       <source>Restore Recently Closed File</source>
-      <translation>Zuletzt geschlossene Datei wiederherstellen</translation>
+      <translation>Återställ tidigare stängda filer</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="879"/>
       <source>Open All Recent Files</source>
-      <translation>Alle zuletzt geöffneten Dateien öffnen</translation>
+      <translation>Öppna alla tidigare filer</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="884"/>
       <source>Clear Recent Files List</source>
-      <translation>Liste der zuletzt verwendeten Dateien löschen</translation>
+      <translation>Rensa listan</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="894"/>
       <source>&amp;Find...</source>
-      <translation>&amp;Finden...</translation>
+      <translation>&amp;Sök...</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="902"/>
       <source>Find in Files...</source>
-      <translation>In Dateien suchen...</translation>
+      <translation>Sök i filer...</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="907"/>
       <source>Find &amp;Next</source>
-      <translation>Nächstes suchen</translation>
+      <translation>Sök &amp;nästa</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="915"/>
       <source>Find &amp;Previous</source>
-      <translation>Vorherige suchen</translation>
+      <translation>Sök &amp;föregående</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="928"/>
       <source>&amp;Replace...</source>
-      <translation>&amp;Ersetzen...</translation>
+      <translation>&amp;Ersätt...</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="939"/>
       <source>Full Screen</source>
-      <translation>Vollbild</translation>
+      <translation>Helskärm</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="955"/>
-      <location filename="../src/dialogs/MainWindow.cpp" line="796"/>
+      <location filename="../src/dialogs/MainWindow.cpp" line="791"/>
       <source>Start Recording</source>
-      <translation>Aufnahme starten</translation>
+      <translation>Starta inspelning</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="967"/>
       <source>Playback</source>
-      <translation>Wiedergabe</translation>
+      <translation>Uppspelning</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="982"/>
       <source>Save Current Recorded Macro...</source>
-      <translation>Aktuelles aufgezeichnetes Makro speichern...</translation>
+      <translation>Spara inspelat makro...</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="994"/>
       <source>Run a Macro Multiple Times...</source>
-      <translation>Makro mehrmals ausführen...</translation>
+      <translation>Kör ett makro flera gånger...</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="1003"/>
       <source>Preferences...</source>
-      <translation>Einstellungen...</translation>
+      <translation>Preferenser...</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="1011"/>
       <source>Quick Find</source>
-      <translation>Schnellsuche</translation>
+      <translation>Snabbsök</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="1019"/>
       <source>Select Next Instance</source>
-      <translation>Nächste Instanz auswählen</translation>
+      <translation>Välj nästa instans</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="1031"/>
       <source>Move to Trash...</source>
-      <translation>In den Papierkorb verschieben...</translation>
+      <translation>Flytta till papperskorgen...</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="1034"/>
       <source>Move to Trash</source>
-      <translation>In den Papierkorb verschieben</translation>
+      <translation>Flytta till papperskorgen</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="1039"/>
       <source>Check for Updates...</source>
-      <translation>Auf Updates prüfen...</translation>
+      <translation>Sök efter uppdateringar...</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="1044"/>
       <source>&amp;Go to Line...</source>
-      <translation>&amp;Gehe zu Zeile...</translation>
+      <translation>&amp;Gå till rad...</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="1056"/>
       <source>Print...</source>
-      <translation>Drucken...</translation>
+      <translation>Skriv ut...</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="1064"/>
       <source>Open Folder as Workspace...</source>
-      <translation>Ordner als Arbeitsbereich öffnen...</translation>
+      <translation>Öppen mapp som arbetsyta...</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="1069"/>
       <source>Toggle Single Line Comment</source>
-      <translation>Einzeiligen Kommentar umschalten</translation>
+      <translation>Växla utkommentering</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="1077"/>
       <source>Single Line Comment</source>
-      <translation>Einzeiliger Kommentar</translation>
+      <translation>Kommentera ut enkelrad</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="1085"/>
       <source>Single Line Uncomment</source>
-      <translation>Einzelne Zeile auskommentieren</translation>
+      <translation>Ta bort utkommentering</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="1100"/>
       <source>Edit Macros...</source>
-      <translation>Makros bearbeiten...</translation>
+      <translation>Redigera makron...</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="1108"/>
       <source>This is not currently implemented</source>
-      <translation>Dies ist derzeit nicht implementiert.</translation>
+      <translation>Detta är ännu inte implementerat</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="1113"/>
       <source>Column Mode...</source>
-      <translation>Spaltenmodus...</translation>
+      <translation>Kolumnläge...</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="1118"/>
       <source>Export as HTML...</source>
-      <translation>Als HTML exportieren...</translation>
+      <translation>Exportera som HTML...</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="1123"/>
       <source>Export as RTF...</source>
-      <translation>Als RTF exportieren...</translation>
+      <translation>Exportera som RTF...</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="1128"/>
       <source>Copy as HTML</source>
-      <translation>Als HTML kopieren</translation>
+      <translation>Kopiera som HTML</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="1133"/>
       <source>Copy as RTF</source>
-      <translation>Als RTF kopieren</translation>
+      <translation>Kopiera som RTF</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="1138"/>
       <source>Base 64 Encode</source>
-      <translation>Base64-Kodierung</translation>
+      <translation>Base 64-koda</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="1143"/>
       <source>URL Encode</source>
-      <translation>URL-Kodierung</translation>
+      <translation>URL-koda</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="1148"/>
       <source>Base 64 Decode</source>
-      <translation>Base 64-Decodierung</translation>
+      <translation>Base 64-avkoda</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="1153"/>
       <source>URL Decode</source>
-      <translation>URL-Decodierung</translation>
+      <translation>URL-avkoda</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="1158"/>
       <source>Copy URL</source>
-      <translation>URL kopieren</translation>
+      <translation>Kopiera URL</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="1163"/>
       <source>Remove Empty Lines</source>
-      <translation>Leere Zeilen entfernen</translation>
+      <translation>Ta bort tomma rader</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="1172"/>
       <location filename="../src/dialogs/MainWindow.ui" line="1175"/>
       <source>Show in Explorer</source>
-      <translation>Im Explorer anzeigen</translation>
+      <translation>Visa i filhanteraren</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="1184"/>
       <source>Open %1 Here</source>
-      <translation>Öffnen Sie %1 hier</translation>
+      <translation>Open %1 Here</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="1189"/>
       <source>Toggle Bookmark</source>
-      <translation>Lesezeichen umschalten</translation>
+      <translation>Bokmärke på/av</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="1197"/>
@@ -1392,194 +1391,194 @@
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="1205"/>
       <source>Next Bookmark</source>
-      <translation>Nächstes Lesezeichen</translation>
+      <translation>Nästa bokmärke</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="1213"/>
       <source>Previous Bookmark</source>
-      <translation>Vorheriges Lesezeichen</translation>
+      <translation>Föregående bokmärke</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="1221"/>
       <source>Clear Bookmarks</source>
-      <translation>Lesezeichen löschen</translation>
+      <translation>Ta bort bokmärken</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="1226"/>
       <source>Invert Bookmarks</source>
-      <translation>Lesezeichen umkehren</translation>
+      <translation>Invertera bokmärken</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="1231"/>
       <source>Next Tab</source>
-      <translation>Nächste Registerkarte</translation>
+      <translation>Nästa flik</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="1242"/>
       <source>Previous Tab</source>
-      <translation>Vorherige Registerkarte</translation>
+      <translation>Föregående flik</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="1253"/>
       <source>Fold Level 1</source>
-      <translation>Faltstufe 1</translation>
+      <translation>Komprimera nivå 1</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="1261"/>
       <source>Fold Level 2</source>
-      <translation>Faltstufe 2</translation>
+      <translation>Komprimera nivå 2</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="1269"/>
       <source>Fold Level 3</source>
-      <translation>Faltstufe 3</translation>
+      <translation>Komprimera nivå 3</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="1277"/>
       <source>Fold Level 4</source>
-      <translation>Faltstufe 4</translation>
+      <translation>Komprimera nivå 4</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="1285"/>
       <source>Unfold Level 1</source>
-      <translation>Stufe 1 aufklappen</translation>
+      <translation>Expandera nivå 1</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="1293"/>
       <source>Unfold Level 2</source>
-      <translation>Stufe 2 aufklappen</translation>
+      <translation>Expandera nivå 2</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="1301"/>
       <source>Unfold Level 3</source>
-      <translation>Stufe 3 aufklappen</translation>
+      <translation>Expandera nivå 3</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="1309"/>
       <source>Unfold Level 4</source>
-      <translation>Stufe 4 aufklappen</translation>
+      <translation>Expandera nivå 4</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="1317"/>
       <source>Fold All</source>
-      <translation>Alle falten</translation>
+      <translation>Komprimera alla</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="1325"/>
       <source>Unfold All</source>
-      <translation>Alle aufklappen</translation>
+      <translation>Expandera alla</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="1333"/>
       <source>Fold Level 5</source>
-      <translation>Faltstufe 5</translation>
+      <translation>Komprimera nivå 5</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="1341"/>
       <source>Fold Level 6</source>
-      <translation>Faltstufe 6</translation>
+      <translation>Komprimera nivå 6</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="1349"/>
       <source>Fold Level 7</source>
-      <translation>Faltstufe 7</translation>
+      <translation>Komprimera nivå 7</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="1357"/>
       <source>Fold Level 8</source>
-      <translation>Faltstufe 8</translation>
+      <translation>Komprimera nivå 8</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="1365"/>
       <source>Fold Level 9</source>
-      <translation>Faltstufe 9</translation>
+      <translation>Komprimera nivå 9</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="1373"/>
       <source>Unfold Level 5</source>
-      <translation>Stufe 5 aufklappen</translation>
+      <translation>Expandera nivå 5</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="1381"/>
       <source>Unfold Level 6</source>
-      <translation>Stufe 6 aufklappen</translation>
+      <translation>Expandera nivå 6</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="1389"/>
       <source>Unfold Level 7</source>
-      <translation>Stufe 7 aufklappen</translation>
+      <translation>Expandera nivå 7</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="1397"/>
       <source>Unfold Level 8</source>
-      <translation>Stufe 8 aufklappen</translation>
+      <translation>Expandera nivå 8</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="1405"/>
       <source>Unfold Level 9</source>
-      <translation>Stufe 9 aufklappen</translation>
+      <translation>Expandera nivå 9</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="1413"/>
       <location filename="../src/dialogs/MainWindow.ui" line="1416"/>
       <source>Toggle Overtype</source>
-      <translation>Überschreiben umschalten</translation>
+      <translation>Överskrivning på/av</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="1427"/>
       <source>Debug Info...</source>
-      <translation>Debug-Informationen...</translation>
+      <translation>Debug Info...</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="1432"/>
       <source>Cut Bookmarked Lines</source>
-      <translation>Mit Lesezeichen versehene Zeilen ausschneiden</translation>
+      <translation>Cut Bookmarked Lines</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="1437"/>
       <source>Copy Bookmarked Lines</source>
-      <translation>Mit Lesezeichen versehene Zeilen kopieren</translation>
+      <translation>Copy Bookmarked Lines</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="1442"/>
       <source>Delete Bookmarked Lines</source>
-      <translation>Mit Lesezeichen versehene Zeilen löschen</translation>
+      <translation>Delete Bookmarked Lines</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="1447"/>
       <source>Mark Style 1</source>
-      <translation>Markierungsstil 1</translation>
+      <translation>Mark Style 1</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="1455"/>
       <source>Mark Style 2</source>
-      <translation>Markierungsstil 2</translation>
+      <translation>Mark Style 2</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="1463"/>
       <source>Clear Style 1</source>
-      <translation>Stil 1 entfernen</translation>
+      <translation>Clear Style 1</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="1471"/>
       <source>Clear Style 2</source>
-      <translation>Stil 2 entfernen</translation>
+      <translation>Clear Style 2</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="1479"/>
       <source>Mark Style 3</source>
-      <translation>Markierungsstil 3</translation>
+      <translation>Mark Style 3</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="1487"/>
       <source>Clear Style 3</source>
-      <translation>Stil 3 entfernen</translation>
+      <translation>Clear Style 3</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="1495"/>
       <location filename="../src/dialogs/MainWindow.ui" line="1498"/>
       <source>Clear All Styles</source>
-      <translation>Alle Stile löschen</translation>
+      <translation>Clear All Styles</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="1503"/>
@@ -1594,7 +1593,7 @@
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="1513"/>
       <source>Sort Lines Ascending</source>
-      <translation/>
+      <translation type="unfinished"/>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="1518"/>
@@ -1624,7 +1623,7 @@
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="1543"/>
       <source>Reverse Line Order</source>
-      <translation>Linienreihenfolge umkehren</translation>
+      <translation type="unfinished"/>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="1548"/>
@@ -1647,226 +1646,226 @@
       <translation type="unfinished"/>
     </message>
     <message>
-      <location filename="../src/dialogs/MainWindow.cpp" line="452"/>
+      <location filename="../src/dialogs/MainWindow.cpp" line="447"/>
       <source>Go to line</source>
-      <translation>Zur Zeile gehen</translation>
+      <translation>Gå till rad</translation>
     </message>
     <message>
-      <location filename="../src/dialogs/MainWindow.cpp" line="452"/>
+      <location filename="../src/dialogs/MainWindow.cpp" line="447"/>
       <source>Line Number (1 - %1)</source>
-      <translation>Zeilennummer (1 - %1)</translation>
+      <translation>Radnummer (1 - %1)</translation>
     </message>
     <message>
-      <location filename="../src/dialogs/MainWindow.cpp" line="787"/>
+      <location filename="../src/dialogs/MainWindow.cpp" line="782"/>
       <source>Stop Recording</source>
-      <translation>Aufnahme beenden</translation>
+      <translation>Stoppa inspelning</translation>
     </message>
     <message>
-      <location filename="../src/dialogs/MainWindow.cpp" line="892"/>
+      <location filename="../src/dialogs/MainWindow.cpp" line="887"/>
       <source>Debug Info</source>
-      <translation>Debug-Informationen</translation>
+      <translation>Debug Info</translation>
     </message>
     <message>
-      <location filename="../src/dialogs/MainWindow.cpp" line="1112"/>
+      <location filename="../src/dialogs/MainWindow.cpp" line="1107"/>
       <source>New %1</source>
-      <translation>Neu %1</translation>
+      <translation>Ny %1</translation>
     </message>
     <message>
-      <location filename="../src/dialogs/MainWindow.cpp" line="1174"/>
+      <location filename="../src/dialogs/MainWindow.cpp" line="1169"/>
       <source>Create File</source>
-      <translation>Datei erstellen</translation>
+      <translation>Skapa fil</translation>
     </message>
     <message>
-      <location filename="../src/dialogs/MainWindow.cpp" line="1174"/>
+      <location filename="../src/dialogs/MainWindow.cpp" line="1169"/>
       <source>&lt;b&gt;%1&lt;/b&gt; does not exist. Do you want to create it?</source>
-      <translation>&lt;b&gt;%1&lt;/b&gt; existiert nicht. Möchten Sie es erstellen?</translation>
+      <translation>&lt;b&gt;%1&lt;/b&gt; finns inte. Vill du skapa den?</translation>
     </message>
     <message>
-      <location filename="../src/dialogs/MainWindow.cpp" line="1995"/>
+      <location filename="../src/dialogs/MainWindow.cpp" line="1990"/>
       <source>Save File</source>
-      <translation>Datei speichern</translation>
+      <translation>Spara fil</translation>
     </message>
     <message>
-      <location filename="../src/dialogs/MainWindow.cpp" line="1253"/>
+      <location filename="../src/dialogs/MainWindow.cpp" line="1248"/>
       <source>Open Folder as Workspace</source>
-      <translation>Ordner als Arbeitsbereich öffnen</translation>
+      <translation>Öppen mapp som arbetsyta</translation>
     </message>
     <message>
-      <location filename="../src/dialogs/MainWindow.cpp" line="1276"/>
-      <location filename="../src/dialogs/MainWindow.cpp" line="1938"/>
+      <location filename="../src/dialogs/MainWindow.cpp" line="1271"/>
+      <location filename="../src/dialogs/MainWindow.cpp" line="1933"/>
       <source>Reload File</source>
-      <translation>Datei neu laden</translation>
+      <translation>Läs om fil</translation>
     </message>
     <message>
-      <location filename="../src/dialogs/MainWindow.cpp" line="1276"/>
+      <location filename="../src/dialogs/MainWindow.cpp" line="1271"/>
       <source>Are you sure you want to reload &lt;b&gt;%1&lt;/b&gt;? Any unsaved changes will be lost.</source>
-      <translation>Möchten Sie &lt;b&gt;%1&lt;/b&gt; wirklich neu laden? Alle nicht gespeicherten Änderungen gehen verloren.</translation>
+      <translation>Vill du verkligen läsa om &lt;b&gt;%1&lt;/b&gt; från disk? Alla osparade ändringar kommer att förloras.</translation>
     </message>
     <message>
-      <location filename="../src/dialogs/MainWindow.cpp" line="1448"/>
+      <location filename="../src/dialogs/MainWindow.cpp" line="1443"/>
       <source>Save a Copy As</source>
-      <translation>Kopie speichern unter</translation>
+      <translation>Spara en kopia som</translation>
     </message>
     <message>
-      <location filename="../src/dialogs/MainWindow.cpp" line="1533"/>
-      <location filename="../src/dialogs/MainWindow.cpp" line="1550"/>
+      <location filename="../src/dialogs/MainWindow.cpp" line="1528"/>
+      <location filename="../src/dialogs/MainWindow.cpp" line="1545"/>
       <source>Rename</source>
-      <translation>Umbenennen</translation>
+      <translation>Byt namn</translation>
     </message>
     <message>
-      <location filename="../src/dialogs/MainWindow.cpp" line="1550"/>
+      <location filename="../src/dialogs/MainWindow.cpp" line="1545"/>
       <source>Name:</source>
-      <translation>Name:</translation>
+      <translation>Namn:</translation>
     </message>
     <message>
-      <location filename="../src/dialogs/MainWindow.cpp" line="1570"/>
+      <location filename="../src/dialogs/MainWindow.cpp" line="1565"/>
       <source>Delete File</source>
-      <translation>Datei löschen</translation>
+      <translation>Ta bort fil</translation>
     </message>
     <message>
-      <location filename="../src/dialogs/MainWindow.cpp" line="1570"/>
+      <location filename="../src/dialogs/MainWindow.cpp" line="1565"/>
       <source>Are you sure you want to move &lt;b&gt;%1&lt;/b&gt; to the trash?</source>
-      <translation>Möchten Sie &lt;b&gt;%1&lt;/b&gt; wirklich in den Papierkorb verschieben?</translation>
+      <translation>Vill du verkligen flytta &lt;b&gt;%1&lt;/b&gt; till papperskorgen?</translation>
     </message>
     <message>
-      <location filename="../src/dialogs/MainWindow.cpp" line="1580"/>
+      <location filename="../src/dialogs/MainWindow.cpp" line="1575"/>
       <source>Error Deleting File</source>
-      <translation>Fehler beim Löschen der Datei</translation>
+      <translation>Kunde inte ta bort fil</translation>
     </message>
     <message>
-      <location filename="../src/dialogs/MainWindow.cpp" line="1580"/>
+      <location filename="../src/dialogs/MainWindow.cpp" line="1575"/>
       <source>Something went wrong deleting &lt;b&gt;%1&lt;/b&gt;?</source>
-      <translation>Beim Löschen von &lt;b&gt;%1&lt;/b&gt; ist ein Fehler aufgetreten?</translation>
+      <translation>Gick något fel vid borttagning av &lt;b&gt;%1&lt;/b&gt;?</translation>
     </message>
     <message>
-      <location filename="../src/dialogs/MainWindow.cpp" line="1677"/>
+      <location filename="../src/dialogs/MainWindow.cpp" line="1672"/>
       <source>Administrator</source>
-      <translation>Administrator</translation>
+      <translation>Administratör</translation>
     </message>
     <message>
-      <location filename="../src/dialogs/MainWindow.cpp" line="1938"/>
+      <location filename="../src/dialogs/MainWindow.cpp" line="1933"/>
       <source>&lt;b&gt;%1&lt;/b&gt; has been modified by another program. Do you want to reload it?</source>
-      <translation>&lt;b&gt;%1&lt;/b&gt; wurde von einem anderen Programm geändert. Möchten Sie es neu laden?</translation>
+      <translation>&lt;b&gt;%1&lt;/b&gt; has been modified by another program. Do you want to reload it?</translation>
     </message>
     <message>
-      <location filename="../src/dialogs/MainWindow.cpp" line="1964"/>
+      <location filename="../src/dialogs/MainWindow.cpp" line="1959"/>
       <source>Read error</source>
       <translation>Read error</translation>
     </message>
     <message>
-      <location filename="../src/dialogs/MainWindow.cpp" line="1965"/>
+      <location filename="../src/dialogs/MainWindow.cpp" line="1960"/>
       <source>Write error</source>
       <translation>Write error</translation>
     </message>
     <message>
-      <location filename="../src/dialogs/MainWindow.cpp" line="1966"/>
+      <location filename="../src/dialogs/MainWindow.cpp" line="1961"/>
       <source>Fatal error</source>
       <translation>Fatal error</translation>
     </message>
     <message>
-      <location filename="../src/dialogs/MainWindow.cpp" line="1967"/>
+      <location filename="../src/dialogs/MainWindow.cpp" line="1962"/>
       <source>Resource error</source>
       <translation>Resource error</translation>
     </message>
     <message>
-      <location filename="../src/dialogs/MainWindow.cpp" line="1968"/>
+      <location filename="../src/dialogs/MainWindow.cpp" line="1963"/>
       <source>Open error</source>
       <translation>Open error</translation>
     </message>
     <message>
-      <location filename="../src/dialogs/MainWindow.cpp" line="1969"/>
+      <location filename="../src/dialogs/MainWindow.cpp" line="1964"/>
       <source>Abort error</source>
       <translation>Abort error</translation>
     </message>
     <message>
-      <location filename="../src/dialogs/MainWindow.cpp" line="1970"/>
+      <location filename="../src/dialogs/MainWindow.cpp" line="1965"/>
       <source>Timeout error</source>
       <translation>Timeout error</translation>
     </message>
     <message>
-      <location filename="../src/dialogs/MainWindow.cpp" line="1971"/>
+      <location filename="../src/dialogs/MainWindow.cpp" line="1966"/>
       <source>Unspecified error</source>
       <translation>Unspecified error</translation>
     </message>
     <message>
-      <location filename="../src/dialogs/MainWindow.cpp" line="1972"/>
+      <location filename="../src/dialogs/MainWindow.cpp" line="1967"/>
       <source>Remove error</source>
       <translation>Remove error</translation>
     </message>
     <message>
-      <location filename="../src/dialogs/MainWindow.cpp" line="1973"/>
+      <location filename="../src/dialogs/MainWindow.cpp" line="1968"/>
       <source>Rename error</source>
       <translation>Rename error</translation>
     </message>
     <message>
-      <location filename="../src/dialogs/MainWindow.cpp" line="1974"/>
+      <location filename="../src/dialogs/MainWindow.cpp" line="1969"/>
       <source>Position error</source>
       <translation>Position error</translation>
     </message>
     <message>
-      <location filename="../src/dialogs/MainWindow.cpp" line="1975"/>
+      <location filename="../src/dialogs/MainWindow.cpp" line="1970"/>
       <source>Resize error</source>
       <translation>Resize error</translation>
     </message>
     <message>
-      <location filename="../src/dialogs/MainWindow.cpp" line="1976"/>
+      <location filename="../src/dialogs/MainWindow.cpp" line="1971"/>
       <source>Permissions error</source>
       <translation>Permissions error</translation>
     </message>
     <message>
-      <location filename="../src/dialogs/MainWindow.cpp" line="1977"/>
+      <location filename="../src/dialogs/MainWindow.cpp" line="1972"/>
       <source>Copy error</source>
       <translation>Copy error</translation>
     </message>
     <message>
-      <location filename="../src/dialogs/MainWindow.cpp" line="1978"/>
+      <location filename="../src/dialogs/MainWindow.cpp" line="1973"/>
       <source>Unknown error (%1)</source>
       <translation>Unknown error (%1)</translation>
     </message>
     <message>
-      <location filename="../src/dialogs/MainWindow.cpp" line="1981"/>
+      <location filename="../src/dialogs/MainWindow.cpp" line="1976"/>
       <source>Error Saving File</source>
-      <translation>Fehler beim Speichern der Datei</translation>
+      <translation>Kunde inte spara fil</translation>
     </message>
     <message>
-      <location filename="../src/dialogs/MainWindow.cpp" line="1982"/>
+      <location filename="../src/dialogs/MainWindow.cpp" line="1977"/>
       <source>An error occurred when saving &lt;b&gt;%1&lt;/b&gt;&lt;br&gt;&lt;br&gt;Error: %2</source>
-      <translation>Beim Speichern ist ein Fehler aufgetreten &lt;b&gt;%1&lt;/b&gt;&lt;br&gt;&lt;br&gt;Fehler: %2</translation>
+      <translation>Ett fel uppstod när &lt;b&gt;%1&lt;/b&gt; skulle sparas.&lt;br&gt;&lt;br&gt;Fel: %2</translation>
     </message>
     <message>
-      <location filename="../src/dialogs/MainWindow.cpp" line="1988"/>
+      <location filename="../src/dialogs/MainWindow.cpp" line="1983"/>
       <source>Zoom: %1%</source>
       <translation>Zoom: %1%</translation>
     </message>
     <message>
-      <location filename="../src/dialogs/MainWindow.cpp" line="2000"/>
+      <location filename="../src/dialogs/MainWindow.cpp" line="1995"/>
       <source>Save changes to &lt;b&gt;%1&lt;/b&gt;?</source>
       <translation type="unfinished"/>
     </message>
     <message numerus="yes">
-      <location filename="../src/dialogs/MainWindow.cpp" line="2001"/>
+      <location filename="../src/dialogs/MainWindow.cpp" line="1996"/>
       <source>There are %n files with unsaved changes. Save them?</source>
       <translation type="unfinished"/>
     </message>
     <message>
-      <location filename="../src/dialogs/MainWindow.cpp" line="2004"/>
+      <location filename="../src/dialogs/MainWindow.cpp" line="1999"/>
       <source>Save All</source>
       <translation type="unfinished"/>
     </message>
     <message>
-      <location filename="../src/dialogs/MainWindow.cpp" line="2005"/>
+      <location filename="../src/dialogs/MainWindow.cpp" line="2000"/>
       <source>Discard All</source>
       <translation type="unfinished"/>
     </message>
     <message>
-      <location filename="../src/dialogs/MainWindow.cpp" line="2005"/>
+      <location filename="../src/dialogs/MainWindow.cpp" line="2000"/>
       <source>Discard</source>
       <translation type="unfinished"/>
     </message>
     <message>
-      <location filename="../src/dialogs/MainWindow.cpp" line="2193"/>
+      <location filename="../src/dialogs/MainWindow.cpp" line="2181"/>
       <source>No updates are available at this time.</source>
-      <translation>Derzeit sind keine Updates verfügbar.</translation>
+      <translation>Inga uppdateringar tillgängliga den här gången.</translation>
     </message>
   </context>
   <context>
@@ -1874,72 +1873,72 @@
     <message>
       <location filename="../src/dialogs/PreferencesDialog.ui" line="14"/>
       <source>Preferences</source>
-      <translation>Einstellungen</translation>
+      <translation>Preferenser</translation>
     </message>
     <message>
       <location filename="../src/dialogs/PreferencesDialog.ui" line="37"/>
       <source>Show menu bar</source>
-      <translation>Menüleiste anzeigen</translation>
+      <translation>Visa menyfält</translation>
     </message>
     <message>
       <location filename="../src/dialogs/PreferencesDialog.ui" line="44"/>
       <source>Show toolbar</source>
-      <translation>Symbolleiste anzeigen</translation>
+      <translation>Visa verktygsfält</translation>
     </message>
     <message>
       <location filename="../src/dialogs/PreferencesDialog.ui" line="51"/>
       <source>Show status bar</source>
-      <translation>Statusleiste anzeigen</translation>
+      <translation>Visa statusfält</translation>
     </message>
     <message>
       <location filename="../src/dialogs/PreferencesDialog.ui" line="58"/>
       <source>Restore previous session</source>
-      <translation>Vorherige Sitzung wiederherstellen</translation>
+      <translation>Återställ föregående session</translation>
     </message>
     <message>
       <location filename="../src/dialogs/PreferencesDialog.ui" line="70"/>
       <source>Unsaved changes</source>
-      <translation>Nicht gespeicherte Änderungen</translation>
+      <translation>Osparade ändringar</translation>
     </message>
     <message>
       <location filename="../src/dialogs/PreferencesDialog.ui" line="77"/>
       <source>Temporary files</source>
-      <translation>Temporäre Dateien</translation>
+      <translation>Temporära filer</translation>
     </message>
     <message>
       <location filename="../src/dialogs/PreferencesDialog.ui" line="89"/>
       <source>Recenter find/replace dialog when opened</source>
-      <translation>Dialogfeld „Suchen/Ersetzen“ beim Öffnen neu zentrieren</translation>
+      <translation>Centrera om dialogrutan Sök/Ersätt när den öppnas</translation>
     </message>
     <message>
       <location filename="../src/dialogs/PreferencesDialog.ui" line="96"/>
       <source>Combine search results</source>
-      <translation>Suchergebnisse kombinieren</translation>
+      <translation>Kombinera sökresultat</translation>
     </message>
     <message>
       <location filename="../src/dialogs/PreferencesDialog.ui" line="114"/>
       <source>Translation:</source>
-      <translation>Übersetzung:</translation>
+      <translation>Översättning:</translation>
     </message>
     <message>
       <location filename="../src/dialogs/PreferencesDialog.ui" line="123"/>
       <source>Exit on last tab closed</source>
-      <translation>Beenden beim Schließen des letzten Tab</translation>
+      <translation>Avsluta när sista fliken stängs</translation>
     </message>
     <message>
       <location filename="../src/dialogs/PreferencesDialog.ui" line="132"/>
       <source>Default Font</source>
-      <translation>Standardschriftart</translation>
+      <translation>Standardteckensnitt</translation>
     </message>
     <message>
       <location filename="../src/dialogs/PreferencesDialog.ui" line="138"/>
       <source>Font</source>
-      <translation>Schriftart</translation>
+      <translation>Teckensnitt</translation>
     </message>
     <message>
       <location filename="../src/dialogs/PreferencesDialog.ui" line="148"/>
       <source>Font Size</source>
-      <translation>Schriftgröße</translation>
+      <translation>Teckenstorlek</translation>
     </message>
     <message>
       <location filename="../src/dialogs/PreferencesDialog.ui" line="155"/>
@@ -1949,17 +1948,17 @@
     <message>
       <location filename="../src/dialogs/PreferencesDialog.ui" line="188"/>
       <source>Default Line Endings</source>
-      <translation>Standard-Zeilenenden</translation>
+      <translation>Default Line Endings</translation>
     </message>
     <message>
       <location filename="../src/dialogs/PreferencesDialog.ui" line="200"/>
       <source>Highlight URLs</source>
-      <translation>URLs hervorheben</translation>
+      <translation>Highlight URLs</translation>
     </message>
     <message>
       <location filename="../src/dialogs/PreferencesDialog.ui" line="207"/>
       <source>Show Line Numbers</source>
-      <translation>Zeilennummern anzeigen</translation>
+      <translation>Show Line Numbers</translation>
     </message>
     <message>
       <location filename="../src/dialogs/PreferencesDialog.ui" line="214"/>
@@ -1990,27 +1989,27 @@
     <message>
       <location filename="../src/dialogs/PreferencesDialog.ui" line="284"/>
       <source>TextLabel</source>
-      <translation>Textbeschriftung</translation>
+      <translation>TextEtikett</translation>
     </message>
     <message>
       <location filename="../src/dialogs/PreferencesDialog.ui" line="296"/>
       <source>An application restart is required to apply certain settings.</source>
-      <translation>Ein Neustart der Anwendung ist erforderlich, um bestimmte Einstellungen zu übernehmen.</translation>
+      <translation>En programomstart krävs för att tillämpa vissa inställningar.</translation>
     </message>
     <message>
       <location filename="../src/dialogs/PreferencesDialog.cpp" line="56"/>
       <source>Warning</source>
-      <translation>Warnung</translation>
+      <translation>Varning</translation>
     </message>
     <message>
       <location filename="../src/dialogs/PreferencesDialog.cpp" line="56"/>
       <source>This feature is experimental and it should not be considered safe for critically important work. It may lead to possible data loss. Use at your own risk.</source>
-      <translation>Diese Funktion befindet sich noch in der Testphase und sollte nicht für besonders wichtige Arbeiten verwendet werden. Es kann zu Datenverlusten kommen. Die Nutzung erfolgt auf eigene Gefahr.</translation>
+      <translation>Denna funktion är experimentell och den bör inte betraktas som säker för kritiskt viktigt arbete. Det kan leda till eventuell dataförlust. Används på egen risk.</translation>
     </message>
     <message>
       <location filename="../src/dialogs/PreferencesDialog.cpp" line="85"/>
       <source>System Default</source>
-      <translation>Systemstandard</translation>
+      <translation>System Default</translation>
     </message>
     <message>
       <location filename="../src/dialogs/PreferencesDialog.cpp" line="86"/>
@@ -2038,17 +2037,17 @@
     <message>
       <location filename="../src/widgets/QuickFindWidget.ui" line="17"/>
       <source>Frame</source>
-      <translation>Rahmen</translation>
+      <translation>Ram</translation>
     </message>
     <message>
       <location filename="../src/widgets/QuickFindWidget.ui" line="32"/>
       <source>Find...</source>
-      <translation>Finden...</translation>
+      <translation>Sök...</translation>
     </message>
     <message>
       <location filename="../src/widgets/QuickFindWidget.ui" line="44"/>
       <source>Match case</source>
-      <translation>Groß-/Kleinschreibung beachten</translation>
+      <translation>Matcha skiftläge</translation>
     </message>
     <message>
       <location filename="../src/widgets/QuickFindWidget.ui" line="47"/>
@@ -2058,7 +2057,7 @@
     <message>
       <location filename="../src/widgets/QuickFindWidget.ui" line="57"/>
       <source>Match whole word</source>
-      <translation>Ganzes Wort suchen</translation>
+      <translation>Matcha hela ord</translation>
     </message>
     <message>
       <location filename="../src/widgets/QuickFindWidget.ui" line="60"/>
@@ -2068,7 +2067,7 @@
     <message>
       <location filename="../src/widgets/QuickFindWidget.ui" line="70"/>
       <source>Use regular expression</source>
-      <translation>Verwende reguläre Ausdrücke</translation>
+      <translation>Använd regular expression</translation>
     </message>
     <message>
       <location filename="../src/widgets/QuickFindWidget.ui" line="73"/>
@@ -2086,7 +2085,7 @@
     <message>
       <location filename="../src/docks/SearchResultsDock.ui" line="14"/>
       <source>Search Results</source>
-      <translation>Suchergebnisse</translation>
+      <translation>Sökresultat</translation>
     </message>
     <message>
       <location filename="../src/docks/SearchResultsDock.ui" line="38"/>
@@ -2102,22 +2101,22 @@
     <message>
       <location filename="../src/docks/SearchResultsDock.cpp" line="59"/>
       <source>Collapse All</source>
-      <translation>Alle ausblenden</translation>
+      <translation>Minimera alla</translation>
     </message>
     <message>
       <location filename="../src/docks/SearchResultsDock.cpp" line="60"/>
       <source>Expand All</source>
-      <translation>Alle erweitern</translation>
+      <translation>Expandera alla</translation>
     </message>
     <message>
       <location filename="../src/docks/SearchResultsDock.cpp" line="62"/>
       <source>Delete Entry</source>
-      <translation>Eintrag löschen</translation>
+      <translation>Ta bort post</translation>
     </message>
     <message>
       <location filename="../src/docks/SearchResultsDock.cpp" line="64"/>
       <source>Delete All</source>
-      <translation>Alle löschen</translation>
+      <translation>Ta bort alla</translation>
     </message>
   </context>
   <context>
@@ -2135,7 +2134,7 @@
     <message>
       <location filename="../src/widgets/TabsQuickActionsBar.cpp" line="49"/>
       <source>Close the current file</source>
-      <translation>Aktuelle Datei schließen</translation>
+      <translation type="unfinished"/>
     </message>
   </context>
 </TS>

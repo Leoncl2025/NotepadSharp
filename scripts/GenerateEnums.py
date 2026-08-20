@@ -80,7 +80,7 @@ def RegenerateAll(root):
 
     f = Face.Face()
     f.ReadFromFile(root / "src/scintilla/include/Scintilla.iface")
-    FileGenerator.Regenerate(root / "src/NotepadNext/ScintillaEnums.h", "/* ", HMessages(f) + HEnumerations(f))
+    FileGenerator.Regenerate(root / "src/ScintillaEnums.h", "/* ", HMessages(f) + HEnumerations(f))
 
     #FileGenerator.Regenerate(include / "ScintillaMessages.h", "//", HMessages(f))
     # FileGenerator.Regenerate(include / "ScintillaTypes.h", "//", HEnumerations(f), HConstants(f))

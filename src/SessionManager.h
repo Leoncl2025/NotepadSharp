@@ -27,7 +27,7 @@
 
 class ScintillaNext;
 class MainWindow;
-class NotepadNextApplication;
+class NotepadSharpApplication;
 
 class SessionManager
 {
@@ -41,7 +41,7 @@ public:
     Q_DECLARE_FLAGS(SessionFileTypes, SessionFileType)
 
 
-    SessionManager(NotepadNextApplication *app, SessionFileTypes types = SessionFileTypes());
+    SessionManager(NotepadSharpApplication *app, SessionFileTypes types = SessionFileTypes());
 
     void setSessionFileTypes(SessionFileTypes types);
 
@@ -74,7 +74,7 @@ private:
     void storeEditorViewDetails(ScintillaNext *editor, QSettings &settings);
     void loadEditorViewDetails(ScintillaNext *editor, QSettings &settings);
 
-    NotepadNextApplication *app;
+    NotepadSharpApplication *app;
     SessionFileTypes fileTypes;
 };
 

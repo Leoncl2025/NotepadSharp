@@ -26,7 +26,7 @@
 
 QString TranslationFileNameToLocaleName(const QString &baseName)
 {
-    // return "zh_CN" from "NotepadNext_zh_CN"
+    // return "zh_CN" from "NotepadSharp_zh_CN"
     return baseName.mid(QApplication::applicationName().length() + 1); // +1 for the underscore
 }
 

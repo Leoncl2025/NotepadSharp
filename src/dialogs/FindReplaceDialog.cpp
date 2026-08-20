@@ -579,7 +579,7 @@ void FindReplaceDialog::loadSettings()
     // Defensively clamp the restored size in case a previously persisted geometry
     // is larger than the available screen (e.g. from an older version that let the
     // dialog grow to fit a very long recent search string). This lets users recover
-    // automatically without having to edit or delete notepadnext.ini.
+    // automatically without having to edit or delete NotepadSharp.ini.
     if (const QScreen *screen = QGuiApplication::primaryScreen()) {
         const QSize available = screen->availableGeometry().size();
         const QSize current = size();

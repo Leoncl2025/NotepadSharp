@@ -717,8 +717,8 @@
     <name>MainWindow</name>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="17"/>
-      <source>Notepad Next[*]</source>
-      <translation type="unfinished">Notepad Next[*]</translation>
+      <source>Notepad #[*]</source>
+      <translation type="unfinished">Notepad #[*]</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="33"/>
@@ -1203,8 +1203,8 @@
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="787"/>
-      <source>About Notepad Next</source>
-      <translation>关于 Notepad Next</translation>
+      <source>About Notepad #</source>
+      <translation>关于 Notepad #</translation>
     </message>
     <message>
       <location filename="../src/dialogs/MainWindow.ui" line="798"/>

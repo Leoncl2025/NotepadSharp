@@ -1,5 +1,5 @@
 !ifndef PACKAGE_DIR
-    !error "PACKAGE_DIR must point to the deployed Notepad# package directory"
+    !error "PACKAGE_DIR must point to the deployed Notepad # package directory"
 !endif
 !ifndef OUTPUT_FILE
     !error "OUTPUT_FILE must be the installer output path"
@@ -21,8 +21,8 @@ XPStyle on
     !define PRODUCT_VERSION "${appver_1}.${appver_2}.${appver_3}"
 !endif
 !define VERSION "${PRODUCT_VERSION}"
-!define PRODUCT_NAME "Notepad#"
-!define COMPANY_NAME "Notepad# Contributors"
+!define PRODUCT_NAME "Notepad #"
+!define COMPANY_NAME "Notepad # Contributors"
 !define PROGEXE "NotepadSharp.exe"
 !define APP_MUTEX "NotepadSharpMutex"
 !define UNINSTALL_FILENAME "Uninstall-NotepadSharp.exe"
@@ -35,8 +35,8 @@ XPStyle on
 !define MULTIUSER_INSTALLMODE_ALLOW_ELEVATION_IF_SILENT 1
 !define MULTIUSER_INSTALLMODE_DEFAULT_ALLUSERS 0
 !define MULTIUSER_INSTALLMODE_DEFAULT_CURRENTUSER 1
-!define URL_INFO_ABOUT "https://github.com/dail8859/NotepadNext"
-!define COMMENTS "Unsigned Notepad# Windows x64 internal test build"
+!define URL_INFO_ABOUT "https://github.com/Leoncl2025/NotepadSharp"
+!define COMMENTS "Unsigned Notepad # Windows x64 internal test build"
 
 !define MUI_ABORTWARNING
 !define MUI_ICON "${PRODUCT_ICON}"
@@ -73,7 +73,7 @@ XPStyle on
 !insertmacro MUI_LANGUAGE "English"
 !insertmacro MULTIUSER_LANGUAGE_INIT
 
-Name "Notepad# ${VERSION}"
+Name "Notepad # ${VERSION}"
 OutFile "${OUTPUT_FILE}"
 ShowInstDetails show
 ShowUninstDetails show
@@ -81,11 +81,11 @@ BrandingText "Unsigned internal test build"
 
 VIProductVersion "${appver_1}.${appver_2}.${appver_3}.${appver_4}"
 VIAddVersionKey /LANG=${LANG_ENGLISH} "FileVersion" "${VERSION}"
-VIAddVersionKey /LANG=${LANG_ENGLISH} "ProductName" "Notepad#"
-VIAddVersionKey /LANG=${LANG_ENGLISH} "CompanyName" "Notepad# Contributors"
-VIAddVersionKey /LANG=${LANG_ENGLISH} "FileDescription" "Notepad# ${VERSION} x64 Internal Test Installer"
+VIAddVersionKey /LANG=${LANG_ENGLISH} "ProductName" "Notepad #"
+VIAddVersionKey /LANG=${LANG_ENGLISH} "CompanyName" "Notepad # Contributors"
+VIAddVersionKey /LANG=${LANG_ENGLISH} "FileDescription" "Notepad # ${VERSION} x64 Internal Test Installer"
 VIAddVersionKey /LANG=${LANG_ENGLISH} "ProductVersion" "${VERSION}"
-VIAddVersionKey /LANG=${LANG_ENGLISH} "LegalCopyright" "Notepad# Contributors"
+VIAddVersionKey /LANG=${LANG_ENGLISH} "LegalCopyright" "Copyright 2019-2026 Justin Dailey; Notepad Sharp modifications Copyright 2026 Notepad Sharp Contributors"
 
 Function .onInit
     ${ifnot} ${UAC_IsInnerInstance}
@@ -127,7 +127,7 @@ Function EnsureSafeInstallDirectory
     Pop $0
     StrCmp $0 1 valid
     IfSilent invalid
-    MessageBox MB_ICONSTOP "Choose an empty directory or the existing Notepad# installation directory."
+    MessageBox MB_ICONSTOP "Choose an empty directory or the existing Notepad # installation directory."
 
     invalid:
     SetErrorLevel 3
@@ -136,22 +136,22 @@ Function EnsureSafeInstallDirectory
     valid:
 FunctionEnd
 
-Section "-Remove previous Notepad# installation" SEC_REMOVE_PREVIOUS
+Section "-Remove previous Notepad # installation" SEC_REMOVE_PREVIOUS
     Call EnsureSafeInstallDirectory
     Call CheckIfRunning
     SetRegView 64
     ReadRegStr $R0 SHCTX "Software\Microsoft\Windows\CurrentVersion\Uninstall\NotepadSharp" "QuietUninstallString"
     ${If} $R0 != ""
-        DetailPrint "Removing the previous Notepad# installation..."
+        DetailPrint "Removing the previous Notepad # installation..."
         ExecWait '$R0' $R1
         ${If} $R1 != 0
-            MessageBox MB_ICONSTOP "The previous Notepad# installation could not be removed (exit code $R1)."
+            MessageBox MB_ICONSTOP "The previous Notepad # installation could not be removed (exit code $R1)."
             Abort
         ${EndIf}
     ${EndIf}
 SectionEnd
 
-Section "Notepad#" SEC_CORE
+Section "Notepad #" SEC_CORE
     SectionIn RO
     SetRegView 64
 
@@ -187,18 +187,18 @@ Section "Notepad#" SEC_CORE
 SectionEnd
 
 Section "Start Menu shortcut" SEC_START_MENU
-    CreateDirectory "$SMPROGRAMS\Notepad#"
-    CreateShortcut "$SMPROGRAMS\Notepad#\Notepad#.lnk" "$INSTDIR\NotepadSharp.exe"
-    CreateShortcut "$SMPROGRAMS\Notepad#\Uninstall Notepad#.lnk" "$INSTDIR\${UNINSTALL_FILENAME}"
+    CreateDirectory "$SMPROGRAMS\Notepad #"
+    CreateShortcut "$SMPROGRAMS\Notepad #\Notepad #.lnk" "$INSTDIR\NotepadSharp.exe"
+    CreateShortcut "$SMPROGRAMS\Notepad #\Uninstall Notepad #.lnk" "$INSTDIR\${UNINSTALL_FILENAME}"
 SectionEnd
 
 Section /o "Desktop shortcut" SEC_DESKTOP
-    CreateShortcut "$DESKTOP\Notepad#.lnk" "$INSTDIR\NotepadSharp.exe"
+    CreateShortcut "$DESKTOP\Notepad #.lnk" "$INSTDIR\NotepadSharp.exe"
 SectionEnd
 
 Section /o "Explorer context menu" SEC_CONTEXT_MENU
     SetRegView 64
-    WriteRegStr SHCTX "Software\Classes\*\shell\NotepadSharp" "" "Edit with Notepad#"
+    WriteRegStr SHCTX "Software\Classes\*\shell\NotepadSharp" "" "Edit with Notepad #"
     WriteRegStr SHCTX "Software\Classes\*\shell\NotepadSharp" "Icon" "$INSTDIR\NotepadSharp.exe"
     WriteRegStr SHCTX "Software\Classes\*\shell\NotepadSharp\command" "" '"$INSTDIR\NotepadSharp.exe" "%1"'
 SectionEnd
@@ -206,8 +206,8 @@ SectionEnd
 Section "Uninstall"
     Call un.CheckIfRunning
     SetRegView 64
-    Delete "$DESKTOP\Notepad#.lnk"
-    RMDir /r "$SMPROGRAMS\Notepad#"
+    Delete "$DESKTOP\Notepad #.lnk"
+    RMDir /r "$SMPROGRAMS\Notepad #"
     DeleteRegKey SHCTX "Software\Classes\*\shell\NotepadSharp"
     DeleteRegKey SHCTX "Software\Microsoft\Windows\CurrentVersion\App Paths\NotepadSharp.exe"
     DeleteRegKey SHCTX "Software\Classes\Applications\NotepadSharp.exe"

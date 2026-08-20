@@ -21,7 +21,7 @@
 
 #include <QObject>
 
-#include "NotepadNextApplication.h"
+#include "NotepadSharpApplication.h"
 
 class ApplicationDecorator : public QObject
 {
@@ -29,7 +29,7 @@ class ApplicationDecorator : public QObject
     Q_PROPERTY(bool enabled READ isEnabled WRITE setEnabled NOTIFY stateChanged)
 
 public:
-    explicit ApplicationDecorator(NotepadNextApplication *app) : QObject(app), app(app) {}
+    explicit ApplicationDecorator(NotepadSharpApplication *app) : QObject(app), app(app) {}
 
     bool isEnabled() const { return enabled; }
 
@@ -40,7 +40,7 @@ signals:
     void stateChanged(bool b);
 
 protected:
-    NotepadNextApplication *app;
+    NotepadSharpApplication *app;
     bool enabled = false;
 
 };

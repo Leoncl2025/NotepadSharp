@@ -87,7 +87,7 @@ bool NotepadSharpApplication::init()
     qInfo(Q_FUNC_INFO);
 
 #ifndef Q_OS_MACOS
-    setWindowIcon(QIcon(QStringLiteral(":/icons/NotepadNext.png")));
+    setWindowIcon(QIcon(QStringLiteral(":/icons/NotepadSharp.png")));
 #endif
 
     settings = new ApplicationSettings(this);

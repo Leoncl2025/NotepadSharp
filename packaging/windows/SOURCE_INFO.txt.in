@@ -1,7 +1,7 @@
-Notepad# Project Source Snapshot and Build Provenance
+Notepad # Project Source Snapshot and Build Provenance
 =====================================================
 
-Product: Notepad#
+Product: Notepad #
 Technical identity: NotepadSharp
 Version: @PROJECT_VERSION@
 Package type: unsigned Windows x64 internal test build
@@ -15,7 +15,7 @@ Approved Notepad Next baseline: 1f117bc6d82d96e43718b2d0e43b6b2611bc4f5f
 Upstream source: https://github.com/dail8859/NotepadNext
 
 The project source ZIP contains tracked working-tree files and explicitly
-reviewed allowlisted untracked files, including uncommitted Notepad# changes.
+reviewed allowlisted untracked files, including uncommitted Notepad # changes.
 Generated output, Git metadata, local dependency caches, and external dependency
 source trees are excluded. CPM dependencies remain pinned in
 thirdparty/CMakeLists.txt and are fetched from their listed repositories.

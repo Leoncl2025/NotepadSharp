@@ -35,7 +35,7 @@ namespace Ui {
 class MainWindow;
 }
 
-class NotepadNextApplication;
+class NotepadSharpApplication;
 class Macro;
 class Settings;
 class QuickFindWidget;
@@ -55,7 +55,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MainWindow(NotepadNextApplication *app);
+    explicit MainWindow(NotepadSharpApplication *app);
     ~MainWindow() override;
 
     bool isAnyUnsaved() const;
@@ -150,7 +150,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui = Q_NULLPTR;
-    NotepadNextApplication *app = Q_NULLPTR;
+    NotepadSharpApplication *app = Q_NULLPTR;
     DockedEditor *dockedEditor = Q_NULLPTR;
 
     QScopedPointer<SearchResultsCollector> searchResults;

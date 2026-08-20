@@ -41,7 +41,7 @@ private:
 };
 
 
-EditorConfigAppDecorator::EditorConfigAppDecorator(NotepadNextApplication *app)
+EditorConfigAppDecorator::EditorConfigAppDecorator(NotepadSharpApplication *app)
      : ApplicationDecorator(app)
 {
     EditorManager *manager = app->getEditorManager();

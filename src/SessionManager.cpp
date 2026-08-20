@@ -22,7 +22,7 @@
 #include "MainWindow.h"
 #include "SessionManager.h"
 #include "EditorManager.h"
-#include "NotepadNextApplication.h"
+#include "NotepadSharpApplication.h"
 
 #include <QDir>
 #include <QStandardPaths>
@@ -53,7 +53,7 @@ static QList<int> QVariantListToQList(const QVariantList &variantList) {
     return intList;
 }
 
-SessionManager::SessionManager(NotepadNextApplication *app, SessionFileTypes types)
+SessionManager::SessionManager(NotepadSharpApplication *app, SessionFileTypes types)
     : app(app)
 {
     setSessionFileTypes(types);

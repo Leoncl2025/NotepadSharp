@@ -1,4 +1,4 @@
-Notepad# Third-Party Components
+Notepad # Third-Party Components
 ===============================
 
 This inventory covers direct components in the Windows internal test build. The
@@ -57,4 +57,4 @@ Deployment: copied by Qt's windeployqt compiler-runtime support
 Installer build tool
 --------------------
 NSIS 3.12 is used only to build the installer and is not installed with
-Notepad#. NSIS is licensed under zlib/libpng and compatible component licenses.
+Notepad #. NSIS is licensed under zlib/libpng and compatible component licenses.

@@ -25,7 +25,7 @@ class MarkerAppDecorator : public ApplicationDecorator
     Q_OBJECT
 
 public:
-    explicit MarkerAppDecorator(NotepadNextApplication *app);
+    explicit MarkerAppDecorator(NotepadSharpApplication *app);
 
     QColor markerColor(int i) const;
 

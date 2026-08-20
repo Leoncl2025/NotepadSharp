@@ -23,7 +23,7 @@
 #include <QApplication>
 #include <QDataStream>
 
-#include "NotepadNextApplication.h"
+#include "NotepadSharpApplication.h"
 
 int main(int argc, char *argv[])
 {
@@ -32,7 +32,7 @@ int main(int argc, char *argv[])
     // Set these since other parts of the app references these
     QApplication::setOrganizationName("NotepadSharp");
     QApplication::setApplicationName("NotepadSharp");
-    QGuiApplication::setApplicationDisplayName("Notepad#");
+        QGuiApplication::setApplicationDisplayName("Notepad #");
     QGuiApplication::setApplicationVersion(APP_VERSION);
 
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
@@ -43,7 +43,7 @@ int main(int argc, char *argv[])
     // Default settings format
     QSettings::setDefaultFormat(QSettings::IniFormat);
 
-    NotepadNextApplication app(argc, argv);
+    NotepadSharpApplication app(argc, argv);
 
     // Log some debug info
     qInfo("=============================");

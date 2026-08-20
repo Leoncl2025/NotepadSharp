@@ -60,6 +60,7 @@ string(REPLACE "\n" ";" tracked_files "${tracked_file_output}")
 set(source_files ${tracked_files} ${reviewed_untracked_files})
 list(REMOVE_DUPLICATES source_files)
 list(SORT source_files)
+set(snapshot_files)
 
 foreach(relative_path IN LISTS source_files)
 	if(relative_path STREQUAL "")
@@ -67,6 +68,9 @@ foreach(relative_path IN LISTS source_files)
 	endif()
 
 	set(source_path "${SOURCE_DIR}/${relative_path}")
+	if(NOT EXISTS "${source_path}")
+		continue()
+	endif()
 	if(IS_DIRECTORY "${source_path}")
 		continue()
 	endif()
@@ -74,13 +78,14 @@ foreach(relative_path IN LISTS source_files)
 	get_filename_component(relative_directory "${relative_path}" DIRECTORY)
 	file(MAKE_DIRECTORY "${stage_dir}/${relative_directory}")
 	file(COPY_FILE "${source_path}" "${stage_dir}/${relative_path}" ONLY_IF_DIFFERENT)
+	list(APPEND snapshot_files "${relative_path}")
 endforeach()
 
-list(JOIN source_files "\n" source_manifest)
+list(JOIN snapshot_files "\n" source_manifest)
 file(WRITE "${stage_dir}/SOURCE_FILE_MANIFEST.txt" "${source_manifest}\n")
 
 file(WRITE "${stage_dir}/SOURCE_SNAPSHOT_INFO.txt"
-	"Notepad# project source snapshot\n"
+	"Notepad # project source snapshot\n"
 	"Version: ${PROJECT_VERSION}\n"
 	"Repository revision: ${git_head}\n"
 	"Includes tracked working-tree files and reviewed allowlisted untracked files at package time.\n"

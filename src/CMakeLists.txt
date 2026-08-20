@@ -1,4 +1,4 @@
-qt_add_executable(NotepadNext
+qt_add_executable(NotepadSharp
 	WIN32
 	MACOSX_BUNDLE
 	ActionUtils.h
@@ -36,7 +36,7 @@ qt_add_executable(NotepadNext
 	MacroRecorder.h
 	MacroStep.h
 	MacroStepTableModel.h
-	NotepadNextApplication.h
+	NotepadSharpApplication.h
 	NppImporter.h
 	QRegexSearch.h
 	RangeAllocator.h
@@ -88,7 +88,7 @@ qt_add_executable(NotepadNext
 	MacroStep.cpp
 	MacroStepTableModel.cpp
 	main.cpp
-	NotepadNextApplication.cpp
+	NotepadSharpApplication.cpp
 	NppImporter.cpp
 	QRegexSearch.cpp
 	RangeAllocator.cpp
@@ -198,7 +198,7 @@ qt_add_executable(NotepadNext
 	ShiftWheelToHorizontalScrollFilter.h ShiftWheelToHorizontalScrollFilter.cpp
 )
 
-set_target_properties(NotepadNext PROPERTIES
+set_target_properties(NotepadSharp PROPERTIES
     MACOSX_BUNDLE_INFO_PLIST ${CMAKE_SOURCE_DIR}/deploy/macos/info.plist
 )
 
@@ -207,13 +207,13 @@ file(GLOB TS_FILES
 )
 
 find_package(Qt6 REQUIRED COMPONENTS LinguistTools)
-qt_add_translations(NotepadNext
+qt_add_translations(NotepadSharp
     TS_FILES ${TS_FILES}
     RESOURCE_PREFIX "/i18n"
 )
 
 
-target_include_directories(NotepadNext
+target_include_directories(NotepadSharp
     PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/decorators
         ${CMAKE_CURRENT_SOURCE_DIR}/dialogs
@@ -223,21 +223,21 @@ target_include_directories(NotepadNext
 )
 
 if(WIN32)
-	set_target_properties(NotepadNext PROPERTIES OUTPUT_NAME NotepadSharp)
+	set_target_properties(NotepadSharp PROPERTIES OUTPUT_NAME NotepadSharp)
 	configure_file(
 		"${CMAKE_SOURCE_DIR}/deploy/windows/version.rc.in"
 		"${CMAKE_BINARY_DIR}/version.rc"
 		@ONLY
 	)
-	target_sources(NotepadNext PRIVATE "${CMAKE_BINARY_DIR}/version.rc")
+	target_sources(NotepadSharp PRIVATE "${CMAKE_BINARY_DIR}/version.rc")
 	configure_file(
-		"${CMAKE_SOURCE_DIR}/icon/NotepadNext.ico"
+		"${CMAKE_SOURCE_DIR}/icon/NotepadSharp.ico"
 		"${CMAKE_BINARY_DIR}/NotepadSharp.ico"
 		COPYONLY
 	)
 endif()
 
-target_link_libraries(NotepadNext
+target_link_libraries(NotepadSharp
     PRIVATE
         Qt6::Core
         Qt6::Gui
@@ -256,10 +256,10 @@ target_link_libraries(NotepadNext
 if(APPLE)
     # Workaround for Qt 6.5/6.8 on macOS with newer Xcode that removed deprecated AGL framework
     # These linker flags prevent the linker from failing when Qt tries to reference AGL
-    target_link_options(NotepadNext PRIVATE "LINKER:-flat_namespace" "LINKER:-undefined,suppress")
+	target_link_options(NotepadSharp PRIVATE "LINKER:-flat_namespace" "LINKER:-undefined,suppress")
 endif()
 
-target_compile_definitions(NotepadNext
+target_compile_definitions(NotepadSharp
     PRIVATE
         ADS_STATIC
         QAPPLICATION_CLASS=QApplication

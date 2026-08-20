@@ -18,7 +18,7 @@
 
 
 #include "PreferencesDialog.h"
-#include "NotepadNextApplication.h"
+#include "NotepadSharpApplication.h"
 #include "TranslationManager.h"
 #include "ui_PreferencesDialog.h"
 #include "ScintillaNext.h"
@@ -179,7 +179,7 @@ void PreferencesDialog::MapSettingToGroupBox(QGroupBox *groupBox, Func1 getter, 
 
 void PreferencesDialog::populateTranslationComboBox()
 {
-    NotepadNextApplication *app = qobject_cast<NotepadNextApplication *>(qApp);
+    NotepadSharpApplication *app = qobject_cast<NotepadSharpApplication *>(qApp);
 
     // Add the system default at the top
     ui->comboBoxTranslation->addItem(tr("<System Default>"), QStringLiteral(""));

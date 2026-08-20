@@ -28,7 +28,7 @@ class EditorConfigAppDecorator : public ApplicationDecorator
     Q_OBJECT
 
 public:
-    explicit EditorConfigAppDecorator(NotepadNextApplication *app);
+    explicit EditorConfigAppDecorator(NotepadSharpApplication *app);
 
 private slots:
     void doEditorConfig(ScintillaNext *editor);

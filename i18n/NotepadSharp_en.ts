@@ -767,7 +767,7 @@
     <name>MainWindow</name>
     <message>
         <location filename="../src/dialogs/MainWindow.ui" line="17"/>
-        <source>Notepad Next[*]</source>
+        <source>Notepad #[*]</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1149,7 +1149,7 @@
     </message>
     <message>
         <location filename="../src/dialogs/MainWindow.ui" line="800"/>
-        <source>About Notepad Next</source>
+        <source>About Notepad #</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

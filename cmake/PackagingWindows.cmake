@@ -25,8 +25,8 @@ else()
 endif()
 
 add_custom_target(package
-	DEPENDS NotepadNext
-	COMMENT "Deploying the unsigned Notepad# Windows x64 internal test package"
+	DEPENDS NotepadSharp
+	COMMENT "Deploying the unsigned Notepad # Windows x64 internal test package"
 	VERBATIM
 	COMMAND "${CMAKE_COMMAND}" -E rm -rf "${PACKAGE_DIR}"
 	COMMAND "${CMAKE_COMMAND}" -E make_directory "${PACKAGE_LICENSE_DIR}"
@@ -43,7 +43,7 @@ add_custom_target(package
 		"-DCMAKE_CXX_COMPILER_VERSION_TEXT=${CMAKE_CXX_COMPILER_VERSION}"
 		-P "${CMAKE_SOURCE_DIR}/cmake/GeneratePackageMetadata.cmake"
 	COMMAND "${CMAKE_COMMAND}" -E copy_if_different
-		"$<TARGET_FILE:NotepadNext>" "${PACKAGE_DIR}/NotepadSharp.exe"
+		"$<TARGET_FILE:NotepadSharp>" "${PACKAGE_DIR}/NotepadSharp.exe"
 	COMMAND "${CMAKE_COMMAND}" -E copy_if_different
 		"${CMAKE_SOURCE_DIR}/LICENSE" "${PACKAGE_DIR}/LICENSE-GPL-3.0.txt"
 	COMMAND "${CMAKE_COMMAND}" -E copy_if_different
@@ -75,13 +75,13 @@ add_custom_target(package
 		--no-opengl-sw
 		--compiler-runtime
 		--dir "${PACKAGE_DIR}"
-		"$<TARGET_FILE:NotepadNext>"
+		"$<TARGET_FILE:NotepadSharp>"
 )
 
 set(PORTABLE_ZIP "${ARTIFACT_DIR}/NotepadSharp-v${PROJECT_VERSION}-x64-Unsigned-Portable.zip")
 add_custom_target(portable
 	DEPENDS package
-	COMMENT "Creating the Notepad# unsigned Windows x64 portable archive"
+	COMMENT "Creating the Notepad # unsigned Windows x64 portable archive"
 	VERBATIM
 	COMMAND "${CMAKE_COMMAND}" -E make_directory "${ARTIFACT_DIR}"
 	COMMAND "${CMAKE_COMMAND}" -E rm -f "${PORTABLE_ZIP}"
@@ -91,7 +91,7 @@ add_custom_target(portable
 
 set(SOURCE_ZIP "${ARTIFACT_DIR}/NotepadSharp-v${PROJECT_VERSION}-source.zip")
 add_custom_target(source_archive
-	COMMENT "Creating the Notepad# project-source snapshot"
+	COMMENT "Creating the Notepad # project-source snapshot"
 	VERBATIM
 	COMMAND "${CMAKE_COMMAND}" -E make_directory "${ARTIFACT_DIR}"
 	COMMAND "${CMAKE_COMMAND}"
@@ -106,11 +106,17 @@ add_custom_target(source_archive
 )
 
 set(NSIS_MAKENSIS "" CACHE FILEPATH "Path to portable or installed NSIS makensis.exe")
+if(NOT NSIS_MAKENSIS)
+	find_program(NSIS_MAKENSIS_DISCOVERED NAMES makensis)
+	if(NSIS_MAKENSIS_DISCOVERED)
+		set(NSIS_MAKENSIS "${NSIS_MAKENSIS_DISCOVERED}" CACHE FILEPATH "Path to portable or installed NSIS makensis.exe" FORCE)
+	endif()
+endif()
 set(INSTALLER_FILE "${ARTIFACT_DIR}/NotepadSharp-v${PROJECT_VERSION}-x64-Unsigned-Setup.exe")
 if(NSIS_MAKENSIS)
 	add_custom_target(installer
 		DEPENDS package
-		COMMENT "Building the unsigned Notepad# Windows x64 NSIS installer"
+		COMMENT "Building the unsigned Notepad # Windows x64 NSIS installer"
 		VERBATIM
 		COMMAND "${CMAKE_COMMAND}" -E make_directory "${ARTIFACT_DIR}"
 		COMMAND "${CMAKE_COMMAND}" -E rm -f "${INSTALLER_FILE}"
@@ -118,7 +124,7 @@ if(NSIS_MAKENSIS)
 			/V3
 			"/DPACKAGE_DIR=${PACKAGE_DIR}"
 			"/DOUTPUT_FILE=${INSTALLER_FILE}"
-			"/DPRODUCT_ICON=${CMAKE_SOURCE_DIR}/icon/NotepadNext.ico"
+			"/DPRODUCT_ICON=${CMAKE_SOURCE_DIR}/icon/NotepadSharp.ico"
 			"/DPRODUCT_VERSION=${PROJECT_VERSION}"
 			"${CMAKE_SOURCE_DIR}/installer/notepadsharp.nsi"
 	)
@@ -126,7 +132,7 @@ if(NSIS_MAKENSIS)
 	set(CHECKSUM_FILE "${ARTIFACT_DIR}/SHA256SUMS.txt")
 	add_custom_target(installer_bundle
 		DEPENDS installer source_archive portable
-		COMMENT "Writing the Notepad# internal distribution checksum manifest"
+		COMMENT "Writing the Notepad # internal distribution checksum manifest"
 		VERBATIM
 		COMMAND "${CMAKE_COMMAND}"
 			"-DINSTALLER_FILE=${INSTALLER_FILE}"
