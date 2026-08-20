@@ -1,0 +1,60 @@
+Notepad# Third-Party Components
+===============================
+
+This inventory covers direct components in the Windows internal test build. The
+complete source snapshot and each component's source repository remain the
+authoritative records. Final legal approval belongs to T-0022.
+
+Notepad Next
+------------
+Upstream: https://github.com/dail8859/NotepadNext
+Baseline: 1f117bc6d82d96e43718b2d0e43b6b2611bc4f5f
+License: GNU GPL version 3
+
+Qt 6.5.3
+--------
+Source: https://download.qt.io/archive/qt/6.5/6.5.3/single/qt-everywhere-src-6.5.3.zip
+License used by this GPLv3 application: GNU GPL version 3
+Applicable license text: LICENSE-GPL-3.0.txt
+Deployment: dynamically linked Qt DLLs and plugins produced by windeployqt
+Note: final Qt notices and source-delivery review remain in T-0022.
+
+Qt Advanced Docking System 5.0.0
+--------------------------------
+Source: https://github.com/githubuser0xFFFF/Qt-Advanced-Docking-System/tree/5.0.0
+License: GNU LGPL version 2.1 or later
+
+SingleApplication 3.5.6
+-----------------------
+Source: https://github.com/itay-grudev/SingleApplication/tree/v3.5.6
+License: MIT with attribution condition in the bundled license text
+
+editorconfig-core-qt
+--------------------
+Source: https://github.com/editorconfig/editorconfig-core-qt/tree/ab62f0554abf2bbe4d45427b36a8b2f81ca7b4ab
+License: MIT
+
+Lua 5.3.4
+---------
+Source: https://www.lua.org/ftp/lua-5.3.4.tar.gz
+License: MIT
+
+Scintilla 5.6.3 and Lexilla 5.5.0
+---------------------------------
+Source: https://www.scintilla.org/
+License: Scintilla permission notice and disclaimer
+
+uchardet
+--------
+Source tree: bundled under thirdparty/uchardet
+License: Mozilla Public License 1.1 (with additional bundled license text)
+
+Microsoft Visual C++ Runtime
+----------------------------
+Source/provider: Microsoft Visual Studio 2022 redistributable runtime
+Deployment: copied by Qt's windeployqt compiler-runtime support
+
+Installer build tool
+--------------------
+NSIS 3.12 is used only to build the installer and is not installed with
+Notepad#. NSIS is licensed under zlib/libpng and compatible component licenses.

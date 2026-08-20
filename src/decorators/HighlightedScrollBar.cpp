@@ -28,6 +28,9 @@ const int DEFAULT_TICK_HEIGHT = 3;
 const int DEFAULT_TICK_PADDING = 3;
 const QColor CURSOR_SELECTION_COLOR = QColor(0, 0, 0, 25);
 const QColor CURSOR_CARET_COLOR = QColor(0, 0, 0, 100);
+const QColor COMPARE_ADDED_COLOR = QColor(49, 153, 78);
+const QColor COMPARE_DELETED_COLOR = QColor(211, 63, 63);
+const QColor COMPARE_CURRENT_COLOR = QColor(46, 125, 233);
 
 HighlightedScrollBarDecorator::HighlightedScrollBarDecorator(ScintillaNext *editor)
     : EditorDecorator(editor), scrollBar(new HighlightedScrollBar(editor, Qt::Vertical, editor))
@@ -66,18 +69,20 @@ void HighlightedScrollBar::paintEvent(QPaintEvent *event)
     QScrollBar::paintEvent(event);
     QPainter p(this);
 
-    drawMarker(p, 24);
+    drawMarker(p, 24, QColor(100, 100, 255));
+    drawMarker(p, 16, COMPARE_ADDED_COLOR, 5);
+    drawMarker(p, 17, COMPARE_DELETED_COLOR, 5);
+    drawMarker(p, 19, COMPARE_CURRENT_COLOR, 7);
     drawIndicator(p, smartHighlighterIndicator);
     drawCursors(p);
 }
 
-void HighlightedScrollBar::drawMarker(QPainter &p, int marker)
+void HighlightedScrollBar::drawMarker(QPainter &p, int marker, QColor color, int height)
 {
-    // NOTE: SCI_MARKERGETBACK doesn't exist...so can't use the marker color
     int curLine = 0;
 
     while ((curLine = editor->markerNext(curLine, 1 << marker)) != -1) {
-        drawTickMark(p, lineToScrollBarY(curLine), DEFAULT_TICK_HEIGHT, QColor(100, 100, 255));
+        drawTickMark(p, lineToScrollBarY(curLine), height, color);
 
         curLine++;
     }

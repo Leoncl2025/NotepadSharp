@@ -53,6 +53,7 @@ __cmake_systeminformation
 
 /build
 /build*
+/out/
 /icon/*.png
 /icon/ImageMagick
 

@@ -1,0 +1,16 @@
+UNSIGNED INTERNAL TEST BUILD
+============================
+
+Product: Notepad# @PROJECT_VERSION@
+Executable: NotepadSharp.exe
+Architecture: Windows x64
+
+This executable and installer are not code-signed. Windows may display an
+Unknown publisher or SmartScreen warning. Verify SHA256SUMS.txt before running.
+
+This package is for internal functional testing only. It is not an approved
+enterprise deployment artifact and does not claim legal, security, support, or
+pilot acceptance.
+
+Online updates are disabled. Obtain upgrades only from the same trusted source
+that supplied this installer and verify their hashes.

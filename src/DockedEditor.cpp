@@ -125,6 +125,27 @@ QVector<ScintillaNext *> DockedEditor::editors() const
     return editors;
 }
 
+ScintillaNext *DockedEditor::previousEditor(const ScintillaNext *editor) const
+{
+    if (editor == Q_NULLPTR) {
+        return Q_NULLPTR;
+    }
+
+    const ads::CDockWidget *dockWidget = qobject_cast<ads::CDockWidget *>(editor->parentWidget());
+    const ads::CDockAreaWidget *dockArea = dockWidget ? dockWidget->dockAreaWidget() : Q_NULLPTR;
+    if (dockArea == Q_NULLPTR) {
+        return Q_NULLPTR;
+    }
+
+    const QList<ads::CDockWidget *> openWidgets = dockArea->openedDockWidgets();
+    const int currentIndex = openWidgets.indexOf(const_cast<ads::CDockWidget *>(dockWidget));
+    if (currentIndex <= 0) {
+        return Q_NULLPTR;
+    }
+
+    return qobject_cast<ScintillaNext *>(openWidgets.at(currentIndex - 1)->widget());
+}
+
 void DockedEditor::switchToEditor(const ScintillaNext *editor)
 {
     ads::CDockWidget *dockWidget = qobject_cast<ads::CDockWidget *>(editor->parentWidget());
@@ -253,5 +274,19 @@ void DockedEditor::splitToBottom(ScintillaNext *editor)
         if (currentArea) {
             dockManager->addDockWidget(ads::BottomDockWidgetArea, newDockWidget, currentArea);
         }
+    }
+}
+
+void DockedEditor::splitToRightOf(ScintillaNext *referenceEditor, ScintillaNext *editor)
+{
+    Q_ASSERT(referenceEditor != Q_NULLPTR);
+    Q_ASSERT(editor != Q_NULLPTR);
+
+    ads::CDockWidget *referenceDockWidget = qobject_cast<ads::CDockWidget *>(referenceEditor->parentWidget());
+    ads::CDockWidget *editorDockWidget = qobject_cast<ads::CDockWidget *>(editor->parentWidget());
+    if (referenceDockWidget && editorDockWidget && referenceDockWidget != editorDockWidget) {
+        dockManager->addDockWidget(ads::RightDockWidgetArea,
+                                   editorDockWidget,
+                                   referenceDockWidget->dockAreaWidget());
     }
 }

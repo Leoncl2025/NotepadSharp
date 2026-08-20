@@ -46,6 +46,10 @@ class Converter;
 class DefaultDirectoryManager;
 class TabsQuickActionsBar;
 
+namespace Compare {
+class Session;
+}
+
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -125,8 +129,6 @@ public slots:
 
     void addEditor(ScintillaNext *editor);
 
-    void checkForUpdates(bool silent = false);
-
     void restoreWindowState();
 
     void switchToEditor(const ScintillaNext *editor);
@@ -144,7 +146,6 @@ protected:
 private slots:
     void tabBarRightClicked(ScintillaNext *editor);
     void languageMenuTriggered();
-    void checkForUpdatesFinished(QString url);
     void activateEditor(ScintillaNext *editor);
 
 private:
@@ -172,6 +173,8 @@ private:
     }
     void applyStyleSheet();
     void applyCustomShortcuts();
+    void compareWithPrevious();
+    void compareWith();
     void initUpdateCheck();
     ScintillaNext *getInitialEditor();
     void openFileList(const QStringList &fileNames);
@@ -200,6 +203,9 @@ private:
     ZoomEventWatcher *zoomEventWatcher;
     ShiftMiddleClickBlocker *shiftMiddleClickBlocker;
     ShiftWheelToHorizontalScrollFilter *shiftWheelToHorizontalScrollFilter;
+    Compare::Session *compareSession = Q_NULLPTR;
+    QAction *comparePreviousSeparator = Q_NULLPTR;
+    QAction *comparePreviousAction = Q_NULLPTR;
     int zoomLevel = 0;
     int contextMenuPos = 0;
     QMenu *buildMenu(QStringList actionNames);

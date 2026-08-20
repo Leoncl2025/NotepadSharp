@@ -45,5 +45,10 @@
         <file>icons/cross.svg</file>
         <file>icons/plus.svg</file>
         <file>icons/list_with_icons.svg</file>
+        <file>icons/git-compare-arrows.svg</file>
+        <file>icons/chevron-up.svg</file>
+        <file>icons/chevron-down.svg</file>
+        <file>icons/rotate-cw.svg</file>
+        <file>icons/trash-2.svg</file>
     </qresource>
 </RCC>

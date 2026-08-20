@@ -6,6 +6,12 @@ qt_add_executable(NotepadNext
 	ByteArrayUtils.h
 	ColorPickerDelegate.h
 	ComboBoxDelegate.h
+	compare/CompareEngine.h
+	compare/CompareNavigator.h
+	compare/CompareOverlay.h
+	compare/CompareSession.h
+	compare/CompareToolBar.h
+	compare/CompareTypes.h
 	Converter.h
 	DebugManager.h
 	DefaultDirectoryManager.h
@@ -55,6 +61,11 @@ qt_add_executable(NotepadNext
 	ApplicationSettings.cpp
 	ColorPickerDelegate.cpp
 	ComboBoxDelegate.cpp
+	compare/CompareEngine.cpp
+	compare/CompareNavigator.cpp
+	compare/CompareOverlay.cpp
+	compare/CompareSession.cpp
+	compare/CompareToolBar.cpp
 	Converter.cpp
 	DebugManager.cpp
 	DefaultDirectoryManager.cpp
@@ -212,6 +223,7 @@ target_include_directories(NotepadNext
 )
 
 if(WIN32)
+	set_target_properties(NotepadNext PROPERTIES OUTPUT_NAME NotepadSharp)
 	configure_file(
 		"${CMAKE_SOURCE_DIR}/deploy/windows/version.rc.in"
 		"${CMAKE_BINARY_DIR}/version.rc"
@@ -220,7 +232,7 @@ if(WIN32)
 	target_sources(NotepadNext PRIVATE "${CMAKE_BINARY_DIR}/version.rc")
 	configure_file(
 		"${CMAKE_SOURCE_DIR}/icon/NotepadNext.ico"
-		"${CMAKE_BINARY_DIR}/NotepadNext.ico"
+		"${CMAKE_BINARY_DIR}/NotepadSharp.ico"
 		COPYONLY
 	)
 endif()
@@ -233,7 +245,6 @@ target_link_libraries(NotepadNext
         Qt6::Network
         Qt6::PrintSupport
         qtadvanceddocking-qt6
-        QSimpleUpdater
         SingleApplication::SingleApplication
         editorconfig-core-qt
         lua
@@ -251,7 +262,6 @@ endif()
 target_compile_definitions(NotepadNext
     PRIVATE
         ADS_STATIC
-        QSIMPLEUPDATER_STATIC
         QAPPLICATION_CLASS=QApplication
         APP_VERSION="${PROJECT_VERSION}"
         APP_COPYRIGHT="${APP_COPYRIGHT}"

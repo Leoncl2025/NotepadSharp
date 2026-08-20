@@ -9,14 +9,6 @@ CPMAddPackage(
         "BUILD_EXAMPLES OFF"
 )
 
-CPMAddPackage(
-    NAME QSimpleUpdater
-    GITHUB_REPOSITORY alex-spataru/QSimpleUpdater
-    GIT_TAG 8e7017f7fbdc2b4b1a26ed1eef9ebcba6a50639c
-    OPTIONS
-        "QSIMPLE_UPDATER_BUILD_TESTS OFF"
-)
-
 set(QAPPLICATION_CLASS QApplication CACHE STRING "Inheritance class for SingleApplication" FORCE)
 CPMAddPackage(
     NAME SingleApplication
@@ -29,6 +21,10 @@ CPMAddPackage(
     GITHUB_REPOSITORY editorconfig/editorconfig-core-qt
     GIT_TAG ab62f0554abf2bbe4d45427b36a8b2f81ca7b4ab
 )
+
+set(NOTEPADSHARP_ADS_LICENSE "${ads_SOURCE_DIR}/LICENSE" PARENT_SCOPE)
+set(NOTEPADSHARP_SINGLEAPPLICATION_LICENSE "${SingleApplication_SOURCE_DIR}/LICENSE" PARENT_SCOPE)
+set(NOTEPADSHARP_EDITORCONFIG_LICENSE "${editorconfig_core_qt_SOURCE_DIR}/LICENSE" PARENT_SCOPE)
 
 add_subdirectory(lua)
 add_subdirectory(scintilla)

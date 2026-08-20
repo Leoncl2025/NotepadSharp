@@ -1,0 +1,15 @@
+cmake/CreateSourceArchive.cmake
+cmake/GeneratePackageMetadata.cmake
+cmake/WriteArtifactChecksums.cmake
+installer/notepadsharp.nsi
+packaging/windows/LICENSE-Lua-5.3.4.txt
+packaging/windows/README.txt
+packaging/windows/SOURCE_INFO.txt.in
+packaging/windows/THIRD_PARTY_NOTICES.txt
+packaging/windows/UNSIGNED_BUILD.txt.in
+packaging/windows/source-untracked-allowlist.txt
+src/icons/chevron-down.svg
+src/icons/chevron-up.svg
+src/icons/git-compare-arrows.svg
+src/icons/rotate-cw.svg
+src/icons/trash-2.svg

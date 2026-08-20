@@ -42,9 +42,18 @@ find_package(Qt6
 set(CMAKE_AUTORCC ON)
 qt_standard_project_setup()
 
+include(CTest)
+if(BUILD_TESTING)
+    find_package(Qt6 REQUIRED COMPONENTS Test)
+endif()
+
 set(CPM_SOURCE_CACHE "${CMAKE_SOURCE_DIR}/.cpm-cache" CACHE PATH "CPM source cache directory")
 
 add_subdirectory(thirdparty)
 add_subdirectory(src)
+
+if(BUILD_TESTING)
+    add_subdirectory(tests)
+endif()
 
 include(${CMAKE_SOURCE_DIR}/cmake/Packaging.cmake)

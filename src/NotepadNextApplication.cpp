@@ -47,7 +47,7 @@ const SingleApplication::Options opts = SingleApplication::ExcludeAppPath | Sing
 
 void parseCommandLine(QCommandLineParser &parser, const QStringList &args)
 {
-    parser.setApplicationDescription("Notepad Next");
+    parser.setApplicationDescription("Notepad#");
     parser.addHelpOption();
     parser.addVersionOption();
 
@@ -74,7 +74,7 @@ NotepadNextApplication::NotepadNextApplication(int &argc, char **argv)
 {
 #ifdef Q_OS_WIN
     // Create a system-wide mutex so the installer can detect if it is running
-    CreateMutex(NULL, false, L"NotepadNextMutex");
+    CreateMutex(NULL, false, L"NotepadSharpMutex");
 #endif
     parseCommandLine(parser, arguments());
 

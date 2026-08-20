@@ -1,0 +1,45 @@
+Notepad# Project Source Snapshot and Build Provenance
+=====================================================
+
+Product: Notepad#
+Technical identity: NotepadSharp
+Version: @PROJECT_VERSION@
+Package type: unsigned Windows x64 internal test build
+
+Product source
+--------------
+Matching project source archive: NotepadSharp-v@PROJECT_VERSION@-source.zip
+Product repository revision: @GIT_HEAD@
+Working-tree state captured in source ZIP: @GIT_WORKTREE_STATE@
+Approved Notepad Next baseline: 1f117bc6d82d96e43718b2d0e43b6b2611bc4f5f
+Upstream source: https://github.com/dail8859/NotepadNext
+
+The project source ZIP contains tracked working-tree files and explicitly
+reviewed allowlisted untracked files, including uncommitted Notepad# changes.
+Generated output, Git metadata, local dependency caches, and external dependency
+source trees are excluded. CPM dependencies remain pinned in
+thirdparty/CMakeLists.txt and are fetched from their listed repositories.
+
+This snapshot supports internal engineering traceability. It is not a final
+claim that every corresponding-source obligation is complete; dependency source
+delivery and legal approval remain in T-0022.
+
+Qt source
+---------
+Runtime version: Qt @Qt6_VERSION@
+Qt source archive: https://download.qt.io/archive/qt/6.5/@Qt6_VERSION@/single/qt-everywhere-src-@Qt6_VERSION@.zip
+
+Qt runtime DLLs are dynamically linked. This GPLv3 application is distributed
+with the GPLv3 text. Recipients may replace compatible Qt shared libraries.
+
+Build inputs
+------------
+CMake: @CMAKE_VERSION@
+Generator: @CMAKE_GENERATOR@
+Build type: @CMAKE_BUILD_TYPE@
+Compiler: @CMAKE_CXX_COMPILER_ID@ @CMAKE_CXX_COMPILER_VERSION@
+Architecture: Windows x64
+
+Focused configure, build, package, test, and artifact hashes are retained in the
+T-0021 AgentDesk evidence. This file is provenance information, not a legal or
+security approval.

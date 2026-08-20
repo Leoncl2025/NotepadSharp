@@ -26,6 +26,7 @@
 #include <QDateTime>
 #include <QFile>
 #include <QFileInfo>
+#include <QMargins>
 
 
 
@@ -48,6 +49,9 @@ public:
     static int stringToEolMode(QString eolMode);
 
     int allocateIndicator(const QString &name);
+
+    QMargins contentViewportMargins() const { return viewportMargins(); }
+    void setContentViewportMargins(const QMargins &margins) { setViewportMargins(margins); }
 
     template<typename Func>
     void forEachMatch(const QString &text, Func callback) { forEachMatch(text.toUtf8(), callback); }

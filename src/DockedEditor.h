@@ -41,6 +41,7 @@ public:
     ads::CDockAreaWidget *currentDockArea() const;
 
     QVector<ScintillaNext *> editors() const;
+    ScintillaNext *previousEditor(const ScintillaNext *editor) const;
 
     void switchToEditor(const ScintillaNext *editor);
 
@@ -48,6 +49,7 @@ public:
 
     void splitToRight(ScintillaNext *editor);
     void splitToBottom(ScintillaNext *editor);
+    void splitToRightOf(ScintillaNext *referenceEditor, ScintillaNext *editor);
 
 public slots:
     void addEditor(ScintillaNext *editor);

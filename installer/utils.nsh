@@ -2,6 +2,9 @@
 
 !define ERROR_ALREADY_EXISTS 0x000000b7
 !define ERROR_ACCESS_DENIED 0x5
+!ifndef APP_MUTEX
+	!define APP_MUTEX "NotepadSharpMutex"
+!endif
 
 !macro CheckSingleInstanceFunc UNINSTALLER_PREFIX
 	; parameters:
@@ -74,19 +77,25 @@
 !macro CheckIfRunning un
 	Function ${un}CheckIfRunning
 		Check:
-		System::Call 'kernel32::OpenMutex(i 0x100000, b 0, t "NotepadNextMutex") i .R0'
+		System::Call 'kernel32::OpenMutex(i 0x100000, b 0, t "${APP_MUTEX}") i .R0'
 		
 		IntCmp $R0 0 NotRunning
 			System::Call 'kernel32::CloseHandle(i $R0)'
-			MessageBox MB_RETRYCANCEL|MB_DEFBUTTON1|MB_ICONSTOP "Notepad Next is currently running.$\r$\nPlease, close all instances of it and click Retry to continue, or Cancel to exit." IDRETRY Retry IDCANCEL Cancel
+			IfSilent SilentRunning
+			MessageBox MB_RETRYCANCEL|MB_DEFBUTTON1|MB_ICONSTOP "${PRODUCT_NAME} is currently running.$\r$\nPlease, close all instances of it and click Retry to continue, or Cancel to exit." IDRETRY Retry IDCANCEL Cancel
 			Retry:
 				Goto Check
 			Cancel:
+				SetErrorLevel 2
+				Quit
+			SilentRunning:
+				SetErrorLevel 2
 				Quit
 		NotRunning:
 	FunctionEnd
 !macroend
 
+!ifndef UTILS_NO_EMPTY_DIR_FUNCTION
 # From http://nsis.sourceforge.net/Check_if_dir_is_empty
 Function isEmptyDir
 	# Stack ->                    # Stack: <directory>
@@ -112,3 +121,4 @@ Function isEmptyDir
 				Exch $0                  # Stack: 0 (false)
 	_end:
 FunctionEnd
+!endif

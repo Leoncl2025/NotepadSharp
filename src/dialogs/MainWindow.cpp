@@ -19,6 +19,8 @@
 
 #include "MainWindow.h"
 #include "BookMarkDecorator.h"
+#include "compare/CompareSession.h"
+#include "compare/CompareToolBar.h"
 #include "DefaultDirectoryManager.h"
 #include "MarkerAppDecorator.h"
 #include "ScintillaSorter.h"
@@ -36,6 +38,7 @@
 #include <QPushButton>
 #include <QTimer>
 #include <QInputDialog>
+#include <QComboBox>
 #include <QPrintPreviewDialog>
 #include <QPrinter>
 #include <QDirIterator>
@@ -44,7 +47,6 @@
 #include <QFontDatabase>
 
 #ifdef Q_OS_WIN
-#include <QSimpleUpdater.h>
 #include <Windows.h>
 #endif
 
@@ -121,6 +123,64 @@ MainWindow::MainWindow(NotepadNextApplication *app) :
     connect(dockedEditor, &DockedEditor::editorActivated, this, &MainWindow::activateEditor);
     connect(dockedEditor, &DockedEditor::contextMenuRequestedForEditor, this, &MainWindow::tabBarRightClicked);
     connect(dockedEditor, &DockedEditor::titleBarDoubleClicked, this, &MainWindow::newFile);
+
+    compareSession = new Compare::Session(this);
+    QMenu *compareMenu = new QMenu(tr("&Compare"), this);
+    ui->menuBar->insertMenu(ui->menuSettings->menuAction(), compareMenu);
+
+    comparePreviousAction = new QAction(
+        QIcon(QStringLiteral(":/icons/git-compare-arrows.svg")),
+        tr("Compare with Previous Tab"),
+        this);
+    comparePreviousAction->setObjectName(QStringLiteral("actionComparePrevious"));
+    comparePreviousAction->setToolTip(tr("Compare current tab with previous tab"));
+    compareMenu->addAction(comparePreviousAction);
+    QAction *compareWithAction = compareMenu->addAction(tr("Compare With..."));
+    compareMenu->addSeparator();
+    QAction *previousDifferenceAction = compareMenu->addAction(tr("Previous Difference"));
+    QAction *nextDifferenceAction = compareMenu->addAction(tr("Next Difference"));
+    compareMenu->addSeparator();
+    QAction *refreshCompareAction = compareMenu->addAction(tr("Refresh Compare"));
+    QAction *cancelCompareAction = compareMenu->addAction(tr("Cancel Compare"));
+    QAction *clearCompareAction = compareMenu->addAction(tr("Clear Compare"));
+
+    Compare::CompareToolBar *compareToolBar = new Compare::CompareToolBar(
+        compareSession,
+        previousDifferenceAction,
+        nextDifferenceAction,
+        refreshCompareAction,
+        cancelCompareAction,
+        clearCompareAction,
+        this);
+    addToolBarBreak(Qt::TopToolBarArea);
+    addToolBar(Qt::TopToolBarArea, compareToolBar);
+
+    comparePreviousSeparator = ui->mainToolBar->addSeparator();
+    ui->mainToolBar->addAction(comparePreviousAction);
+
+    connect(comparePreviousAction, &QAction::triggered, this, &MainWindow::compareWithPrevious);
+    connect(compareWithAction, &QAction::triggered, this, &MainWindow::compareWith);
+    connect(previousDifferenceAction, &QAction::triggered, compareSession, &Compare::Session::previousDifference);
+    connect(nextDifferenceAction, &QAction::triggered, compareSession, &Compare::Session::nextDifference);
+    connect(refreshCompareAction, &QAction::triggered, compareSession, &Compare::Session::refresh);
+    connect(cancelCompareAction, &QAction::triggered, compareSession, &Compare::Session::cancel);
+    connect(clearCompareAction, &QAction::triggered, this, [this]() {
+        compareSession->clear();
+        ui->statusBar->showMessage(tr("Comparison cleared."), 3000);
+    });
+    connect(compareSession, &Compare::Session::message, this, [this](const QString &text) {
+        ui->statusBar->showMessage(text, 5000);
+    });
+
+    auto updateComparePreviousAction = [this]() {
+        comparePreviousAction->setEnabled(
+            dockedEditor->previousEditor(currentEditor()) != Q_NULLPTR);
+    };
+    connect(dockedEditor, &DockedEditor::editorAdded, this, updateComparePreviousAction);
+    connect(dockedEditor, &DockedEditor::editorActivated, this, updateComparePreviousAction);
+    connect(dockedEditor, &DockedEditor::editorClosed, this, updateComparePreviousAction);
+    connect(dockedEditor, &DockedEditor::editorOrderChanged, this, updateComparePreviousAction);
+    updateComparePreviousAction();
 
     // Set up the menus
     connect(ui->actionNew, &QAction::triggered, this, &MainWindow::newFile);
@@ -883,7 +943,7 @@ MainWindow::MainWindow(NotepadNextApplication *app) :
         QMessageBox::about(this, QString(),
                             QStringLiteral("<h3>%1 v%2 %3</h3>"
                                     "<p>%4</p>"
-                                    "<p><a href=\"https://github.com/dail8859/NotepadNext\">Notepad Next Home Page</a></p>"
+                                    "<p>Notepad# is based on <a href=\"https://github.com/dail8859/NotepadNext\">Notepad Next</a>.</p>"
                                     R"(<p>This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.</p> <p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.</p> <p>You should have received a copy of the GNU General Public License along with this program. If not, see &lt;<a href="https://www.gnu.org/licenses/">https://www.gnu.org/licenses/</a>&gt;.</p>)")
                                 .arg(QApplication::applicationDisplayName(), APP_VERSION, APP_DISTRIBUTION, QStringLiteral(APP_COPYRIGHT).toHtmlEscaped()));
     });
@@ -1097,6 +1157,87 @@ QVector<ScintillaNext *> MainWindow::editors() const
     // If in the future a ScintillaNext can be cloned then the DockedEditor could return
     // the same ScintillaNext instance multiple times since 1 ScintillaNext could mean >= 1 DockedEditor widget instance
     return dockedEditor->editors();
+}
+
+void MainWindow::compareWithPrevious()
+{
+    ScintillaNext *rightEditor = currentEditor();
+    ScintillaNext *leftEditor = dockedEditor->previousEditor(rightEditor);
+    if (leftEditor == Q_NULLPTR || rightEditor == Q_NULLPTR) {
+        ui->statusBar->showMessage(tr("The current tab has no previous tab to compare."), 3000);
+        return;
+    }
+
+    dockedEditor->splitToRightOf(leftEditor, rightEditor);
+    compareSession->start(leftEditor, rightEditor);
+}
+
+void MainWindow::compareWith()
+{
+    ScintillaNext *leftEditor = currentEditor();
+    if (leftEditor == Q_NULLPTR) {
+        return;
+    }
+
+    QVector<ScintillaNext *> candidates;
+    QStringList labels;
+    for (ScintillaNext *editor : editors()) {
+        if (editor == leftEditor) {
+            continue;
+        }
+
+        candidates.append(editor);
+        labels.append(editor->isFile()
+            ? tr("%1 (%2)").arg(editor->getName(), editor->getFilePath())
+            : editor->getName());
+    }
+
+    const QString browseLabel = tr("Browse for a file...");
+    labels.append(browseLabel);
+
+    QInputDialog dialog(this);
+    dialog.setWindowTitle(tr("Compare"));
+    dialog.setLabelText(tr("Compare the current document with:"));
+    dialog.setComboBoxItems(labels);
+    dialog.setComboBoxEditable(false);
+    if (dialog.exec() != QDialog::Accepted) {
+        return;
+    }
+
+    ScintillaNext *rightEditor = Q_NULLPTR;
+    const QComboBox *comboBox = dialog.findChild<QComboBox *>();
+    const int selectedIndex = comboBox ? comboBox->currentIndex() : -1;
+    if (selectedIndex == candidates.size()) {
+        const QString filePath = QFileDialog::getOpenFileName(
+            this,
+            tr("Compare With File"),
+            defaultDirectoryManager->getDefaultDirectory(),
+            app->getFileDialogFilter());
+        if (filePath.isEmpty()) {
+            return;
+        }
+
+        rightEditor = app->getEditorManager()->getEditorByFilePath(filePath);
+        if (rightEditor == Q_NULLPTR) {
+            rightEditor = app->getEditorManager()->createEditorFromFile(filePath);
+        }
+        if (rightEditor == Q_NULLPTR) {
+            QMessageBox::warning(this, tr("Compare"), tr("The selected file could not be opened."));
+            return;
+        }
+        emit fileDialogAccepted(filePath);
+    }
+    else if (selectedIndex >= 0 && selectedIndex < candidates.size()) {
+        rightEditor = candidates.at(selectedIndex);
+    }
+
+    if (rightEditor == Q_NULLPTR || rightEditor == leftEditor) {
+        QMessageBox::information(this, tr("Compare"), tr("Choose two different documents to compare."));
+        return;
+    }
+
+    dockedEditor->splitToRightOf(leftEditor, rightEditor);
+    compareSession->start(leftEditor, rightEditor);
 }
 
 void MainWindow::newFile()
@@ -2041,6 +2182,13 @@ void MainWindow::restoreSettings()
 
         ActionUtils::populateActionContainer(ui->mainToolBar, this, actionNames);
     }
+
+    if (!ui->mainToolBar->actions().contains(comparePreviousAction)) {
+        if (!ui->mainToolBar->actions().isEmpty()) {
+            ui->mainToolBar->addAction(comparePreviousSeparator);
+        }
+        ui->mainToolBar->addAction(comparePreviousAction);
+    }
 }
 
 ISearchResultsHandler *MainWindow::determineSearchResultsHandler()
@@ -2164,73 +2312,10 @@ void MainWindow::addEditor(ScintillaNext *editor)
     dockedEditor->addEditor(editor);
 }
 
-void MainWindow::checkForUpdates(bool silent)
-{
-#ifdef Q_OS_WIN
-    qInfo(Q_FUNC_INFO);
-
-    QString url = "https://github.com/dail8859/NotepadNext/raw/master/updates.json";
-    QSimpleUpdater::getInstance()->checkForUpdates(url);
-
-    if (!silent) {
-        connect(QSimpleUpdater::getInstance(), &QSimpleUpdater::checkingFinished, this, &MainWindow::checkForUpdatesFinished, Qt::UniqueConnection);
-    }
-    else {
-        disconnect(QSimpleUpdater::getInstance(), &QSimpleUpdater::checkingFinished, this, &MainWindow::checkForUpdatesFinished);
-    }
-
-
-    app->getSettings()->setValue("App/LastUpdateCheck", QDateTime::currentDateTime());
-#else
-    Q_UNUSED(silent);
-#endif
-}
-
-void MainWindow::checkForUpdatesFinished(QString url)
-{
-#ifdef Q_OS_WIN
-    if (!QSimpleUpdater::getInstance()->getUpdateAvailable(url)) {
-        QMessageBox::information(this, QString(), tr("No updates are available at this time."));
-    }
-#endif
-}
-
 void MainWindow::initUpdateCheck()
 {
-#ifdef Q_OS_WIN
-#ifdef QT_DEBUG
-    if (true) {
-#else
-    QSettings registry(QSettings::NativeFormat, QSettings::UserScope, QApplication::organizationName(), QApplication::applicationName());
-    const bool autoUpdatesEnabled = registry.value("AutoUpdate", 0).toBool();
-    qInfo("AutoUpdates: %d", autoUpdatesEnabled);
-
-    if (autoUpdatesEnabled) {
-#endif
-        connect(ui->actionCheckForUpdates, &QAction::triggered, this, &MainWindow::checkForUpdates);
-
-        // A bit after startup, see if we need to automatically check for an update
-        QTimer::singleShot(15000, this, [this]() {
-            ApplicationSettings settings;
-            QDateTime dt = settings.value("App/LastUpdateCheck", QDateTime::currentDateTime()).toDateTime();
-
-            if (dt.isValid()) {
-                qInfo("Last checked for updates at: %s", qUtf8Printable(dt.toString()));
-
-                if (dt.addDays(7) < QDateTime::currentDateTime()) {
-                    checkForUpdates(true);
-                }
-            }
-        });
-    }
-    else {
-        ui->actionCheckForUpdates->setDisabled(true);
-        ui->actionCheckForUpdates->setVisible(false);
-    }
-#else
     ui->actionCheckForUpdates->setDisabled(true);
     ui->actionCheckForUpdates->setVisible(false);
-#endif
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)
