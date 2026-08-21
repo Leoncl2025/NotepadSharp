@@ -2014,6 +2014,9 @@ void MainWindow::applyStyleSheet()
         sheet = f.readAll();
         f.close();
 
+        const AppearanceTokens &tokens = app->getAppearanceManager()->tokens();
+        sheet += DockedEditor::tabTitleStyleSheet(tokens.textPrimary, tokens.textSecondary);
+
         // If there is a "custom.css" file where the ini is located, load it as a style sheet addition
         QString directoryPath = QFileInfo(app->getSettings()->fileName()).absolutePath();
         QString fullPath = QDir(directoryPath).filePath("custom.css");

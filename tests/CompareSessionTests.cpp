@@ -13,6 +13,9 @@
 #include "DockedEditor.h"
 #include "ScintillaNext.h"
 
+#include "DockWidgetTab.h"
+#include "ElidingLabel.h"
+
 #include <QAction>
 #include <QElapsedTimer>
 #include <QFile>
@@ -24,6 +27,8 @@
 #include <QTemporaryDir>
 #include <QTest>
 
+#include <algorithm>
+
 using Compare::ChangeKind;
 using Compare::DiffHunk;
 using Compare::Navigator;
@@ -34,6 +39,45 @@ class CompareSessionTests : public QObject
     Q_OBJECT
 
 private slots:
+    void darkStyleKeepsInactiveTabTitlesReadable()
+    {
+        QFile styleSheet(QStringLiteral(":/stylesheets/npp.css"));
+        QVERIFY(styleSheet.open(QIODevice::ReadOnly | QIODevice::Text));
+        const QByteArray css = styleSheet.readAll();
+        QWidget host;
+        QPalette darkPalette = host.palette();
+        darkPalette.setColor(QPalette::Window, QColor(QStringLiteral("#191A1B")));
+        darkPalette.setColor(QPalette::WindowText, QColor(QStringLiteral("#BFBFBF")));
+        darkPalette.setColor(QPalette::Base, QColor(QStringLiteral("#121314")));
+        darkPalette.setColor(QPalette::Text, QColor(QStringLiteral("#BBBEBF")));
+        darkPalette.setColor(QPalette::PlaceholderText, QColor(QStringLiteral("#555555")));
+        host.setPalette(darkPalette);
+        host.resize(900, 600);
+
+        DockedEditor dockedEditor(&host);
+        dockedEditor.addEditor(new ScintillaNext(QStringLiteral("first.cpp")));
+        dockedEditor.addEditor(new ScintillaNext(QStringLiteral("second.cpp")));
+        host.setStyleSheet(QString::fromUtf8(css)
+            + DockedEditor::tabTitleStyleSheet(
+                QColor(QStringLiteral("#BFBFBF")), QColor(QStringLiteral("#8C8C8C"))));
+        host.show();
+        QCoreApplication::processEvents();
+
+        const QList<ads::CDockWidgetTab *> tabs = host.findChildren<ads::CDockWidgetTab *>();
+        QCOMPARE(tabs.size(), 2);
+        auto inactive = std::find_if(tabs.cbegin(), tabs.cend(), [](const auto *tab) {
+            return !tab->isActiveTab();
+        });
+        QVERIFY(inactive != tabs.cend());
+
+        const QList<ads::CElidingLabel *> labels =
+            (*inactive)->findChildren<ads::CElidingLabel *>();
+        QCOMPARE(labels.size(), 1);
+        labels.first()->ensurePolished();
+        QCOMPARE(labels.first()->palette().color(QPalette::WindowText),
+                 QColor(QStringLiteral("#8C8C8C")));
+    }
+
     void navigationWrapsInBothDirections()
     {
         Navigator navigator;

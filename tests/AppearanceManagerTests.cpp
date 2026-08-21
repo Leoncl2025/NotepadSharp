@@ -2,7 +2,38 @@
 #include <QTemporaryDir>
 #include <QEvent>
 #include <QFile>
+#include <QtMath>
 #include <QtTest>
+
+namespace {
+
+QColor composite(const QColor &foreground, const QColor &background)
+{
+    const double alpha = foreground.alphaF();
+    return QColor::fromRgbF(
+        foreground.redF() * alpha + background.redF() * (1.0 - alpha),
+        foreground.greenF() * alpha + background.greenF() * (1.0 - alpha),
+        foreground.blueF() * alpha + background.blueF() * (1.0 - alpha));
+}
+
+double luminance(const QColor &color)
+{
+    auto linear = [](double channel) {
+        return channel <= 0.04045 ? channel / 12.92 : qPow((channel + 0.055) / 1.055, 2.4);
+    };
+    return 0.2126 * linear(color.redF())
+        + 0.7152 * linear(color.greenF())
+        + 0.0722 * linear(color.blueF());
+}
+
+double contrast(const QColor &first, const QColor &second)
+{
+    const double lighter = qMax(luminance(first), luminance(second));
+    const double darker = qMin(luminance(first), luminance(second));
+    return (lighter + 0.05) / (darker + 0.05);
+}
+
+} // namespace
 
 #include "AppearanceManager.h"
 #include "ApplicationSettings.h"
@@ -23,6 +54,7 @@ private slots:
     void ignoresWidgetPaletteEventsWhenApplicationPaletteIsUnchanged();
     void refreshesOnceWhenApplicationPaletteChanges();
     void writesOptInPerformanceTrace();
+    void darkCompareLineFillsRemainVisible();
 };
 
 void AppearanceManagerTests::parsesOnlyCanonicalWireValues()
@@ -228,6 +260,21 @@ void AppearanceManagerTests::writesOptInPerformanceTrace()
     QVERIFY(trace.contains(QStringLiteral("component=native-windows")));
     QVERIFY(trace.contains(QStringLiteral("component=synchronous-slots")));
     QVERIFY(trace.contains(QStringLiteral(" end elapsed-ms=")));
+}
+
+void AppearanceManagerTests::darkCompareLineFillsRemainVisible()
+{
+    QTemporaryDir directory;
+    ApplicationSettings settings(directory.filePath(QStringLiteral("settings.ini")), QSettings::IniFormat);
+    AppearanceManager manager(&settings, [] { return Qt::ColorScheme::Dark; });
+    manager.setRequestedMode(AppearanceManager::Mode::Dark);
+
+    const AppearanceTokens &tokens = manager.tokens();
+    const QColor added = composite(tokens.diffAddedFill, tokens.surfaceEditor);
+    const QColor deleted = composite(tokens.diffDeletedFill, tokens.surfaceEditor);
+
+    QVERIFY(contrast(added, tokens.surfaceEditor) >= 1.35);
+    QVERIFY(contrast(deleted, tokens.surfaceEditor) >= 1.35);
 }
 
 QTEST_MAIN(AppearanceManagerTests)
