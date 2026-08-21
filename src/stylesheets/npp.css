@@ -117,10 +117,6 @@ ads--CDockAreaTitleBar
     padding-bottom: 0px;
 }
 
-ads--CDockWidgetTab[activeTab="false"] QLabel {
-    color: palette(placeholder-text);
-}
-
 #tabCloseButton
 {
     background: transparent;

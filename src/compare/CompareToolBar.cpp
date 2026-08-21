@@ -200,7 +200,7 @@ void CompareToolBar::applyAppearance()
         "QLabel#compareModifiedDot { background: %9; border-radius: 3px; }")
         .arg(cssColor(tokens.surfaceShell), cssColor(tokens.borderDefault),
              cssColor(tokens.textPrimary), cssColor(tokens.surfaceHover),
-             cssColor(tokens.surfaceRaised), cssColor(tokens.textSecondary),
+               cssColor(tokens.surfaceRaised), cssColor(tokens.textPrimary),
              cssColor(tokens.diffAddedMarker), cssColor(tokens.diffDeletedMarker),
              cssColor(tokens.diffModifiedMarker)));
 

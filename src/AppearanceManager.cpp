@@ -311,8 +311,8 @@ AppearanceTokens AppearanceManager::darkTokens()
         QColor(QStringLiteral("#FFA657")), QColor(QStringLiteral("#79C0FF")),
         QColor(QStringLiteral("#7EE787")), QColor(QStringLiteral("#9CDCFE")),
         QColor(QStringLiteral("#72C892")), QColor(QStringLiteral("#0078D4")),
-        QColor(QStringLiteral("#F28772")), QColor(52, 125, 57, 38),
-        QColor(201, 60, 55, 38)
+        QColor(QStringLiteral("#F28772")), QColor(52, 125, 57, 89),
+        QColor(201, 60, 55, 89)
     };
 }
 

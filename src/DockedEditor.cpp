@@ -95,6 +95,18 @@ DockedEditor::DockedEditor(QWidget *parent) : QObject(parent)
     });
 }
 
+QString DockedEditor::tabTitleStyleSheet(const QColor &active, const QColor &inactive)
+{
+    auto cssColor = [](const QColor &color) {
+        return QStringLiteral("rgba(%1, %2, %3, %4)")
+            .arg(color.red()).arg(color.green()).arg(color.blue()).arg(color.alpha());
+    };
+    return QStringLiteral(
+        "ads--CDockWidgetTab[activeTab=\"true\"] ads--CElidingLabel { color: %1; }\n"
+        "ads--CDockWidgetTab[activeTab=\"false\"] ads--CElidingLabel { color: %2; }\n")
+        .arg(cssColor(active), cssColor(inactive));
+}
+
 
 ScintillaNext *DockedEditor::getCurrentEditor() const
 {

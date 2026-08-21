@@ -20,7 +20,9 @@
 #ifndef DOCKEDEDITOR_H
 #define DOCKEDEDITOR_H
 
+#include <QColor>
 #include <QObject>
+#include <QString>
 
 #include "DockManager.h"
 #include "ScintillaNext.h"
@@ -36,6 +38,8 @@ private:
 
 public:
     explicit DockedEditor(QWidget *parent);
+
+    static QString tabTitleStyleSheet(const QColor &active, const QColor &inactive);
 
     ScintillaNext *getCurrentEditor() const;
     ads::CDockAreaWidget *currentDockArea() const;

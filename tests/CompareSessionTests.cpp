@@ -12,6 +12,10 @@
 #include "CompareToolBar.h"
 #include "DockedEditor.h"
 #include "ScintillaNext.h"
+#include "ThemedIcon.h"
+
+#include "DockWidgetTab.h"
+#include "ElidingLabel.h"
 
 #include <QAction>
 #include <QElapsedTimer>
@@ -24,6 +28,8 @@
 #include <QTemporaryDir>
 #include <QTest>
 
+#include <algorithm>
+
 using Compare::ChangeKind;
 using Compare::DiffHunk;
 using Compare::Navigator;
@@ -34,6 +40,45 @@ class CompareSessionTests : public QObject
     Q_OBJECT
 
 private slots:
+    void darkStyleKeepsInactiveTabTitlesReadable()
+    {
+        QFile styleSheet(QStringLiteral(":/stylesheets/npp.css"));
+        QVERIFY(styleSheet.open(QIODevice::ReadOnly | QIODevice::Text));
+        const QByteArray css = styleSheet.readAll();
+        QWidget host;
+        QPalette darkPalette = host.palette();
+        darkPalette.setColor(QPalette::Window, QColor(QStringLiteral("#191A1B")));
+        darkPalette.setColor(QPalette::WindowText, QColor(QStringLiteral("#BFBFBF")));
+        darkPalette.setColor(QPalette::Base, QColor(QStringLiteral("#121314")));
+        darkPalette.setColor(QPalette::Text, QColor(QStringLiteral("#BBBEBF")));
+        darkPalette.setColor(QPalette::PlaceholderText, QColor(QStringLiteral("#555555")));
+        host.setPalette(darkPalette);
+        host.resize(900, 600);
+
+        DockedEditor dockedEditor(&host);
+        dockedEditor.addEditor(new ScintillaNext(QStringLiteral("first.cpp")));
+        dockedEditor.addEditor(new ScintillaNext(QStringLiteral("second.cpp")));
+        host.setStyleSheet(QString::fromUtf8(css)
+            + DockedEditor::tabTitleStyleSheet(
+                QColor(QStringLiteral("#BFBFBF")), QColor(QStringLiteral("#8C8C8C"))));
+        host.show();
+        QCoreApplication::processEvents();
+
+        const QList<ads::CDockWidgetTab *> tabs = host.findChildren<ads::CDockWidgetTab *>();
+        QCOMPARE(tabs.size(), 2);
+        auto inactive = std::find_if(tabs.cbegin(), tabs.cend(), [](const auto *tab) {
+            return !tab->isActiveTab();
+        });
+        QVERIFY(inactive != tabs.cend());
+
+        const QList<ads::CElidingLabel *> labels =
+            (*inactive)->findChildren<ads::CElidingLabel *>();
+        QCOMPARE(labels.size(), 1);
+        labels.first()->ensurePolished();
+        QCOMPARE(labels.first()->palette().color(QPalette::WindowText),
+                 QColor(QStringLiteral("#8C8C8C")));
+    }
+
     void navigationWrapsInBothDirections()
     {
         Navigator navigator;
@@ -73,9 +118,57 @@ private slots:
         dockedEditor.splitToRightOf(secondEditor, thirdEditor);
         QVERIFY(dockedEditor.previousEditor(thirdEditor) == nullptr);
         QCOMPARE(dockedEditor.previousEditor(secondEditor), firstEditor);
-
         const QIcon compareIcon(QStringLiteral(":/icons/git-compare-arrows.svg"));
         QVERIFY(!compareIcon.isNull());
+    }
+
+    void newlyAddedActiveTabCanCompareWithPrevious()
+    {
+        QWidget host;
+        host.resize(900, 600);
+        DockedEditor dockedEditor(&host);
+        auto *firstEditor = new ScintillaNext(QStringLiteral("New 1"));
+        auto *secondEditor = new ScintillaNext(QStringLiteral("New 2"));
+
+        dockedEditor.addEditor(firstEditor);
+        dockedEditor.addEditor(secondEditor);
+        host.show();
+        QCoreApplication::processEvents();
+
+        QCOMPARE(dockedEditor.getCurrentEditor(), secondEditor);
+        QCOMPARE(dockedEditor.previousEditor(dockedEditor.getCurrentEditor()), firstEditor);
+    }
+
+    void darkCompareActionIconUsesThemeColors()
+    {
+        const QColor normal(QStringLiteral("#BFBFBF"));
+        const QColor disabled(QStringLiteral("#555555"));
+        const QIcon icon = ThemedIcon::monochrome(
+            QStringLiteral(":/icons/git-compare-arrows.svg"), normal, disabled);
+
+        QVERIFY(!icon.isNull());
+        auto firstOpaquePixel = [](const QPixmap &pixmap) {
+            const QImage image = pixmap.toImage().convertToFormat(QImage::Format_ARGB32);
+            for (int y = 0; y < image.height(); ++y) {
+                for (int x = 0; x < image.width(); ++x) {
+                    const QColor pixel = image.pixelColor(x, y);
+                    if (pixel.alpha() > 0)
+                        return pixel;
+                }
+            }
+            return QColor();
+        };
+
+        const QColor normalPixel = firstOpaquePixel(icon.pixmap(24, 24, QIcon::Normal));
+        const QColor disabledPixel = firstOpaquePixel(icon.pixmap(24, 24, QIcon::Disabled));
+        QVERIFY(normalPixel.isValid());
+        QVERIFY(disabledPixel.isValid());
+        QCOMPARE(normalPixel.red(), normal.red());
+        QCOMPARE(normalPixel.green(), normal.green());
+        QCOMPARE(normalPixel.blue(), normal.blue());
+        QVERIFY(qAbs(disabledPixel.red() - disabled.red()) <= 8);
+        QVERIFY(qAbs(disabledPixel.green() - disabled.green()) <= 8);
+        QVERIFY(qAbs(disabledPixel.blue() - disabled.blue()) <= 8);
     }
 
     void mapsInsertedRowsToTheirNearestBoundary()
