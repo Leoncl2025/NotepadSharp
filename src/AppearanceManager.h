@@ -124,6 +124,8 @@ private:
     Mode mode;
     EffectiveAppearance effective;
     AppearanceTokens currentTokens;
+    QPalette systemPaletteSnapshot;
+    bool hasSystemPaletteSnapshot = false;
     bool applyingPalette = false;
     bool updatingAppearance = false;
 };

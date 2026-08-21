@@ -193,6 +193,8 @@ void AppearanceManager::restoreSystemPalette()
         QApplication::setPalette(QApplication::style()->standardPalette());
         applyingPalette = false;
     }
+    systemPaletteSnapshot = QApplication::palette();
+    hasSystemPaletteSnapshot = true;
 }
 
 void AppearanceManager::applyApplicationAppearance()
@@ -213,6 +215,12 @@ bool AppearanceManager::eventFilter(QObject *watched, QEvent *event)
 {
     if (event->type() == QEvent::ApplicationPaletteChange
         && mode == Mode::System && !applyingPalette && !updatingAppearance) {
+        const QPalette applicationPalette = QApplication::palette();
+        if (hasSystemPaletteSnapshot && applicationPalette == systemPaletteSnapshot)
+            return QObject::eventFilter(watched, event);
+
+        systemPaletteSnapshot = applicationPalette;
+        hasSystemPaletteSnapshot = true;
         QElapsedTimer total;
         quint64 cycle = 0;
         if (AppearanceTrace::enabled()) {

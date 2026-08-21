@@ -20,6 +20,8 @@ private slots:
     void followsSystemChangesOnlyInSystemMode();
     void systemDarkKeepsSemanticSyntax();
     void ignoresPaletteChangesDuringSynchronousRefresh();
+    void ignoresWidgetPaletteEventsWhenApplicationPaletteIsUnchanged();
+    void refreshesOnceWhenApplicationPaletteChanges();
     void writesOptInPerformanceTrace();
 };
 
@@ -152,6 +154,48 @@ void AppearanceManagerTests::ignoresPaletteChangesDuringSynchronousRefresh()
     QCOMPARE(refreshCount, 1);
     QCOMPARE(manager.requestedMode(), AppearanceManager::Mode::System);
     QCOMPARE(manager.effectiveAppearance(), AppearanceManager::EffectiveAppearance::Light);
+}
+
+void AppearanceManagerTests::ignoresWidgetPaletteEventsWhenApplicationPaletteIsUnchanged()
+{
+    QTemporaryDir directory;
+    ApplicationSettings settings(directory.filePath(QStringLiteral("settings.ini")), QSettings::IniFormat);
+    settings.setAppearance(QStringLiteral("system"));
+    AppearanceManager manager(&settings, [] { return Qt::ColorScheme::Light; });
+    QSignalSpy spy(&manager, &AppearanceManager::effectiveAppearanceChanged);
+    QWidget widget;
+
+    for (int index = 0; index < 5; ++index) {
+        QEvent paletteChange(QEvent::ApplicationPaletteChange);
+        QCoreApplication::sendEvent(&widget, &paletteChange);
+    }
+
+    QCOMPARE(spy.count(), 0);
+}
+
+void AppearanceManagerTests::refreshesOnceWhenApplicationPaletteChanges()
+{
+    QTemporaryDir directory;
+    ApplicationSettings settings(directory.filePath(QStringLiteral("settings.ini")), QSettings::IniFormat);
+    settings.setAppearance(QStringLiteral("system"));
+    AppearanceManager manager(&settings, [] { return Qt::ColorScheme::Light; });
+    QSignalSpy spy(&manager, &AppearanceManager::effectiveAppearanceChanged);
+    QWidget widget;
+    widget.show();
+
+    const QPalette originalPalette = QApplication::palette();
+    QPalette changedPalette = originalPalette;
+    const QColor changedBase = originalPalette.color(QPalette::Base) == Qt::red
+        ? QColor(Qt::blue)
+        : QColor(Qt::red);
+    changedPalette.setColor(QPalette::Base, changedBase);
+    QApplication::setPalette(changedPalette);
+
+    QCOMPARE(spy.count(), 1);
+    QCOMPARE(manager.tokens().surfaceEditor, changedBase);
+
+    QApplication::setPalette(originalPalette);
+    QCOMPARE(spy.count(), 2);
 }
 
 void AppearanceManagerTests::writesOptInPerformanceTrace()
