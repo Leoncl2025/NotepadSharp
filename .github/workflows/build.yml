@@ -61,6 +61,16 @@ jobs:
       - name: Test
         run: ctest --test-dir "${{ env.BUILD_DIR }}" --output-on-failure
 
+      - name: Prepare Source Archive
+        shell: pwsh
+        run: |
+          Remove-Item -Path aqtinstall.log -Force -ErrorAction SilentlyContinue
+          $changes = @(git status --porcelain --untracked-files=all)
+          if ($changes.Count -ne 0) {
+            $changes | ForEach-Object { Write-Host $_ }
+            throw 'The source tree must be clean before packaging.'
+          }
+
       - name: Package Installer and Portable Build
         run: cmake --build "${{ env.BUILD_DIR }}" --target installer_bundle --parallel
 
