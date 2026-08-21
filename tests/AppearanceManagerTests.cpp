@@ -176,6 +176,7 @@ void AppearanceManagerTests::writesOptInPerformanceTrace()
         qputenv("NOTEPADSHARP_APPEARANCE_TRACE", previousTracePath);
 
     QVERIFY(opened);
+    QVERIFY(trace.contains(QStringLiteral("trace-enabled")));
     QVERIFY(trace.contains(QStringLiteral("begin trigger=setting-change requested=dark")));
     QVERIFY(trace.contains(QStringLiteral("begin trigger=setting-change requested=system")));
     QVERIFY(trace.contains(QStringLiteral("component=restore-system-palette")));

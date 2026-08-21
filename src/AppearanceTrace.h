@@ -38,6 +38,23 @@ inline bool enabled()
     return !qEnvironmentVariableIsEmpty("NOTEPADSHARP_APPEARANCE_TRACE");
 }
 
+inline void initialize()
+{
+    if (!enabled())
+        return;
+
+    const QString path = outputPath();
+    QFileInfo(path).dir().mkpath(QStringLiteral("."));
+    QFile file(path);
+    if (file.open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text)) {
+        file.write(QStringLiteral("%1 pid=%2 trace-enabled version=%3\n")
+            .arg(QDateTime::currentDateTime().toString(Qt::ISODateWithMs))
+            .arg(QCoreApplication::applicationPid())
+            .arg(QCoreApplication::applicationVersion()).toUtf8());
+        file.flush();
+    }
+}
+
 inline quint64 beginCycle(const QString &trigger, const QString &details)
 {
     if (!enabled())

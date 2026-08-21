@@ -47,6 +47,7 @@ AppearanceManager::AppearanceManager(ApplicationSettings *settings,
     , mode(modeFromString(settings->appearance()))
     , effective(EffectiveAppearance::Light)
 {
+    AppearanceTrace::initialize();
     if (mode == Mode::System)
         restoreSystemPalette();
     effective = resolveEffectiveAppearance();
