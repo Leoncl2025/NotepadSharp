@@ -28,6 +28,7 @@
 #include "TranslationManager.h"
 #include "ApplicationSettings.h"
 #include "AppearanceManager.h"
+#include "AppearanceTrace.h"
 
 #include "LuaState.h"
 #include "lua.hpp"
@@ -335,10 +336,16 @@ void NotepadSharpApplication::refreshEditorLanguageAppearance(ScintillaNext *edi
 
 void NotepadSharpApplication::refreshEditorAppearance()
 {
-    updateLuaAppearance();
-    luaState->execute("UpdateTheme()");
+    const QList<QPointer<ScintillaNext>> editors = editorManager->getEditors();
+    AppearanceTrace::Scope totalTrace(QStringLiteral("editor-refresh-total"),
+        QStringLiteral("editors=%1").arg(editors.size()));
+    {
+        AppearanceTrace::Scope luaTrace(QStringLiteral("editor-lua-theme"));
+        updateLuaAppearance();
+        luaState->execute("UpdateTheme()");
+    }
 
-    for (ScintillaNext *editor : editorManager->getEditors()) {
+    for (ScintillaNext *editor : editors) {
         editorManager->applyEditorTheme(editor);
         if (editor->languageName.isEmpty())
             editorManager->applyEditorNamedStyles(editor);

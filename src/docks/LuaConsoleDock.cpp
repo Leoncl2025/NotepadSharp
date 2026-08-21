@@ -21,6 +21,7 @@
 #include "ui_LuaConsoleDock.h"
 
 #include "AppearanceManager.h"
+#include "AppearanceTrace.h"
 #include "ScintillaNext.h"
 #include "ILexer.h"
 #include "Lexilla.h"
@@ -186,6 +187,7 @@ LuaConsoleDock::LuaConsoleDock(LuaState *l, AppearanceManager *appearanceManager
     setupStyle(input);
     setupStyle(output);
     connect(appearanceManager, &AppearanceManager::effectiveAppearanceChanged, this, [this]() {
+        AppearanceTrace::Scope trace(QStringLiteral("lua-console"));
         setupStyle(input);
         setupStyle(output);
     });

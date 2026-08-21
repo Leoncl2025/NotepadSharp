@@ -1,6 +1,7 @@
 #include <QSignalSpy>
 #include <QTemporaryDir>
 #include <QEvent>
+#include <QFile>
 #include <QtTest>
 
 #include "AppearanceManager.h"
@@ -19,6 +20,7 @@ private slots:
     void followsSystemChangesOnlyInSystemMode();
     void systemDarkKeepsSemanticSyntax();
     void ignoresPaletteChangesDuringSynchronousRefresh();
+    void writesOptInPerformanceTrace();
 };
 
 void AppearanceManagerTests::parsesOnlyCanonicalWireValues()
@@ -150,6 +152,37 @@ void AppearanceManagerTests::ignoresPaletteChangesDuringSynchronousRefresh()
     QCOMPARE(refreshCount, 1);
     QCOMPARE(manager.requestedMode(), AppearanceManager::Mode::System);
     QCOMPARE(manager.effectiveAppearance(), AppearanceManager::EffectiveAppearance::Light);
+}
+
+void AppearanceManagerTests::writesOptInPerformanceTrace()
+{
+    QTemporaryDir directory;
+    QVERIFY(directory.isValid());
+    const QString tracePath = directory.filePath(QStringLiteral("appearance-trace.log"));
+    const QByteArray previousTracePath = qgetenv("NOTEPADSHARP_APPEARANCE_TRACE");
+    qputenv("NOTEPADSHARP_APPEARANCE_TRACE", tracePath.toUtf8());
+
+    ApplicationSettings settings(directory.filePath(QStringLiteral("settings.ini")), QSettings::IniFormat);
+    AppearanceManager manager(&settings, [] { return Qt::ColorScheme::Light; });
+    manager.setRequestedMode(AppearanceManager::Mode::Dark);
+    manager.setRequestedMode(AppearanceManager::Mode::System);
+
+    QFile traceFile(tracePath);
+    const bool opened = traceFile.open(QIODevice::ReadOnly | QIODevice::Text);
+    const QString trace = opened ? QString::fromUtf8(traceFile.readAll()) : QString();
+    if (previousTracePath.isNull())
+        qunsetenv("NOTEPADSHARP_APPEARANCE_TRACE");
+    else
+        qputenv("NOTEPADSHARP_APPEARANCE_TRACE", previousTracePath);
+
+    QVERIFY(opened);
+    QVERIFY(trace.contains(QStringLiteral("begin trigger=setting-change requested=dark")));
+    QVERIFY(trace.contains(QStringLiteral("begin trigger=setting-change requested=system")));
+    QVERIFY(trace.contains(QStringLiteral("component=restore-system-palette")));
+    QVERIFY(trace.contains(QStringLiteral("component=application-palette")));
+    QVERIFY(trace.contains(QStringLiteral("component=native-windows")));
+    QVERIFY(trace.contains(QStringLiteral("component=synchronous-slots")));
+    QVERIFY(trace.contains(QStringLiteral(" end elapsed-ms=")));
 }
 
 QTEST_MAIN(AppearanceManagerTests)

@@ -54,6 +54,7 @@
 
 #include "NotepadSharpApplication.h"
 #include "AppearanceManager.h"
+#include "AppearanceTrace.h"
 #include "ApplicationSettings.h"
 
 #include "ScintillaNext.h"
@@ -2000,27 +2001,41 @@ void MainWindow::activateEditor(ScintillaNext *editor)
 void MainWindow::applyStyleSheet()
 {
     qInfo(Q_FUNC_INFO);
+    AppearanceTrace::Scope totalTrace(QStringLiteral("stylesheet-total"));
 
     QString sheet;
-    QFile f(":/stylesheets/npp.css");
-    qInfo() << "Loading stylesheet:" << f.fileName();
+    bool hasCustomStyleSheet = false;
+    {
+        AppearanceTrace::Scope readTrace(QStringLiteral("stylesheet-read"));
+        QFile f(":/stylesheets/npp.css");
+        qInfo() << "Loading stylesheet:" << f.fileName();
 
-    f.open(QFile::ReadOnly);
-    sheet = f.readAll();
-    f.close();
+        f.open(QFile::ReadOnly);
+        sheet = f.readAll();
+        f.close();
 
-    // If there is a "custom.css" file where the ini is located, load it as a style sheet addition
-    QString directoryPath = QFileInfo(app->getSettings()->fileName()).absolutePath();
-    QString fullPath = QDir(directoryPath).filePath("custom.css");
-    if (QFile::exists(fullPath)) {
-        QFile custom(fullPath);
-        qInfo() << "Loading stylesheet:" << custom.fileName();
+        // If there is a "custom.css" file where the ini is located, load it as a style sheet addition
+        QString directoryPath = QFileInfo(app->getSettings()->fileName()).absolutePath();
+        QString fullPath = QDir(directoryPath).filePath("custom.css");
+        if (QFile::exists(fullPath)) {
+            hasCustomStyleSheet = true;
+            QFile custom(fullPath);
+            qInfo() << "Loading stylesheet:" << custom.fileName();
 
-        custom.open(QFile::ReadOnly);
-        sheet += custom.readAll();
-        custom.close();
+            custom.open(QFile::ReadOnly);
+            sheet += custom.readAll();
+            custom.close();
+        }
     }
 
+    QString traceDetails;
+    if (AppearanceTrace::enabled()) {
+        traceDetails = QStringLiteral("widgets=%1 bytes=%2 custom-css=%3")
+            .arg(findChildren<QWidget *>().size()).arg(sheet.size())
+            .arg(hasCustomStyleSheet ? QStringLiteral("yes") : QStringLiteral("no"));
+    }
+    AppearanceTrace::Scope repolishTrace(
+        QStringLiteral("stylesheet-repolish"), traceDetails);
     setStyleSheet(sheet);
 }
 

@@ -19,6 +19,7 @@
 
 #include "FocusWatcher.h"
 #include "AppearanceManager.h"
+#include "AppearanceTrace.h"
 #include "QuickFindWidget.h"
 #include "ScintillaNext.h"
 #include "FadingIndicator.h"
@@ -281,6 +282,8 @@ void QuickFindWidget::initializeEditorIndicator()
 
 void QuickFindWidget::applyAppearance()
 {
+    AppearanceTrace::Scope trace(QStringLiteral("quick-find"),
+        QStringLiteral("matches=%1").arg(matches.size()));
     if (editor && indicator >= 0) {
         editor->indicSetFore(
             indicator, AppearanceManager::scintillaColor(appearanceManager->tokens().accentHover));

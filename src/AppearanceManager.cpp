@@ -1,5 +1,6 @@
 #include "AppearanceManager.h"
 
+#include "AppearanceTrace.h"
 #include "ApplicationSettings.h"
 #include "WindowsAppearance.h"
 
@@ -118,8 +119,26 @@ void AppearanceManager::refreshSystemAppearance()
     if (mode != Mode::System)
         return;
 
-    restoreSystemPalette();
+    QElapsedTimer total;
+    quint64 cycle = 0;
+    if (AppearanceTrace::enabled()) {
+        total.start();
+        cycle = AppearanceTrace::beginCycle(
+            QStringLiteral("system-color-scheme"),
+            QStringLiteral("requested=system effective-before=%1 windows=%2")
+                .arg(isDark() ? QStringLiteral("dark") : QStringLiteral("light"))
+                .arg(QApplication::topLevelWidgets().size()));
+    }
+    {
+        AppearanceTrace::Scope trace(QStringLiteral("restore-system-palette"));
+        restoreSystemPalette();
+    }
     updateEffectiveAppearance(true);
+    if (cycle != 0) {
+        AppearanceTrace::endCycle(cycle, total.elapsed(),
+            QStringLiteral("effective-after=%1")
+                .arg(isDark() ? QStringLiteral("dark") : QStringLiteral("light")));
+    }
 }
 
 void AppearanceManager::onAppearanceSettingChanged(const QString &value)
@@ -128,10 +147,28 @@ void AppearanceManager::onAppearanceSettingChanged(const QString &value)
     if (mode == requestedMode)
         return;
 
+    QElapsedTimer total;
+    quint64 cycle = 0;
+    if (AppearanceTrace::enabled()) {
+        total.start();
+        cycle = AppearanceTrace::beginCycle(
+            QStringLiteral("setting-change"),
+            QStringLiteral("requested=%1 previous=%2 effective-before=%3 windows=%4")
+                .arg(modeToString(requestedMode), modeToString(mode),
+                     isDark() ? QStringLiteral("dark") : QStringLiteral("light"))
+                .arg(QApplication::topLevelWidgets().size()));
+    }
     mode = requestedMode;
-    if (mode == Mode::System)
+    if (mode == Mode::System) {
+        AppearanceTrace::Scope trace(QStringLiteral("restore-system-palette"));
         restoreSystemPalette();
+    }
     updateEffectiveAppearance(true);
+    if (cycle != 0) {
+        AppearanceTrace::endCycle(cycle, total.elapsed(),
+            QStringLiteral("effective-after=%1")
+                .arg(isDark() ? QStringLiteral("dark") : QStringLiteral("light")));
+    }
 }
 
 AppearanceManager::EffectiveAppearance AppearanceManager::resolveEffectiveAppearance() const
@@ -175,7 +212,22 @@ bool AppearanceManager::eventFilter(QObject *watched, QEvent *event)
 {
     if (event->type() == QEvent::ApplicationPaletteChange
         && mode == Mode::System && !applyingPalette && !updatingAppearance) {
+        QElapsedTimer total;
+        quint64 cycle = 0;
+        if (AppearanceTrace::enabled()) {
+            total.start();
+            cycle = AppearanceTrace::beginCycle(
+                QStringLiteral("application-palette-change"),
+                QStringLiteral("requested=system effective-before=%1 windows=%2")
+                    .arg(isDark() ? QStringLiteral("dark") : QStringLiteral("light"))
+                    .arg(QApplication::topLevelWidgets().size()));
+        }
         updateEffectiveAppearance(true);
+        if (cycle != 0) {
+            AppearanceTrace::endCycle(cycle, total.elapsed(),
+                QStringLiteral("effective-after=%1")
+                    .arg(isDark() ? QStringLiteral("dark") : QStringLiteral("light")));
+        }
     }
     else if (event->type() == QEvent::Show || event->type() == QEvent::WinIdChange) {
         if (QWidget *widget = qobject_cast<QWidget *>(watched); widget && widget->isWindow())
@@ -204,14 +256,28 @@ void AppearanceManager::updateEffectiveAppearance(bool forceUpdate)
         return;
     QScopedValueRollback<bool> guard(updatingAppearance, true);
 
-    const EffectiveAppearance resolved = resolveEffectiveAppearance();
+    EffectiveAppearance resolved;
+    {
+        AppearanceTrace::Scope trace(QStringLiteral("resolve-effective-appearance"));
+        resolved = resolveEffectiveAppearance();
+    }
     if (effective == resolved && !forceUpdate)
         return;
 
     effective = resolved;
-    applyApplicationAppearance();
-    applyNativeAppearance();
-    emit effectiveAppearanceChanged(effective);
+    {
+        AppearanceTrace::Scope trace(QStringLiteral("application-palette"));
+        applyApplicationAppearance();
+    }
+    {
+        AppearanceTrace::Scope trace(QStringLiteral("native-windows"),
+            QStringLiteral("windows=%1").arg(QApplication::topLevelWidgets().size()));
+        applyNativeAppearance();
+    }
+    {
+        AppearanceTrace::Scope trace(QStringLiteral("synchronous-slots"));
+        emit effectiveAppearanceChanged(effective);
+    }
 }
 
 AppearanceTokens AppearanceManager::darkTokens()

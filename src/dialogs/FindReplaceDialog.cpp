@@ -19,6 +19,7 @@
 
 #include "FindReplaceDialog.h"
 #include "AppearanceManager.h"
+#include "AppearanceTrace.h"
 #include "ApplicationSettings.h"
 #include "ui_FindReplaceDialog.h"
 
@@ -826,6 +827,7 @@ void FindReplaceDialog::showMessage(const QString &message, const QString &color
 
 void FindReplaceDialog::applyAppearance()
 {
+    AppearanceTrace::Scope trace(QStringLiteral("find-replace"));
     const AppearanceTokens &tokens = appearanceManager->tokens();
     QColor statusColor = tokens.stateInformation;
     if (statusColorRole == QStringLiteral("green"))

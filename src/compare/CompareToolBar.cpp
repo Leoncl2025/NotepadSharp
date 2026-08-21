@@ -10,6 +10,7 @@
 #include "CompareToolBar.h"
 
 #include "AppearanceManager.h"
+#include "AppearanceTrace.h"
 #include "CompareSession.h"
 
 #include <QAction>
@@ -181,6 +182,7 @@ CompareToolBar::CompareToolBar(Session *session,
 
 void CompareToolBar::applyAppearance()
 {
+    AppearanceTrace::Scope trace(QStringLiteral("compare-toolbar"));
     const AppearanceTokens &tokens = appearanceTokens();
     setStyleSheet(QStringLiteral(
         "QToolBar#compareToolBar { background: %1; border-top: 1px solid %2; "

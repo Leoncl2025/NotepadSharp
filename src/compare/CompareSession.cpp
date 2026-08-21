@@ -10,6 +10,7 @@
 #include "CompareSession.h"
 
 #include "CompareEngine.h"
+#include "AppearanceTrace.h"
 #include "ScintillaNext.h"
 
 #include <QMetaObject>
@@ -141,6 +142,8 @@ void Session::refreshAppearance()
         return;
     }
 
+    AppearanceTrace::Scope trace(QStringLiteral("compare-overlay"),
+        QStringLiteral("hunks=%1").arg(currentResult.hunks.size()));
     applyingOverlay = true;
     overlay.apply(leftEditor, rightEditor, currentResult.hunks);
     overlay.setCurrent(navigator.current());

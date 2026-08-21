@@ -19,6 +19,7 @@
 
 #include "ApplicationSettings.h"
 #include "AppearanceManager.h"
+#include "AppearanceTrace.h"
 #include "NotepadSharpApplication.h"
 #include "SearchResultHighlighterDelegate.h"
 #include "SearchResultData.h"
@@ -165,6 +166,8 @@ void SearchResultsDock::completeSearch()
 
 void SearchResultsDock::applyAppearance()
 {
+    AppearanceTrace::Scope trace(QStringLiteral("search-results"),
+        QStringLiteral("root-items=%1").arg(ui->treeWidget->topLevelItemCount()));
     for (int index = 0; index < ui->treeWidget->topLevelItemCount(); ++index)
         applyItemAppearance(ui->treeWidget->topLevelItem(index));
     ui->treeWidget->viewport()->update();
