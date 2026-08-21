@@ -50,6 +50,7 @@ private:
         qintptr width = 0;
         qintptr mask = 0;
         qintptr background = 0;
+        bool scrollWidthTracking = false;
         qintptr annotationVisible = 0;
         qintptr annotationStyleOffset = 0;
         QVector<Annotation> annotations;
@@ -59,7 +60,7 @@ private:
         qsizetype visibleLeadingGapLines = 0;
     };
 
-    static MarginState configureEditor(ScintillaNext *editor);
+    static MarginState configureEditor(ScintillaNext *editor, bool suspendScrollWidthTracking);
     static void clearEditor(ScintillaNext *editor, const MarginState &marginState);
     static void addLines(ScintillaNext *editor, qsizetype start, qsizetype count, int marker);
     static void fillInlineRanges(ScintillaNext *editor,

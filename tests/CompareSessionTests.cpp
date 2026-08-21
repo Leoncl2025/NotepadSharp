@@ -14,6 +14,7 @@
 #include "ScintillaNext.h"
 
 #include <QAction>
+#include <QElapsedTimer>
 #include <QFile>
 #include <QIcon>
 #include <QLabel>
@@ -267,6 +268,59 @@ private slots:
         QVERIFY(rightEditor.markerGet(1) & (1 << 14));
         QCOMPARE(leftEditor.annotationLines(0), 1);
         QCOMPARE(rightEditor.getLine(1), QByteArray("beta\n"));
+    }
+
+    void largeImbalancedComparisonRemainsResponsive()
+    {
+        QMainWindow window;
+        auto *splitter = new QSplitter(&window);
+        auto *leftEditor = new ScintillaNext(QStringLiteral("large.json"), splitter);
+        auto *rightEditor = new ScintillaNext(QStringLiteral("empty.json"), splitter);
+        QByteArray leftText("{\n");
+        leftText.reserve(128 * 1024);
+        for (int line = 0; line < 3164; ++line) {
+            leftText.append("  \"payload\": \"");
+            leftText.append(QByteArray::number(line));
+            leftText.append("\",\n");
+        }
+        leftText.append("}\n");
+        leftEditor->setText(leftText.constData());
+        rightEditor->setText("{\n}\n");
+        leftEditor->setScrollWidthTracking(true);
+        rightEditor->setScrollWidthTracking(true);
+        splitter->addWidget(leftEditor);
+        splitter->addWidget(rightEditor);
+        window.setCentralWidget(splitter);
+        window.resize(900, 600);
+        window.show();
+
+        Session session;
+        QElapsedTimer timer;
+        timer.start();
+        session.start(leftEditor, rightEditor);
+        QTRY_COMPARE_WITH_TIMEOUT(session.state(), Session::State::Ready, 5000);
+        const qint64 setupElapsed = timer.elapsed();
+
+        timer.restart();
+        leftEditor->setFirstVisibleLine(3000);
+        QCoreApplication::processEvents();
+        rightEditor->viewport()->repaint();
+        const qint64 repaintElapsed = timer.elapsed();
+
+        qInfo("Large imbalanced Compare session: setup %lld ms, deep repaint %lld ms",
+              setupElapsed,
+              repaintElapsed);
+        QVERIFY2(setupElapsed <= 1000, "Large imbalanced Compare setup exceeded its responsiveness budget.");
+        QVERIFY2(repaintElapsed <= 100, "Large imbalanced Compare repaint exceeded its responsiveness budget.");
+        QCOMPARE(session.differenceCount(), 1);
+        QCOMPARE(session.deletedCount(), 1);
+        QCOMPARE(rightEditor->annotationLines(0), 3164);
+        QVERIFY(leftEditor->scrollWidthTracking());
+        QVERIFY(!rightEditor->scrollWidthTracking());
+
+        session.clear();
+        QVERIFY(leftEditor->scrollWidthTracking());
+        QVERIFY(rightEditor->scrollWidthTracking());
     }
 
     void sessionAlignsUnequalModifiedHunksAndRestoresAnnotations()

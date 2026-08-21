@@ -30,6 +30,7 @@ constexpr int DeletedMarker = 17;
 constexpr int CurrentMarker = 19;
 constexpr int CompareMargin = 3;
 constexpr int CompareMarginWidth = 10;
+constexpr qsizetype MaxScrollWidthTrackedGapLines = 128;
 constexpr int CompareMarkerMask = (1 << AddedBackgroundMarker)
     | (1 << DeletedBackgroundMarker)
     | (1 << AddedMarker)
@@ -127,6 +128,20 @@ private:
 const QString InlineAddedIndicator = QStringLiteral("compare_inline_added");
 const QString InlineDeletedIndicator = QStringLiteral("compare_inline_deleted");
 
+bool hasLargeAnnotationGap(const QVector<DiffHunk> &hunks, bool leftSide)
+{
+    for (const DiffHunk &hunk : hunks) {
+        const qsizetype ownStart = leftSide ? hunk.leftStart : hunk.rightStart;
+        const qsizetype ownCount = leftSide ? hunk.leftCount : hunk.rightCount;
+        const qsizetype otherCount = leftSide ? hunk.rightCount : hunk.leftCount;
+        if (ownStart + ownCount > 0
+            && otherCount - ownCount > MaxScrollWidthTrackedGapLines) {
+            return true;
+        }
+    }
+    return false;
+}
+
 }
 
 void Overlay::apply(ScintillaNext *newLeftEditor,
@@ -137,8 +152,8 @@ void Overlay::apply(ScintillaNext *newLeftEditor,
 
     leftEditor = newLeftEditor;
     rightEditor = newRightEditor;
-    leftMarginState = configureEditor(leftEditor);
-    rightMarginState = configureEditor(rightEditor);
+    leftMarginState = configureEditor(leftEditor, hasLargeAnnotationGap(hunks, true));
+    rightMarginState = configureEditor(rightEditor, hasLargeAnnotationGap(hunks, false));
 
     for (const DiffHunk &hunk : hunks) {
         if (hunk.kind == ChangeKind::Added) {
@@ -253,7 +268,8 @@ void Overlay::setLeadingGapVisibleLines(ScintillaNext *editor, qsizetype visible
         static_cast<int>(state->visibleLeadingGapLines));
 }
 
-Overlay::MarginState Overlay::configureEditor(ScintillaNext *editor)
+Overlay::MarginState Overlay::configureEditor(ScintillaNext *editor,
+                                               bool suspendScrollWidthTracking)
 {
     if (editor == nullptr) {
         return {};
@@ -265,9 +281,14 @@ Overlay::MarginState Overlay::configureEditor(ScintillaNext *editor)
     marginState.width = editor->marginWidthN(CompareMargin);
     marginState.mask = editor->marginMaskN(CompareMargin);
     marginState.background = editor->marginBackN(CompareMargin);
+    marginState.scrollWidthTracking = editor->scrollWidthTracking();
     marginState.annotationVisible = editor->annotationVisible();
     marginState.annotationStyleOffset = editor->annotationStyleOffset();
     marginState.viewportMargins = editor->contentViewportMargins();
+
+    if (suspendScrollWidthTracking) {
+        editor->setScrollWidthTracking(false);
+    }
 
     editor->markerDefine(AnnotationAnchorMarker, SC_MARK_EMPTY);
 
@@ -383,6 +404,7 @@ void Overlay::clearEditor(ScintillaNext *editor, const MarginState &marginState)
         editor->setMarginWidthN(CompareMargin, marginState.width);
         editor->setMarginMaskN(CompareMargin, marginState.mask);
         editor->setMarginBackN(CompareMargin, marginState.background);
+        editor->setScrollWidthTracking(marginState.scrollWidthTracking);
         editor->annotationSetStyleOffset(marginState.annotationStyleOffset);
         editor->annotationSetVisible(marginState.annotationVisible);
         for (const MarginState::Annotation &annotation : marginState.annotations) {
