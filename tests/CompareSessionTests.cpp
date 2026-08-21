@@ -12,6 +12,7 @@
 #include "CompareToolBar.h"
 #include "DockedEditor.h"
 #include "ScintillaNext.h"
+#include "ThemedIcon.h"
 
 #include "DockWidgetTab.h"
 #include "ElidingLabel.h"
@@ -117,9 +118,57 @@ private slots:
         dockedEditor.splitToRightOf(secondEditor, thirdEditor);
         QVERIFY(dockedEditor.previousEditor(thirdEditor) == nullptr);
         QCOMPARE(dockedEditor.previousEditor(secondEditor), firstEditor);
-
         const QIcon compareIcon(QStringLiteral(":/icons/git-compare-arrows.svg"));
         QVERIFY(!compareIcon.isNull());
+    }
+
+    void newlyAddedActiveTabCanCompareWithPrevious()
+    {
+        QWidget host;
+        host.resize(900, 600);
+        DockedEditor dockedEditor(&host);
+        auto *firstEditor = new ScintillaNext(QStringLiteral("New 1"));
+        auto *secondEditor = new ScintillaNext(QStringLiteral("New 2"));
+
+        dockedEditor.addEditor(firstEditor);
+        dockedEditor.addEditor(secondEditor);
+        host.show();
+        QCoreApplication::processEvents();
+
+        QCOMPARE(dockedEditor.getCurrentEditor(), secondEditor);
+        QCOMPARE(dockedEditor.previousEditor(dockedEditor.getCurrentEditor()), firstEditor);
+    }
+
+    void darkCompareActionIconUsesThemeColors()
+    {
+        const QColor normal(QStringLiteral("#BFBFBF"));
+        const QColor disabled(QStringLiteral("#555555"));
+        const QIcon icon = ThemedIcon::monochrome(
+            QStringLiteral(":/icons/git-compare-arrows.svg"), normal, disabled);
+
+        QVERIFY(!icon.isNull());
+        auto firstOpaquePixel = [](const QPixmap &pixmap) {
+            const QImage image = pixmap.toImage().convertToFormat(QImage::Format_ARGB32);
+            for (int y = 0; y < image.height(); ++y) {
+                for (int x = 0; x < image.width(); ++x) {
+                    const QColor pixel = image.pixelColor(x, y);
+                    if (pixel.alpha() > 0)
+                        return pixel;
+                }
+            }
+            return QColor();
+        };
+
+        const QColor normalPixel = firstOpaquePixel(icon.pixmap(24, 24, QIcon::Normal));
+        const QColor disabledPixel = firstOpaquePixel(icon.pixmap(24, 24, QIcon::Disabled));
+        QVERIFY(normalPixel.isValid());
+        QVERIFY(disabledPixel.isValid());
+        QCOMPARE(normalPixel.red(), normal.red());
+        QCOMPARE(normalPixel.green(), normal.green());
+        QCOMPARE(normalPixel.blue(), normal.blue());
+        QVERIFY(qAbs(disabledPixel.red() - disabled.red()) <= 8);
+        QVERIFY(qAbs(disabledPixel.green() - disabled.green()) <= 8);
+        QVERIFY(qAbs(disabledPixel.blue() - disabled.blue()) <= 8);
     }
 
     void mapsInsertedRowsToTheirNearestBoundary()

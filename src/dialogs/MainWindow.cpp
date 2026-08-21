@@ -96,6 +96,7 @@
 #include "FadingIndicator.h"
 
 #include "ActionUtils.h"
+#include "ThemedIcon.h"
 
 
 MainWindow::MainWindow(NotepadSharpApplication *app) :
@@ -130,8 +131,11 @@ MainWindow::MainWindow(NotepadSharpApplication *app) :
     QMenu *compareMenu = new QMenu(tr("&Compare"), this);
     ui->menuBar->insertMenu(ui->menuSettings->menuAction(), compareMenu);
 
+    const AppearanceTokens &appearanceTokens = app->getAppearanceManager()->tokens();
     comparePreviousAction = new QAction(
-        QIcon(QStringLiteral(":/icons/git-compare-arrows.svg")),
+        ThemedIcon::monochrome(QStringLiteral(":/icons/git-compare-arrows.svg"),
+                              appearanceTokens.textPrimary,
+                              appearanceTokens.textDisabled),
         tr("Compare with Previous Tab"),
         this);
     comparePreviousAction->setObjectName(QStringLiteral("actionComparePrevious"));
@@ -2015,6 +2019,11 @@ void MainWindow::applyStyleSheet()
         f.close();
 
         const AppearanceTokens &tokens = app->getAppearanceManager()->tokens();
+        if (comparePreviousAction) {
+            comparePreviousAction->setIcon(ThemedIcon::monochrome(
+                QStringLiteral(":/icons/git-compare-arrows.svg"),
+                tokens.textPrimary, tokens.textDisabled));
+        }
         sheet += DockedEditor::tabTitleStyleSheet(tokens.textPrimary, tokens.textSecondary);
 
         // If there is a "custom.css" file where the ini is located, load it as a style sheet addition
