@@ -28,8 +28,6 @@ BookMarkDecorator::BookMarkDecorator(ScintillaNext *editor) :
 {
     editor->markerSetAlpha(MARK_BOOKMARK, 70);
     editor->markerDefine(MARK_BOOKMARK, SC_MARK_BOOKMARK);
-    editor->markerSetFore(MARK_BOOKMARK, 0xFF2020);
-    editor->markerSetBack(MARK_BOOKMARK, 0xFF2020);
 
     const int mask = editor->marginMaskN(MARGIN);
     editor->setMarginMaskN(MARGIN, (1 << MARK_BOOKMARK) | mask);

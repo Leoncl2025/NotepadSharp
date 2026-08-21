@@ -40,6 +40,11 @@ ApplicationSettings::ApplicationSettings(QObject *parent)
 {
 }
 
+ApplicationSettings::ApplicationSettings(const QString &fileName, QSettings::Format format, QObject *parent)
+    : QSettings{fileName, format, parent}
+{
+}
+
 CREATE_SETTING(Gui, ShowMenuBar, showMenuBar, bool, true)
 CREATE_SETTING(Gui, ShowToolBar, showToolBar, bool, true)
 CREATE_SETTING(Gui, ShowTabBar, showTabBar, bool, true)
@@ -59,6 +64,8 @@ CREATE_SETTING(App, DefaultDirectoryBehavior, defaultDirectoryBehavior, Applicat
 CREATE_SETTING(App, DefaultDirectory, defaultDirectory, QString, QString())
 
 CREATE_SETTING(App, Translation, translation, QString, QStringLiteral(""))
+
+CREATE_SETTING(Gui, Appearance, appearance, QString, QStringLiteral("light"))
 
 CREATE_SETTING(Editor, ShowWhitespace, showWhitespace, bool, false);
 CREATE_SETTING(Editor, ShowEndOfLine, showEndOfLine, bool, false);

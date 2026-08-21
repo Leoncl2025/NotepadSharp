@@ -48,9 +48,7 @@ public:
         QFont font = m_label->font();
         font.setPixelSize(size == FadingIndicator::LargeText ? 30 : 18);
         m_label->setFont(font);
-        QPalette pal = palette();
-        pal.setColor(QPalette::WindowText, pal.color(QPalette::Window));
-        m_label->setPalette(pal);
+        m_label->setForegroundRole(QPalette::ToolTipText);
         auto layout = new QHBoxLayout;
         setLayout(layout);
         layout->addWidget(m_label);
@@ -101,8 +99,8 @@ protected:
         if (!m_pixmap.isNull()) {
             p.drawPixmap(rect(), m_pixmap);
         } else {
-            p.setBrush(palette().color(QPalette::WindowText));
-            p.setPen(Qt::NoPen);
+            p.setBrush(palette().color(QPalette::ToolTipBase));
+            p.setPen(palette().color(QPalette::Mid));
             p.drawRoundedRect(rect(), 15, 15);
         }
     }

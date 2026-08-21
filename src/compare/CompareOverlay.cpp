@@ -9,6 +9,7 @@
 
 #include "CompareOverlay.h"
 
+#include "AppearanceManager.h"
 #include "ScintillaNext.h"
 
 #include <QEvent>
@@ -37,25 +38,68 @@ constexpr int CompareMarkerMask = (1 << AddedBackgroundMarker)
     | (1 << DeletedMarker)
     | (1 << CurrentMarker);
 
-constexpr int AddedColor = 0xC7E4B7;
-constexpr int DeletedColor = 0xC1C1F7;
-constexpr int InlineAddedColor = 0x9CCC9C;
-constexpr int InlineDeletedColor = 0x8B8BE5;
-constexpr int CurrentColor = 0xE97D2E;
-constexpr int CompareMarginBackground = 0xF2F2F2;
-constexpr int GapBackground = 0xF4F4F4;
-constexpr int GapForeground = 0xD7D7D7;
 constexpr auto AnnotationStyleProperty = "compareAnnotationStyle";
+
+struct CompareColors
+{
+    QColor addedMarker;
+    QColor deletedMarker;
+    QColor addedFill;
+    QColor deletedFill;
+    QColor current;
+    QColor currentForeground;
+    QColor marginBackground;
+    QColor gapBackground;
+    QColor gapForeground;
+};
+
+int scintillaColor(const QColor &color)
+{
+    return color.red() | (color.green() << 8) | (color.blue() << 16);
+}
+
+CompareColors compareColors(AppearanceManager *appearanceManager)
+{
+    if (appearanceManager) {
+        const AppearanceTokens &tokens = appearanceManager->tokens();
+        return {
+            tokens.diffAddedMarker,
+            tokens.diffDeletedMarker,
+            tokens.diffAddedFill,
+            tokens.diffDeletedFill,
+            tokens.accentPrimary,
+            tokens.textPrimary,
+            tokens.surfaceShell,
+            tokens.surfaceRaised,
+            tokens.borderDefault,
+        };
+    }
+
+    return {
+        QColor(QStringLiteral("#2F9E44")),
+        QColor(QStringLiteral("#E03131")),
+        QColor(47, 158, 68, 38),
+        QColor(224, 49, 49, 38),
+        QColor(QStringLiteral("#E97D2E")),
+        QColor(QStringLiteral("#FFFFFF")),
+        QColor(QStringLiteral("#F2F2F2")),
+        QColor(QStringLiteral("#F4F4F4")),
+        QColor(QStringLiteral("#D7D7D7")),
+    };
+}
 
 class TopGapWidget : public QWidget
 {
 public:
-    TopGapWidget(ScintillaNext *editor, QMargins baseMargins, int lineCount, int lineHeight) :
+    TopGapWidget(ScintillaNext *editor, QMargins baseMargins, int lineCount, int lineHeight,
+                 QColor background, QColor foreground) :
         QWidget(editor),
         editor(editor),
         baseMargins(baseMargins),
         lineCount(lineCount),
-        lineHeight(lineHeight)
+        lineHeight(lineHeight),
+        background(background),
+        foreground(foreground)
     {
         setAttribute(Qt::WA_TransparentForMouseEvents);
         setProperty("compareGapLineCount", lineCount);
@@ -94,12 +138,14 @@ protected:
     void paintEvent(QPaintEvent *) override
     {
         QPainter painter(this);
-        painter.fillRect(rect(), QColor(244, 244, 244));
-        painter.setPen(QColor(215, 215, 215));
+        painter.fillRect(rect(), background);
+        painter.setPen(foreground);
         for (int x = -height(); x < width(); x += 8) {
             painter.drawLine(x, height(), x + height(), 0);
         }
-        painter.setPen(QColor(232, 232, 232));
+        QColor separator = foreground;
+        separator.setAlpha(110);
+        painter.setPen(separator);
         for (int line = 1; line < lineCount; ++line) {
             painter.drawLine(0, line * lineHeight, width(), line * lineHeight);
         }
@@ -123,6 +169,8 @@ private:
     QMargins baseMargins;
     int lineCount;
     int lineHeight;
+    QColor background;
+    QColor foreground;
 };
 
 const QString InlineAddedIndicator = QStringLiteral("compare_inline_added");
@@ -142,6 +190,11 @@ bool hasLargeAnnotationGap(const QVector<DiffHunk> &hunks, bool leftSide)
     return false;
 }
 
+}
+
+Overlay::Overlay(AppearanceManager *appearanceManager) :
+    appearanceManager(appearanceManager)
+{
 }
 
 void Overlay::apply(ScintillaNext *newLeftEditor,
@@ -275,6 +328,7 @@ Overlay::MarginState Overlay::configureEditor(ScintillaNext *editor,
         return {};
     }
 
+    const CompareColors colors = compareColors(appearanceManager);
     MarginState marginState;
     marginState.editor = editor;
     marginState.type = editor->marginTypeN(CompareMargin);
@@ -309,7 +363,7 @@ Overlay::MarginState Overlay::configureEditor(ScintillaNext *editor,
     editor->setMarginTypeN(CompareMargin, SC_MARGIN_SYMBOL);
     editor->setMarginWidthN(CompareMargin, CompareMarginWidth);
     editor->setMarginMaskN(CompareMargin, CompareMarkerMask);
-    editor->setMarginBackN(CompareMargin, CompareMarginBackground);
+    editor->setMarginBackN(CompareMargin, scintillaColor(colors.marginBackground));
 
     editor->annotationClearAll();
 
@@ -327,47 +381,47 @@ Overlay::MarginState Overlay::configureEditor(ScintillaNext *editor,
     }
     editor->styleSetSizeFractional(annotationStyle, editor->styleSizeFractional(STYLE_DEFAULT));
     editor->styleSetWeight(annotationStyle, editor->styleWeight(STYLE_DEFAULT));
-    editor->styleSetFore(annotationStyle, GapForeground);
-    editor->styleSetBack(annotationStyle, GapBackground);
+    editor->styleSetFore(annotationStyle, scintillaColor(colors.gapForeground));
+    editor->styleSetBack(annotationStyle, scintillaColor(colors.gapBackground));
     editor->styleSetEOLFilled(annotationStyle, true);
     editor->annotationSetStyleOffset(annotationStyle);
     editor->annotationSetVisible(ANNOTATION_STANDARD);
 
-    auto configureBackgroundMarker = [editor](int marker, int color) {
+    auto configureBackgroundMarker = [editor](int marker, const QColor &color) {
         editor->markerDefine(marker, SC_MARK_BACKGROUND);
-        editor->markerSetBack(marker, color);
+        editor->markerSetBack(marker, scintillaColor(color));
         editor->markerSetLayer(marker, SC_LAYER_UNDER_TEXT);
-        editor->markerSetAlpha(marker, 150);
+        editor->markerSetAlpha(marker, color.alpha());
     };
-    configureBackgroundMarker(AddedBackgroundMarker, AddedColor);
-    configureBackgroundMarker(DeletedBackgroundMarker, DeletedColor);
+    configureBackgroundMarker(AddedBackgroundMarker, colors.addedFill);
+    configureBackgroundMarker(DeletedBackgroundMarker, colors.deletedFill);
 
     editor->markerDefine(AddedMarker, SC_MARK_FULLRECT);
-    editor->markerSetFore(AddedMarker, AddedColor);
-    editor->markerSetBack(AddedMarker, AddedColor);
+    editor->markerSetFore(AddedMarker, scintillaColor(colors.addedMarker));
+    editor->markerSetBack(AddedMarker, scintillaColor(colors.addedMarker));
 
     editor->markerDefine(DeletedMarker, SC_MARK_FULLRECT);
-    editor->markerSetFore(DeletedMarker, DeletedColor);
-    editor->markerSetBack(DeletedMarker, DeletedColor);
+    editor->markerSetFore(DeletedMarker, scintillaColor(colors.deletedMarker));
+    editor->markerSetBack(DeletedMarker, scintillaColor(colors.deletedMarker));
 
     editor->markerDefine(CurrentMarker, SC_MARK_SHORTARROW);
-    editor->markerSetFore(CurrentMarker, 0xFFFFFF);
-    editor->markerSetBack(CurrentMarker, CurrentColor);
+    editor->markerSetFore(CurrentMarker, scintillaColor(colors.currentForeground));
+    editor->markerSetBack(CurrentMarker, scintillaColor(colors.current));
 
-    auto configureInlineIndicator = [editor](const QString &name, int color) {
+    auto configureInlineIndicator = [editor](const QString &name, const QColor &color) {
         const int indicator = editor->allocateIndicator(name);
         editor->indicSetStyle(indicator, INDIC_FULLBOX);
-        editor->indicSetFore(indicator, color);
-        editor->indicSetAlpha(indicator, 230);
+        editor->indicSetFore(indicator, scintillaColor(color));
+        editor->indicSetAlpha(indicator, 110);
         editor->indicSetOutlineAlpha(indicator, 90);
         editor->indicSetUnder(indicator, true);
     };
-    configureInlineIndicator(InlineAddedIndicator, InlineAddedColor);
-    configureInlineIndicator(InlineDeletedIndicator, InlineDeletedColor);
+    configureInlineIndicator(InlineAddedIndicator, colors.addedMarker);
+    configureInlineIndicator(InlineDeletedIndicator, colors.deletedMarker);
 
     const int indicator = editor->allocateIndicator(QStringLiteral("compare_current"));
     editor->indicSetStyle(indicator, INDIC_STRAIGHTBOX);
-    editor->indicSetFore(indicator, CurrentColor);
+    editor->indicSetFore(indicator, scintillaColor(colors.current));
     editor->indicSetAlpha(indicator, 0);
     editor->indicSetOutlineAlpha(indicator, 220);
     editor->indicSetUnder(indicator, false);
@@ -512,8 +566,10 @@ void Overlay::addLeadingGap(ScintillaNext *editor, MarginState &marginState, qsi
     const int lineHeight = std::max(1, static_cast<int>(editor->textHeight(0)));
     marginState.leadingGapLines = totalCount;
     marginState.visibleLeadingGapLines = totalCount;
+    const CompareColors colors = compareColors(appearanceManager);
     marginState.topGapWidget = new TopGapWidget(
-        editor, marginState.viewportMargins, totalCount, lineHeight);
+        editor, marginState.viewportMargins, totalCount, lineHeight,
+        colors.gapBackground, colors.gapForeground);
 }
 
 void Overlay::setCurrentMarker(ScintillaNext *editor, qsizetype line)

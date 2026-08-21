@@ -25,6 +25,7 @@
 
 
 class ApplicationSettings;
+class AppearanceManager;
 class ScintillaNext;
 
 class EditorManager : public QObject
@@ -32,7 +33,8 @@ class EditorManager : public QObject
     Q_OBJECT
 
 public:
-    explicit EditorManager(ApplicationSettings *settings, QObject *parent = nullptr);
+    explicit EditorManager(ApplicationSettings *settings, AppearanceManager *appearanceManager,
+                           QObject *parent = nullptr);
 
     ScintillaNext *createEditor(const QString &name);
     ScintillaNext *createEditorFromFile(const QString &filePath, bool tryToCreate=false);
@@ -40,6 +42,10 @@ public:
     ScintillaNext *getEditorByFilePath(const QString &filePath);
 
     void manageEditor(ScintillaNext *editor);
+    void applyEditorTheme(ScintillaNext *editor);
+    void applyEditorNamedStyles(ScintillaNext *editor);
+    void applyAppearanceToAllEditors();
+    QList<QPointer<ScintillaNext>> getEditors();
 
 signals:
     void editorCreated(ScintillaNext *editor);
@@ -48,11 +54,11 @@ signals:
 private:
     void setupEditor(ScintillaNext *editor);
     void purgeOldEditorPointers();
-    QList<QPointer<ScintillaNext>> getEditors();
     int detectEOLMode(ScintillaNext *editor) const;
 
     QList<QPointer<ScintillaNext>> editors;
     ApplicationSettings *settings;
+    AppearanceManager *appearanceManager;
 };
 
 #endif // EDITORMANAGER_H

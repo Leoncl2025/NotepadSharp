@@ -9,6 +9,8 @@
 
 #pragma once
 
+#include "AppearanceManager.h"
+
 #include <QToolBar>
 
 class QAction;
@@ -30,11 +32,24 @@ public:
                    QAction *cancelAction,
                    QAction *clearAction,
                    QWidget *parent = nullptr);
+    CompareToolBar(Session *session,
+                   AppearanceManager *appearanceManager,
+                   QAction *previousAction,
+                   QAction *nextAction,
+                   QAction *refreshAction,
+                   QAction *cancelAction,
+                   QAction *clearAction,
+                   QWidget *parent = nullptr);
+
+    void applyAppearance();
 
 private:
+    const AppearanceTokens &appearanceTokens() const;
     void updateState();
 
     Session *session;
+    AppearanceManager *appearanceManager;
+    AppearanceTokens fallbackTokens;
     QAction *previousAction;
     QAction *nextAction;
     QAction *refreshAction;

@@ -10,6 +10,7 @@
 #include "CompareSession.h"
 
 #include "CompareEngine.h"
+#include "AppearanceTrace.h"
 #include "ScintillaNext.h"
 
 #include <QMetaObject>
@@ -21,7 +22,13 @@ namespace Compare
 {
 
 Session::Session(QObject *parent) :
-    QObject(parent)
+    Session(nullptr, parent)
+{
+}
+
+Session::Session(AppearanceManager *appearanceManager, QObject *parent) :
+    QObject(parent),
+    overlay(appearanceManager)
 {
     workerPool.setMaxThreadCount(1);
     workerPool.setExpiryTimeout(-1);
@@ -127,6 +134,20 @@ void Session::nextDifference()
 void Session::previousDifference()
 {
     navigateTo(navigator.previous());
+}
+
+void Session::refreshAppearance()
+{
+    if (currentState != State::Ready || !hasPair()) {
+        return;
+    }
+
+    AppearanceTrace::Scope trace(QStringLiteral("compare-overlay"),
+        QStringLiteral("hunks=%1").arg(currentResult.hunks.size()));
+    applyingOverlay = true;
+    overlay.apply(leftEditor, rightEditor, currentResult.hunks);
+    overlay.setCurrent(navigator.current());
+    applyingOverlay = false;
 }
 
 void Session::beginComputation()

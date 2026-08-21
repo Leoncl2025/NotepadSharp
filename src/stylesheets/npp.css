@@ -1,17 +1,90 @@
 QStatusBar {
-    border-top: 1px solid darkgray;
+    border-top: 1px solid palette(mid);
+}
+
+QMenuBar, QMenu {
+    background: palette(window);
+    color: palette(window-text);
+}
+
+QMenuBar::item:selected, QMenu::item:selected {
+    background: palette(highlight);
+    color: palette(highlighted-text);
+}
+
+QMenu::separator {
+    background: palette(mid);
+}
+
+QToolTip {
+    background: palette(tool-tip-base);
+    color: palette(tool-tip-text);
+    border: 1px solid palette(mid);
+}
+
+QLineEdit, QComboBox, QSpinBox, QDoubleSpinBox, QTextEdit, QPlainTextEdit,
+QListView, QTreeView, QTableView {
+    background: palette(base);
+    color: palette(text);
+    border: 1px solid palette(mid);
+    selection-background-color: palette(highlight);
+    selection-color: palette(highlighted-text);
+}
+
+QComboBox::drop-down, QSpinBox::up-button, QSpinBox::down-button,
+QDoubleSpinBox::up-button, QDoubleSpinBox::down-button {
+    background: palette(button);
+    border-left: 1px solid palette(mid);
+}
+
+QComboBox QAbstractItemView {
+    background: palette(base);
+    color: palette(text);
+    selection-background-color: palette(highlight);
+    selection-color: palette(highlighted-text);
+}
+
+QPushButton {
+    background: palette(button);
+    color: palette(button-text);
+    border: 1px solid palette(mid);
+}
+
+QPushButton:hover {
+    background: palette(alternate-base);
+}
+
+QPushButton:pressed {
+    background: palette(highlight);
+    color: palette(highlighted-text);
+}
+
+QCheckBox, QRadioButton, QGroupBox, QLabel {
+    color: palette(window-text);
+}
+
+QCheckBox:disabled, QRadioButton:disabled, QGroupBox:disabled, QLabel:disabled,
+QLineEdit:disabled, QComboBox:disabled, QSpinBox:disabled,
+QDoubleSpinBox:disabled, QPushButton:disabled {
+    color: palette(placeholder-text);
+}
+
+QHeaderView::section {
+    background: palette(button);
+    color: palette(button-text);
+    border: 1px solid palette(mid);
 }
 
 ads--CDockWidgetTab ads--CElidingLabel {
-    color : black;
+    color: palette(window-text);
 }
 
 ads--CDockWidgetTab {
-    background: rgb(192, 192, 192);
+    background: palette(window);
     margin-top: 2px;
-    border-left: 1px solid white;
-    border-top: 2px solid white;
-    border-right: 2px solid gray;
+    border-left: 1px solid palette(midlight);
+    border-top: 2px solid palette(midlight);
+    border-right: 2px solid palette(mid);
     padding: 2px 2px 0px 2px;
     border-top-left-radius: 2px;
     border-top-right-radius: 2px;
@@ -19,38 +92,38 @@ ads--CDockWidgetTab {
 
 ads--CDockWidgetTab[activeTab="true"]
 {
-    background: rgb(240, 240, 240);
-    border-top: 4px solid rgb(255, 202, 176);
+    background: palette(base);
+    border-top: 4px solid palette(highlight);
     padding-bottom: 2px;
     margin-top: 1px;
 }
 
 ads--CDockWidgetTab[focused="true"]
 {
-    background: rgb(240, 240, 240);
-    border-top: 4px solid orange;
+    background: palette(base);
+    border-top: 4px solid palette(highlight);
     padding-bottom: 2px;
     margin-top: 1px;
 }
 
 ads--CDockWidgetTab:hover[activeTab="false"] {
-    background: rgb(210, 210, 210);
+    background: palette(alternate-base);
 }
 
 ads--CDockAreaTitleBar
 {
     background: transparent;
-    border-bottom: 1px solid darkgray;
+    border-bottom: 1px solid palette(mid);
     padding-bottom: 0px;
 }
 
 ads--CDockWidgetTab[activeTab="false"] QLabel {
-    color: gray;
+    color: palette(placeholder-text);
 }
 
 #tabCloseButton
 {
-    background: rgba(0, 0, 0, 16);
+    background: transparent;
     margin-bottom: 1px;
     margin-left: 4px;
     border: none;
@@ -59,19 +132,47 @@ ads--CDockWidgetTab[activeTab="false"] QLabel {
 
 #tabCloseButton:hover
 {
-    border: 1px solid rgba(0, 0, 0, 32);
-    background-color: rgb(251, 115, 115);
-    color: green;
+    border: 1px solid palette(mid);
+    background-color: palette(alternate-base);
+    color: palette(window-text);
 }
 
 #tabCloseButton:pressed
 {
-    background: red;
+    background: palette(highlight);
 }
 
 #QuickFindWidget {
-    border-left: 1px solid darkgray;
-    border-right: 1px solid darkgray;
-    border-bottom: 3px solid blue;
+    border-left: 1px solid palette(mid);
+    border-right: 1px solid palette(mid);
+    border-bottom: 3px solid palette(highlight);
     background: palette(window);
+}
+
+QScrollBar:horizontal, QScrollBar:vertical {
+    background: palette(window);
+    border: none;
+}
+
+QScrollBar::handle:horizontal, QScrollBar::handle:vertical {
+    background: palette(mid);
+    min-width: 28px;
+    min-height: 28px;
+}
+
+QScrollBar::handle:hover {
+    background: palette(placeholder-text);
+}
+
+QScrollBar::add-line, QScrollBar::sub-line {
+    background: palette(button);
+    border: 1px solid palette(mid);
+}
+
+QScrollBar::add-page, QScrollBar::sub-page {
+    background: transparent;
+}
+
+QLineEdit[validationError="true"] {
+    border: 2px solid palette(bright-text);
 }

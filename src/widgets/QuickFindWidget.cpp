@@ -18,6 +18,8 @@
 
 
 #include "FocusWatcher.h"
+#include "AppearanceManager.h"
+#include "AppearanceTrace.h"
 #include "QuickFindWidget.h"
 #include "ScintillaNext.h"
 #include "FadingIndicator.h"
@@ -28,9 +30,10 @@
 #include <QShortcut>
 #include <QScrollBar>
 
-QuickFindWidget::QuickFindWidget(QWidget *parent) :
+QuickFindWidget::QuickFindWidget(AppearanceManager *appearanceManager, QWidget *parent) :
     QFrame(parent),
-    ui(new Ui::QuickFindWidget)
+    ui(new Ui::QuickFindWidget),
+    appearanceManager(appearanceManager)
 {
     ui->setupUi(this);
 
@@ -50,6 +53,8 @@ QuickFindWidget::QuickFindWidget(QWidget *parent) :
     connect(ui->buttonMatchCase, &QToolButton::toggled, this, &QuickFindWidget::performNewSearch);
     connect(ui->buttonWholeWord, &QToolButton::toggled, this, &QuickFindWidget::performNewSearch);
     connect(ui->buttonRegexp, &QToolButton::toggled, this, &QuickFindWidget::performNewSearch);
+        connect(appearanceManager, &AppearanceManager::effectiveAppearanceChanged,
+            this, &QuickFindWidget::applyAppearance);
 }
 
 QuickFindWidget::~QuickFindWidget()
@@ -103,12 +108,12 @@ bool QuickFindWidget::eventFilter(QObject *obj, QEvent *event)
 
 void QuickFindWidget::setSearchContextColorBad()
 {
-    setSearchContextColor(QStringLiteral("red"));
+    setSearchContextColor(appearanceManager->tokens().stateError);
 }
 
 void QuickFindWidget::setSearchContextColorGood()
 {
-    setSearchContextColor(QStringLiteral("blue"));
+    setSearchContextColor(appearanceManager->tokens().accentPrimary);
 }
 
 void QuickFindWidget::performNewSearch()
@@ -257,20 +262,37 @@ int QuickFindWidget::computeSearchFlags() const
     return searchFlags;
 }
 
-void QuickFindWidget::setSearchContextColor(const QString &color)
+void QuickFindWidget::setSearchContextColor(const QColor &color)
 {
-    ui->lineEdit->setStyleSheet(QStringLiteral("border: 1px solid %1; padding: 2px;").arg(color));
+    ui->lineEdit->setStyleSheet(QStringLiteral("border: 1px solid %1; padding: 2px;")
+                                    .arg(color.name(QColor::HexRgb)));
 }
 
 void QuickFindWidget::initializeEditorIndicator()
 {
     indicator = editor->allocateIndicator(QStringLiteral("quick_find"));
 
-    editor->indicSetFore(indicator, 0xFF8000);
+    editor->indicSetFore(indicator,
+                         AppearanceManager::scintillaColor(appearanceManager->tokens().accentHover));
     editor->indicSetStyle(indicator, INDIC_FULLBOX);
     editor->indicSetOutlineAlpha(indicator, 150);
     editor->indicSetAlpha(indicator, 50);
     editor->indicSetUnder(indicator, true);
+}
+
+void QuickFindWidget::applyAppearance()
+{
+    AppearanceTrace::Scope trace(QStringLiteral("quick-find"),
+        QStringLiteral("matches=%1").arg(matches.size()));
+    if (editor && indicator >= 0) {
+        editor->indicSetFore(
+            indicator, AppearanceManager::scintillaColor(appearanceManager->tokens().accentHover));
+    }
+
+    if (!searchText().isEmpty() && matches.isEmpty())
+        setSearchContextColorBad();
+    else
+        setSearchContextColorGood();
 }
 
 QString QuickFindWidget::searchText() const

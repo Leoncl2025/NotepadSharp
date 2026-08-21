@@ -9,17 +9,50 @@
 
 #include "CompareToolBar.h"
 
+#include "AppearanceManager.h"
+#include "AppearanceTrace.h"
 #include "CompareSession.h"
 
 #include <QAction>
+#include <QApplication>
 #include <QHBoxLayout>
 #include <QLabel>
+#include <QPainter>
 #include <QSizePolicy>
 
 #include <algorithm>
 
 namespace Compare
 {
+
+namespace
+{
+
+QString cssColor(const QColor &color)
+{
+    return QStringLiteral("rgba(%1, %2, %3, %4)")
+        .arg(color.red())
+        .arg(color.green())
+        .arg(color.blue())
+        .arg(color.alpha());
+}
+
+QIcon monochromeIcon(const QString &resource, const QColor &color)
+{
+    const QIcon source(resource);
+    QIcon result;
+    for (const int size : {16, 20, 24, 32}) {
+        QPixmap pixmap = source.pixmap(size, size);
+        QPainter painter(&pixmap);
+        painter.setCompositionMode(QPainter::CompositionMode_SourceIn);
+        painter.fillRect(pixmap.rect(), color);
+        painter.end();
+        result.addPixmap(pixmap);
+    }
+    return result;
+}
+
+}
 
 CompareToolBar::CompareToolBar(Session *session,
                                QAction *previousAction,
@@ -28,8 +61,22 @@ CompareToolBar::CompareToolBar(Session *session,
                                QAction *cancelAction,
                                QAction *clearAction,
                                QWidget *parent) :
+    CompareToolBar(session, nullptr, previousAction, nextAction, refreshAction,
+                   cancelAction, clearAction, parent)
+{
+}
+
+CompareToolBar::CompareToolBar(Session *session,
+                               AppearanceManager *appearanceManager,
+                               QAction *previousAction,
+                               QAction *nextAction,
+                               QAction *refreshAction,
+                               QAction *cancelAction,
+                               QAction *clearAction,
+                               QWidget *parent) :
     QToolBar(tr("Compare"), parent),
     session(session),
+    appearanceManager(appearanceManager),
     previousAction(previousAction),
     nextAction(nextAction),
     refreshAction(refreshAction),
@@ -38,33 +85,35 @@ CompareToolBar::CompareToolBar(Session *session,
     pairLabel(new QLabel(this)),
     statusLabel(new QLabel(this))
 {
+    if (!appearanceManager) {
+        const QPalette palette = QApplication::palette();
+        fallbackTokens.surfaceShell = palette.color(QPalette::Window);
+        fallbackTokens.surfaceRaised = palette.color(QPalette::Button);
+        fallbackTokens.surfaceHover = palette.color(QPalette::AlternateBase);
+        fallbackTokens.borderDefault = palette.color(QPalette::Mid);
+        fallbackTokens.textPrimary = palette.color(QPalette::WindowText);
+        fallbackTokens.textSecondary = palette.color(QPalette::PlaceholderText);
+        fallbackTokens.stateError = QColor(QStringLiteral("#A1260D"));
+        fallbackTokens.stateWarning = QColor(QStringLiteral("#8A6D00"));
+        fallbackTokens.stateSuccess = QColor(QStringLiteral("#107C10"));
+        fallbackTokens.stateInformation = palette.color(QPalette::Link);
+        fallbackTokens.diffAddedMarker = QColor(QStringLiteral("#2F9E44"));
+        fallbackTokens.diffModifiedMarker = QColor(QStringLiteral("#0078D4"));
+        fallbackTokens.diffDeletedMarker = QColor(QStringLiteral("#E03131"));
+    }
+
     setObjectName(QStringLiteral("compareToolBar"));
     setMovable(false);
     setFloatable(false);
     setIconSize(QSize(16, 16));
     setToolButtonStyle(Qt::ToolButtonIconOnly);
-    setStyleSheet(QStringLiteral(
-        "QToolBar#compareToolBar { background: #f8fafc; border-top: 1px solid #e2e8f0; "
-        "border-bottom: 1px solid #cbd5e1; padding: 5px 8px; spacing: 3px; }"
-        "QToolBar#compareToolBar QToolButton { border: 1px solid transparent; border-radius: 5px; "
-        "min-width: 26px; min-height: 26px; padding: 1px; }"
-        "QToolBar#compareToolBar QToolButton:hover { background: #e8edf2; border-color: #d8e0e7; }"
-        "QToolBar#compareToolBar QToolButton:pressed { background: #dce4ea; }"
-        "QToolBar#compareToolBar QToolButton:disabled { opacity: 0.38; }"
-        "QToolBar#compareToolBar::separator { background: #d9e1e7; width: 1px; margin: 5px 6px; }"
-        "QLabel#comparePairLabel { color: #1f2937; font-weight: 600; padding: 0 10px 0 2px; }"));
 
-    previousAction->setIcon(QIcon(QStringLiteral(":/icons/chevron-up.svg")));
     previousAction->setShortcut(QKeySequence(QStringLiteral("Shift+F7")));
     previousAction->setToolTip(tr("Previous Difference (Shift+F7)"));
-    nextAction->setIcon(QIcon(QStringLiteral(":/icons/chevron-down.svg")));
     nextAction->setShortcut(QKeySequence(QStringLiteral("F7")));
     nextAction->setToolTip(tr("Next Difference (F7)"));
-    refreshAction->setIcon(QIcon(QStringLiteral(":/icons/rotate-cw.svg")));
     refreshAction->setToolTip(tr("Refresh Compare"));
-    cancelAction->setIcon(QIcon(QStringLiteral(":/icons/cross.svg")));
     cancelAction->setToolTip(tr("Cancel Compare"));
-    clearAction->setIcon(QIcon(QStringLiteral(":/icons/trash-2.svg")));
     clearAction->setToolTip(tr("Clear Compare"));
 
     pairLabel->setObjectName(QStringLiteral("comparePairLabel"));
@@ -76,7 +125,7 @@ CompareToolBar::CompareToolBar(Session *session,
     statusLabel->setAlignment(Qt::AlignCenter);
     statusLabel->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Preferred);
 
-    auto createMetric = [this](const QString &name, const QString &color, QLabel **textLabel) {
+    auto createMetric = [this](const QString &name, const QString &dotName, QLabel **textLabel) {
         QWidget *metric = new QWidget(this);
         metric->setObjectName(name + QStringLiteral("Metric"));
         metric->setFixedHeight(24);
@@ -87,12 +136,11 @@ CompareToolBar::CompareToolBar(Session *session,
         layout->setSpacing(5);
 
         QLabel *dot = new QLabel(metric);
+        dot->setObjectName(dotName);
         dot->setFixedSize(7, 7);
-        dot->setStyleSheet(QStringLiteral("background: %1; border-radius: 3px;").arg(color));
 
         QLabel *label = new QLabel(metric);
         label->setObjectName(name);
-        label->setStyleSheet(QStringLiteral("color: #475569; font-weight: 500;"));
         label->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Preferred);
 
         layout->addWidget(dot);
@@ -101,11 +149,11 @@ CompareToolBar::CompareToolBar(Session *session,
         return metric;
     };
     addedMetric = createMetric(
-        QStringLiteral("compareAddedCountLabel"), QStringLiteral("#2f9e44"), &addedCountLabel);
+        QStringLiteral("compareAddedCountLabel"), QStringLiteral("compareAddedDot"), &addedCountLabel);
     deletedMetric = createMetric(
-        QStringLiteral("compareDeletedCountLabel"), QStringLiteral("#e03131"), &deletedCountLabel);
+        QStringLiteral("compareDeletedCountLabel"), QStringLiteral("compareDeletedDot"), &deletedCountLabel);
     modifiedMetric = createMetric(
-        QStringLiteral("compareModifiedCountLabel"), QStringLiteral("#d97706"), &modifiedCountLabel);
+        QStringLiteral("compareModifiedCountLabel"), QStringLiteral("compareModifiedDot"), &modifiedCountLabel);
 
     QWidget *spacer = new QWidget(this);
     spacer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
@@ -129,7 +177,44 @@ CompareToolBar::CompareToolBar(Session *session,
 
     connect(session, &Session::stateChanged, this, [this]() { updateState(); });
     connect(session, &Session::navigationChanged, this, [this]() { updateState(); });
+    applyAppearance();
+}
+
+void CompareToolBar::applyAppearance()
+{
+    AppearanceTrace::Scope trace(QStringLiteral("compare-toolbar"));
+    const AppearanceTokens &tokens = appearanceTokens();
+    setStyleSheet(QStringLiteral(
+        "QToolBar#compareToolBar { background: %1; border-top: 1px solid %2; "
+        "border-bottom: 1px solid %2; padding: 5px 8px; spacing: 3px; }"
+        "QToolBar#compareToolBar QToolButton { color: %3; border: 1px solid transparent; "
+        "border-radius: 5px; min-width: 26px; min-height: 26px; padding: 1px; }"
+        "QToolBar#compareToolBar QToolButton:hover { background: %4; border-color: %2; }"
+        "QToolBar#compareToolBar QToolButton:pressed { background: %5; }"
+        "QToolBar#compareToolBar::separator { background: %2; width: 1px; margin: 5px 6px; }"
+        "QLabel#comparePairLabel { color: %3; font-weight: 600; padding: 0 10px 0 2px; }"
+        "QLabel#compareAddedCountLabel, QLabel#compareDeletedCountLabel, "
+        "QLabel#compareModifiedCountLabel { color: %6; font-weight: 500; }"
+        "QLabel#compareAddedDot { background: %7; border-radius: 3px; }"
+        "QLabel#compareDeletedDot { background: %8; border-radius: 3px; }"
+        "QLabel#compareModifiedDot { background: %9; border-radius: 3px; }")
+        .arg(cssColor(tokens.surfaceShell), cssColor(tokens.borderDefault),
+             cssColor(tokens.textPrimary), cssColor(tokens.surfaceHover),
+             cssColor(tokens.surfaceRaised), cssColor(tokens.textSecondary),
+             cssColor(tokens.diffAddedMarker), cssColor(tokens.diffDeletedMarker),
+             cssColor(tokens.diffModifiedMarker)));
+
+    previousAction->setIcon(monochromeIcon(QStringLiteral(":/icons/chevron-up.svg"), tokens.textPrimary));
+    nextAction->setIcon(monochromeIcon(QStringLiteral(":/icons/chevron-down.svg"), tokens.textPrimary));
+    refreshAction->setIcon(monochromeIcon(QStringLiteral(":/icons/rotate-cw.svg"), tokens.textPrimary));
+    cancelAction->setIcon(monochromeIcon(QStringLiteral(":/icons/cross.svg"), tokens.textPrimary));
+    clearAction->setIcon(monochromeIcon(QStringLiteral(":/icons/trash-2.svg"), tokens.textPrimary));
     updateState();
+}
+
+const AppearanceTokens &CompareToolBar::appearanceTokens() const
+{
+    return appearanceManager ? appearanceManager->tokens() : fallbackTokens;
 }
 
 void CompareToolBar::updateState()
@@ -158,22 +243,26 @@ void CompareToolBar::updateState()
     modifiedCountLabel->setText(tr("%1 changed").arg(session->modifiedCount()));
 
     QString statusText;
-    QString statusBackground = QStringLiteral("#eef2f6");
-    QString statusBorder = QStringLiteral("#d8e0e7");
-    QString statusForeground = QStringLiteral("#475569");
+    const AppearanceTokens &tokens = appearanceTokens();
+    QColor statusBackground = tokens.surfaceRaised;
+    QColor statusBorder = tokens.borderDefault;
+    QColor statusForeground = tokens.textSecondary;
+    auto useStateColor = [&](const QColor &color) {
+        statusForeground = color;
+        statusBackground = color;
+        statusBackground.setAlpha(36);
+        statusBorder = color;
+        statusBorder.setAlpha(120);
+    };
     switch (session->state()) {
     case Session::State::Running:
         statusText = tr("Comparing");
-        statusBackground = QStringLiteral("#e8f1ff");
-        statusBorder = QStringLiteral("#bfd5f5");
-        statusForeground = QStringLiteral("#1d4ed8");
+        useStateColor(tokens.stateInformation);
         break;
     case Session::State::Ready:
         if (session->differenceCount() == 0) {
             statusText = tr("No changes");
-            statusBackground = QStringLiteral("#eaf7ee");
-            statusBorder = QStringLiteral("#b9dec5");
-            statusForeground = QStringLiteral("#287a3e");
+            useStateColor(tokens.stateSuccess);
         }
         else if (session->currentDifferenceNumber() > 0) {
             statusText = tr("%1 / %2")
@@ -187,19 +276,14 @@ void CompareToolBar::updateState()
     case Session::State::Stale:
         statusText = tr("Out of date");
         statusLabel->setToolTip(tr("Refresh Compare to update the result."));
-        statusBackground = QStringLiteral("#fff6e5");
-        statusBorder = QStringLiteral("#efd39a");
-        statusForeground = QStringLiteral("#8a5a00");
+        useStateColor(tokens.stateWarning);
         break;
     case Session::State::Cancelled:
         statusText = tr("Cancelled");
-        statusBackground = QStringLiteral("#eef2f6");
         break;
     case Session::State::Failed:
         statusText = tr("Compare failed");
-        statusBackground = QStringLiteral("#fdecec");
-        statusBorder = QStringLiteral("#efb8b8");
-        statusForeground = QStringLiteral("#a22626");
+        useStateColor(tokens.stateError);
         break;
     case Session::State::None:
         break;
@@ -211,7 +295,7 @@ void CompareToolBar::updateState()
     statusLabel->setStyleSheet(QStringLiteral(
         "color: %1; background: %2; border: 1px solid %3; border-radius: 10px; "
         "font-weight: 500; padding: 3px 10px;")
-        .arg(statusForeground, statusBackground, statusBorder));
+        .arg(cssColor(statusForeground), cssColor(statusBackground), cssColor(statusBorder)));
     statusLabel->setMinimumWidth(std::max(74, statusLabel->sizeHint().width()));
 }
 

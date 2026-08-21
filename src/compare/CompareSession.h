@@ -18,6 +18,7 @@
 #include <QThreadPool>
 
 class ScintillaNext;
+class AppearanceManager;
 
 namespace Scintilla
 {
@@ -44,6 +45,7 @@ public:
     Q_ENUM(State)
 
     explicit Session(QObject *parent = nullptr);
+    Session(AppearanceManager *appearanceManager, QObject *parent);
     ~Session() override;
 
     void start(ScintillaNext *leftEditor, ScintillaNext *rightEditor);
@@ -52,6 +54,7 @@ public:
     void clear();
     void nextDifference();
     void previousDifference();
+    void refreshAppearance();
 
     State state() const { return currentState; }
     bool hasPair() const { return !leftEditor.isNull() && !rightEditor.isNull(); }

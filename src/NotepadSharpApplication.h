@@ -30,6 +30,7 @@
 
 
 class MainWindow;
+class AppearanceManager;
 class LuaState;
 class EditorManager;
 class RecentFilesListManager;
@@ -56,6 +57,7 @@ public:
     QString getFileDialogFilter() const;
     QString getFileDialogFilterForLanguage(const QString &language) const;
     ApplicationSettings *getSettings() const { return settings; }
+    AppearanceManager *getAppearanceManager() const { return appearanceManager; }
 
     QStringList getLanguages() const;
     void setEditorLanguage(ScintillaNext *editor, const QString &languageName) const;
@@ -75,6 +77,7 @@ protected:
     bool event(QEvent *event) override;
 
 private slots:
+    void refreshEditorAppearance();
     void saveSettings();
     void receiveInfoFromSecondaryInstance(quint32 instanceId, QByteArray message);
     void saveSession();
@@ -83,8 +86,11 @@ private:
     void openFiles(const QStringList &files);
 
     void loadSettings();
+    void updateLuaAppearance() const;
+    void refreshEditorLanguageAppearance(ScintillaNext *editor) const;
 
     EditorManager *editorManager;
+    AppearanceManager *appearanceManager;
     RecentFilesListManager *recentFilesListManager;
     ApplicationSettings *settings;
     SessionManager *sessionManager;

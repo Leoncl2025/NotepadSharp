@@ -31,10 +31,8 @@ URLFinder::URLFinder(ScintillaNext *editor) :
     indicator = editor->allocateIndicator("url_finder");
 
     editor->indicSetStyle(indicator, INDIC_PLAIN);
-    editor->indicSetFore(indicator, 0xFF0000);
 
     editor->indicSetHoverStyle(indicator, INDIC_DOTS);
-    editor->indicSetHoverFore(indicator, 0xFF0000);
 
     // Resizing the window could reveal more text
     connect(editor, &ScintillaNext::resized, timer, qOverload<>(&QTimer::start));

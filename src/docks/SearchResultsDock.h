@@ -29,6 +29,7 @@ class SearchResultsDock;
 }
 
 class QTreeWidgetItem;
+class AppearanceManager;
 class ScintillaNext;
 
 class SearchResultsDock : public QDockWidget, public ISearchResultsHandler
@@ -36,7 +37,7 @@ class SearchResultsDock : public QDockWidget, public ISearchResultsHandler
     Q_OBJECT
 
 public:
-    explicit SearchResultsDock(QWidget *parent = nullptr);
+    explicit SearchResultsDock(AppearanceManager *appearanceManager, QWidget *parent = nullptr);
     ~SearchResultsDock();
 
     void newSearch(const QString searchTerm) override;
@@ -61,8 +62,11 @@ signals:
     void searchResultActivated(ScintillaNext *editor, int lineNumber, int startPositionFromBeginning, int endPositionFromBeginning);
 
 private:
+    void applyAppearance();
+    void applyItemAppearance(QTreeWidgetItem *item) const;
     void updateSearchStatus();
     Ui::SearchResultsDock *ui;
+    AppearanceManager *appearanceManager;
 
     QString searchTerm;
     QString currentFilePath;

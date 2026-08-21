@@ -33,14 +33,12 @@ BraceMatch::BraceMatch(ScintillaNext *editor) :
     const int braceBadlight = editor->allocateIndicator("brace_badlight");
 
     editor->indicSetStyle(braceHighlight, INDIC_FULLBOX);
-    editor->indicSetFore(braceHighlight, 0x999999);
     editor->indicSetAlpha(braceHighlight, 100);
     editor->indicSetOutlineAlpha(braceHighlight, 200);
     editor->indicSetUnder(braceHighlight, true);
     editor->braceHighlightIndicator(true, braceHighlight);
 
     editor->indicSetStyle(braceBadlight, INDIC_FULLBOX);
-    editor->indicSetFore(braceBadlight, 0x0000FF);
     editor->indicSetAlpha(braceBadlight, 100);
     editor->indicSetOutlineAlpha(braceBadlight, 200);
     editor->indicSetUnder(braceBadlight, true);

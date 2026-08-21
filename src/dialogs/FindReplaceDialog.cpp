@@ -18,6 +18,8 @@
 
 
 #include "FindReplaceDialog.h"
+#include "AppearanceManager.h"
+#include "AppearanceTrace.h"
 #include "ApplicationSettings.h"
 #include "ui_FindReplaceDialog.h"
 
@@ -43,9 +45,12 @@ static void convertToExtended(QString &str)
     // TODO: more
 }
 
-FindReplaceDialog::FindReplaceDialog(ISearchResultsHandler *searchResults, MainWindow *window) :
+FindReplaceDialog::FindReplaceDialog(ISearchResultsHandler *searchResults,
+                                     AppearanceManager *appearanceManager,
+                                     MainWindow *window) :
     QDialog(window, Qt::Dialog),
     ui(new Ui::FindReplaceDialog),
+    appearanceManager(appearanceManager),
     searchResultsHandler(searchResults),
     finder(new Finder(window->currentEditor()))
 {
@@ -70,6 +75,8 @@ FindReplaceDialog::FindReplaceDialog(ISearchResultsHandler *searchResults, MainW
     statusBar = new QStatusBar();
     statusBar->setSizeGripEnabled(false); // the dialog has one already
     qobject_cast<QVBoxLayout *>(layout())->insertWidget(-1, statusBar);
+        connect(appearanceManager, &AppearanceManager::effectiveAppearanceChanged,
+            this, &FindReplaceDialog::applyAppearance);
 
     // Disable auto completion
     ui->comboFind->setCompleter(nullptr);
@@ -706,7 +713,8 @@ int FindReplaceDialog::computeSearchFlags()
 int FindReplaceDialog::ensureMarkIndicator()
 {
     int markIndicator = editor->allocateIndicator(QStringLiteral("find_mark_highlight"));
-    editor->indicSetFore(markIndicator, 0xFFCC00);
+    editor->indicSetFore(
+        markIndicator, AppearanceManager::scintillaColor(appearanceManager->tokens().accentHover));
     editor->indicSetStyle(markIndicator, INDIC_FULLBOX);
     editor->indicSetOutlineAlpha(markIndicator, 200);
     editor->indicSetAlpha(markIndicator, 100);
@@ -812,6 +820,23 @@ void FindReplaceDialog::copyMarkedText()
 
 void FindReplaceDialog::showMessage(const QString &message, const QString &color)
 {
-    statusBar->setStyleSheet(QStringLiteral("color: %1").arg(color));
+    statusColorRole = color;
+    applyAppearance();
     statusBar->showMessage(message);
+}
+
+void FindReplaceDialog::applyAppearance()
+{
+    AppearanceTrace::Scope trace(QStringLiteral("find-replace"));
+    const AppearanceTokens &tokens = appearanceManager->tokens();
+    QColor statusColor = tokens.stateInformation;
+    if (statusColorRole == QStringLiteral("green"))
+        statusColor = tokens.stateSuccess;
+    else if (statusColorRole == QStringLiteral("red"))
+        statusColor = tokens.stateError;
+
+    statusBar->setStyleSheet(QStringLiteral("color: %1")
+                                 .arg(statusColor.name(QColor::HexRgb)));
+    if (editor)
+        ensureMarkIndicator();
 }

@@ -18,6 +18,7 @@
 
 
 #include <QApplication>
+#include <QPainter>
 #include <QToolButton>
 #include <QStyle>
 #include <QMenu>
@@ -31,6 +32,21 @@ namespace
     constexpr QLatin1StringView IconPlusPath(":/icons/plus.svg");
     constexpr QLatin1StringView IconListPath(":/icons/list_with_icons.svg");
     constexpr QLatin1StringView IconCrossPath(":/icons/cross.svg");
+
+    QIcon monochromeIcon(QLatin1StringView resource, const QColor &color)
+    {
+        const QIcon source(resource);
+        QIcon result;
+        for (const int size : {16, 20, 24, 32}) {
+            QPixmap pixmap = source.pixmap(size, size);
+            QPainter painter(&pixmap);
+            painter.setCompositionMode(QPainter::CompositionMode_SourceIn);
+            painter.fillRect(pixmap.rect(), color);
+            painter.end();
+            result.addPixmap(pixmap);
+        }
+        return result;
+    }
 }
 
 TabsQuickActionsBar::TabsQuickActionsBar(const Buttons &visibileButtons, QWidget *parent)
@@ -63,7 +79,23 @@ TabsQuickActionsBar::TabsQuickActionsBar(const Buttons &visibileButtons, QWidget
     connect(tabsMenu, &QMenu::aboutToShow, this, [this, tabsMenu]() { emit tabsMenuAboutToShow(tabsMenu); });
     connect(closeCurrentTabAction, &QAction::triggered, this, &TabsQuickActionsBar::closeCurrentTabClicked);
 
+    applyAppearance();
     setVisibileButtons(visibileButtons);
+}
+
+bool TabsQuickActionsBar::event(QEvent *event)
+{
+    if (event->type() == QEvent::PaletteChange)
+        applyAppearance();
+    return QToolBar::event(event);
+}
+
+void TabsQuickActionsBar::applyAppearance()
+{
+    const QColor color = palette().color(QPalette::ButtonText);
+    createNewTabAction->setIcon(monochromeIcon(IconPlusPath, color));
+    showTabsMenuAction->setIcon(monochromeIcon(IconListPath, color));
+    closeCurrentTabAction->setIcon(monochromeIcon(IconCrossPath, color));
 }
 
 void TabsQuickActionsBar::setVisibileButtons(const Buttons &buttons)

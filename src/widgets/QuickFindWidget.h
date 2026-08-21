@@ -25,6 +25,7 @@
 #include <QKeyEvent>
 #include <QLineEdit>
 #include <QObject>
+#include <QColor>
 
 #include "Finder.h"
 #include "ScintillaNext.h"
@@ -33,13 +34,14 @@ namespace Ui {
 class QuickFindWidget;
 }
 
+class AppearanceManager;
 
 class QuickFindWidget : public QFrame
 {
     Q_OBJECT
 
 public:
-    explicit QuickFindWidget(QWidget *parent = nullptr);
+    explicit QuickFindWidget(AppearanceManager *appearanceManager, QWidget *parent = nullptr);
     ~QuickFindWidget();
 
     void setEditor(ScintillaNext *editor);
@@ -69,7 +71,8 @@ private:
 
     void setSearchContextColorBad();
     void setSearchContextColorGood();
-    void setSearchContextColor(const QString &color);
+    void setSearchContextColor(const QColor &color);
+    void applyAppearance();
 
     void initializeEditorIndicator();
     QString searchText() const;
@@ -77,9 +80,10 @@ private:
     void showWrapIndicator();
 
     Ui::QuickFindWidget *ui;
+    AppearanceManager *appearanceManager;
     ScintillaNext *editor = Q_NULLPTR;
     Finder *finder = Q_NULLPTR;
-    int indicator;
+    int indicator = -1;
 
     QList<QPair<int, int>> matches;
     qsizetype currentMatchIndex = -1;

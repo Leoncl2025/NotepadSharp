@@ -102,11 +102,15 @@ void MacroEditorDialog::macroNameChanged(const QString &text)
 {
     // Ensure there is a non-blank name
     if (text.trimmed().isEmpty()) {
-        ui->editMacroName->setStyleSheet("QLineEdit{border: 2px solid red}");
+        ui->editMacroName->setProperty("validationError", true);
+        ui->editMacroName->style()->unpolish(ui->editMacroName);
+        ui->editMacroName->style()->polish(ui->editMacroName);
         return;
     }
     else {
-        ui->editMacroName->setStyleSheet("");
+        ui->editMacroName->setProperty("validationError", false);
+        ui->editMacroName->style()->unpolish(ui->editMacroName);
+        ui->editMacroName->style()->polish(ui->editMacroName);
     }
 
     QModelIndex currentIndex = ui->listMacros->selectionModel()->currentIndex();

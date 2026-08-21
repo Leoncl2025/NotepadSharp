@@ -32,6 +32,7 @@
 class ScintillaNext;
 class MainWindow;
 class BookMarkDecorator;
+class AppearanceManager;
 
 namespace Ui {
 class FindReplaceDialog;
@@ -54,7 +55,9 @@ public:
         Backwards
     };
 
-    explicit FindReplaceDialog(ISearchResultsHandler *searchResults, MainWindow *window = nullptr);
+    explicit FindReplaceDialog(ISearchResultsHandler *searchResults,
+                               AppearanceManager *appearanceManager,
+                               MainWindow *window = nullptr);
     ~FindReplaceDialog() override;
 
     void setFindString(const QString &string);
@@ -109,6 +112,7 @@ private:
     int computeSearchFlags();
 
     void showMessage(const QString &message, const QString &color);
+    void applyAppearance();
     int ensureMarkIndicator();
     BookMarkDecorator *bookMarkDecorator() const;
     void clearAllBookmarks();
@@ -122,6 +126,8 @@ private:
 
     ScintillaNext *editor;
     QStatusBar *statusBar;
+    AppearanceManager *appearanceManager;
+    QString statusColorRole;
     QTabBar *tabBar;
     ISearchResultsHandler *searchResultsHandler;
     Finder *finder;

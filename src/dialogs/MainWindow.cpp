@@ -53,6 +53,8 @@
 #include "DockAreaWidget.h"
 
 #include "NotepadSharpApplication.h"
+#include "AppearanceManager.h"
+#include "AppearanceTrace.h"
 #include "ApplicationSettings.h"
 
 #include "ScintillaNext.h"
@@ -124,7 +126,7 @@ MainWindow::MainWindow(NotepadSharpApplication *app) :
     connect(dockedEditor, &DockedEditor::contextMenuRequestedForEditor, this, &MainWindow::tabBarRightClicked);
     connect(dockedEditor, &DockedEditor::titleBarDoubleClicked, this, &MainWindow::newFile);
 
-    compareSession = new Compare::Session(this);
+    compareSession = new Compare::Session(app->getAppearanceManager(), this);
     QMenu *compareMenu = new QMenu(tr("&Compare"), this);
     ui->menuBar->insertMenu(ui->menuSettings->menuAction(), compareMenu);
 
@@ -146,12 +148,15 @@ MainWindow::MainWindow(NotepadSharpApplication *app) :
 
     Compare::CompareToolBar *compareToolBar = new Compare::CompareToolBar(
         compareSession,
+        app->getAppearanceManager(),
         previousDifferenceAction,
         nextDifferenceAction,
         refreshCompareAction,
         cancelCompareAction,
         clearCompareAction,
         this);
+    connect(app->getAppearanceManager(), &AppearanceManager::effectiveAppearanceChanged,
+            compareToolBar, &Compare::CompareToolBar::applyAppearance);
     addToolBarBreak(Qt::TopToolBarArea);
     addToolBar(Qt::TopToolBarArea, compareToolBar);
 
@@ -171,6 +176,8 @@ MainWindow::MainWindow(NotepadSharpApplication *app) :
     connect(compareSession, &Compare::Session::message, this, [this](const QString &text) {
         ui->statusBar->showMessage(text, 5000);
     });
+    connect(app->getAppearanceManager(), &AppearanceManager::effectiveAppearanceChanged,
+            compareSession, &Compare::Session::refreshAppearance);
 
     auto updateComparePreviousAction = [this]() {
         comparePreviousAction->setEnabled(
@@ -446,7 +453,7 @@ MainWindow::MainWindow(NotepadSharpApplication *app) :
         ui->statusBar->refresh(currentEditor());
     });
 
-    SearchResultsDock *srDock = new SearchResultsDock(this);
+    SearchResultsDock *srDock = new SearchResultsDock(app->getAppearanceManager(), this);
     addDockWidget(Qt::BottomDockWidgetArea, srDock);
     srDock->toggleViewAction()->setShortcut(Qt::Key_F7);
     ui->menuView->addAction(srDock->toggleViewAction());
@@ -485,7 +492,7 @@ MainWindow::MainWindow(NotepadSharpApplication *app) :
         QuickFindWidget *quickFind = findChild<QuickFindWidget *>(QString(), Qt::FindDirectChildrenOnly);
 
         if (quickFind == Q_NULLPTR) {
-            quickFind = new QuickFindWidget(this);
+            quickFind = new QuickFindWidget(this->app->getAppearanceManager(), this);
         }
 
         quickFind->setEditor(currentEditor());
@@ -1006,7 +1013,8 @@ MainWindow::MainWindow(NotepadSharpApplication *app) :
     languageInspectorDock->hide();
     addDockWidget(Qt::RightDockWidgetArea, languageInspectorDock);
 
-    LuaConsoleDock *luaConsoleDock = new LuaConsoleDock(app->getLuaState(), this);
+    LuaConsoleDock *luaConsoleDock = new LuaConsoleDock(
+        app->getLuaState(), app->getAppearanceManager(), this);
     luaConsoleDock->hide();
     addDockWidget(Qt::BottomDockWidgetArea, luaConsoleDock);
 
@@ -1038,6 +1046,8 @@ MainWindow::MainWindow(NotepadSharpApplication *app) :
     });
     connect(app->getSettings(), &ApplicationSettings::showToolBarChanged, ui->mainToolBar, &QToolBar::setVisible);
     connect(app->getSettings(), &ApplicationSettings::showStatusBarChanged, ui->statusBar, &QStatusBar::setVisible);
+        connect(app->getAppearanceManager(), &AppearanceManager::effectiveAppearanceChanged,
+            this, &MainWindow::applyStyleSheet);
     connect(ui->statusBar, &EditorInfoStatusBar::customContextMenuRequestedForEOLLabel, this, [this](const QPoint &pos){
         ui->menuEOLConversion->popup(pos);
     });
@@ -1763,7 +1773,8 @@ void MainWindow::showFindReplaceDialog(int index)
     FindReplaceDialog *frd = findChild<FindReplaceDialog *>(QString(), Qt::FindDirectChildrenOnly);
 
     if (frd == Q_NULLPTR) {
-        frd = new FindReplaceDialog(determineSearchResultsHandler(), this);
+        frd = new FindReplaceDialog(
+            determineSearchResultsHandler(), app->getAppearanceManager(), this);
     }
     else {
         frd->setSearchResultsHandler(determineSearchResultsHandler());
@@ -1990,27 +2001,41 @@ void MainWindow::activateEditor(ScintillaNext *editor)
 void MainWindow::applyStyleSheet()
 {
     qInfo(Q_FUNC_INFO);
+    AppearanceTrace::Scope totalTrace(QStringLiteral("stylesheet-total"));
 
     QString sheet;
-    QFile f(":/stylesheets/npp.css");
-    qInfo() << "Loading stylesheet:" << f.fileName();
+    bool hasCustomStyleSheet = false;
+    {
+        AppearanceTrace::Scope readTrace(QStringLiteral("stylesheet-read"));
+        QFile f(":/stylesheets/npp.css");
+        qInfo() << "Loading stylesheet:" << f.fileName();
 
-    f.open(QFile::ReadOnly);
-    sheet = f.readAll();
-    f.close();
+        f.open(QFile::ReadOnly);
+        sheet = f.readAll();
+        f.close();
 
-    // If there is a "custom.css" file where the ini is located, load it as a style sheet addition
-    QString directoryPath = QFileInfo(app->getSettings()->fileName()).absolutePath();
-    QString fullPath = QDir(directoryPath).filePath("custom.css");
-    if (QFile::exists(fullPath)) {
-        QFile custom(fullPath);
-        qInfo() << "Loading stylesheet:" << custom.fileName();
+        // If there is a "custom.css" file where the ini is located, load it as a style sheet addition
+        QString directoryPath = QFileInfo(app->getSettings()->fileName()).absolutePath();
+        QString fullPath = QDir(directoryPath).filePath("custom.css");
+        if (QFile::exists(fullPath)) {
+            hasCustomStyleSheet = true;
+            QFile custom(fullPath);
+            qInfo() << "Loading stylesheet:" << custom.fileName();
 
-        custom.open(QFile::ReadOnly);
-        sheet += custom.readAll();
-        custom.close();
+            custom.open(QFile::ReadOnly);
+            sheet += custom.readAll();
+            custom.close();
+        }
     }
 
+    QString traceDetails;
+    if (AppearanceTrace::enabled()) {
+        traceDetails = QStringLiteral("widgets=%1 bytes=%2 custom-css=%3")
+            .arg(findChildren<QWidget *>().size()).arg(sheet.size())
+            .arg(hasCustomStyleSheet ? QStringLiteral("yes") : QStringLiteral("no"));
+    }
+    AppearanceTrace::Scope repolishTrace(
+        QStringLiteral("stylesheet-repolish"), traceDetails);
     setStyleSheet(sheet);
 }
 

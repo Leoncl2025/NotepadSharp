@@ -19,6 +19,8 @@
 #include <QApplication>
 
 #include "ApplicationSettings.h"
+#include "AppearanceManager.h"
+#include "EditorAppearance.h"
 
 #include "EditorManager.h"
 #include "ScintillaNext.h"
@@ -43,8 +45,9 @@ const int MARK_HIDELINESEND = 22;
 const int MARK_HIDELINESUNDERLINE = 21;
 
 
-EditorManager::EditorManager(ApplicationSettings *settings, QObject *parent)
-    : QObject(parent), settings(settings)
+EditorManager::EditorManager(ApplicationSettings *settings, AppearanceManager *appearanceManager,
+                             QObject *parent)
+    : QObject(parent), settings(settings), appearanceManager(appearanceManager)
 {
     connect(this, &EditorManager::editorCreated, this, [=](ScintillaNext *editor) {
         connect(editor, &ScintillaNext::closed, this, [=]() {
@@ -193,11 +196,6 @@ void EditorManager::setupEditor(ScintillaNext *editor)
     editor->clearCmdKey(SCK_INSERT);
 
     editor->setFoldMarkers(QStringLiteral("box"));
-    for (int i = SC_MARKNUM_FOLDEREND; i <= SC_MARKNUM_FOLDEROPEN; ++i) {
-        editor->markerSetFore(i, 0xF3F3F3);
-        editor->markerSetBack(i, 0x808080);
-        editor->markerSetBackSelected(i, 0x0000FF);
-    }
 
     editor->setIdleStyling(SC_IDLESTYLING_TOVISIBLE);
     editor->setEndAtLastLine(false);
@@ -215,7 +213,6 @@ void EditorManager::setupEditor(ScintillaNext *editor)
     editor->setMarginWidthN(2, 14);
 
     editor->markerDefine(MARK_HIDELINESUNDERLINE, SC_MARK_UNDERLINE);
-    editor->markerSetBack(MARK_HIDELINESUNDERLINE, 0x77CC77);
 
     editor->markerDefine(MARK_HIDELINESBEGIN, SC_MARK_ARROW);
     editor->markerDefine(MARK_HIDELINESEND, SC_MARK_ARROWDOWN);
@@ -234,31 +231,7 @@ void EditorManager::setupEditor(ScintillaNext *editor)
     editor->setCaretLineVisibleAlways(true);
     editor->setCaretWidth(2);
 
-    editor->setEdgeColour(0x80FFFF);
-
-    // https://www.scintilla.org/ScintillaDoc.html#ElementColours
-    // SC_ELEMENT_SELECTION_TEXT
-    // SC_ELEMENT_SELECTION_BACK
-    // SC_ELEMENT_SELECTION_ADDITIONAL_TEXT
-    // SC_ELEMENT_SELECTION_ADDITIONAL_BACK
-    // SC_ELEMENT_SELECTION_SECONDARY_TEXT
-    // SC_ELEMENT_SELECTION_SECONDARY_BACK
-    // SC_ELEMENT_SELECTION_INACTIVE_TEXT
-    editor->setElementColour(SC_ELEMENT_SELECTION_INACTIVE_BACK, 0xFFE0E0E0);
-    // SC_ELEMENT_CARET
-    // SC_ELEMENT_CARET_ADDITIONAL
-    editor->setElementColour(SC_ELEMENT_CARET_LINE_BACK, 0xFFFFE8E8);
-    editor->setElementColour(SC_ELEMENT_WHITE_SPACE, 0xFFD0D0D0);
-    // SC_ELEMENT_WHITE_SPACE_BACK
-    // SC_ELEMENT_HOT_SPOT_ACTIVE
-    // SC_ELEMENT_HOT_SPOT_ACTIVE_BACK
-    editor->setElementColour(SC_ELEMENT_FOLD_LINE, 0xFFA0A0A0);
-    // SC_ELEMENT_HIDDEN_LINE
-
     editor->setWhitespaceSize(2);
-
-    editor->setFoldMarginColour(true, 0xFFFFFF);
-    editor->setFoldMarginHiColour(true, 0xE9E9E9);
 
     editor->setAutomaticFold(SC_AUTOMATICFOLD_SHOW | SC_AUTOMATICFOLD_CLICK | SC_AUTOMATICFOLD_CHANGE);
     editor->markerEnableHighlight(true);
@@ -266,24 +239,7 @@ void EditorManager::setupEditor(ScintillaNext *editor)
     editor->setCharsDefault();
     editor->setWordChars(editor->wordChars() + settings->additionalWordChars().toLatin1());
 
-    editor->styleSetFore(STYLE_DEFAULT, 0x000000);
-    editor->styleSetBack(STYLE_DEFAULT, 0xFFFFFF);
-    editor->styleSetSize(STYLE_DEFAULT, settings->fontSize());
-    editor->styleSetFont(STYLE_DEFAULT, settings->fontName().toUtf8().data());
-    editor->styleClearAll();
-
-    editor->styleSetFore(STYLE_LINENUMBER, 0x808080);
-    editor->styleSetBack(STYLE_LINENUMBER, 0xE4E4E4);
-    editor->styleSetBold(STYLE_LINENUMBER, false);
-
-    editor->styleSetFore(STYLE_BRACELIGHT, 0x0000FF);
-    editor->styleSetBack(STYLE_BRACELIGHT, 0xFFFFFF);
-
-    editor->styleSetFore(STYLE_BRACEBAD, 0x000080);
-    editor->styleSetBack(STYLE_BRACEBAD, 0xFFFFFF);
-
-    editor->styleSetFore(STYLE_INDENTGUIDE, 0xC0C0C0);
-    editor->styleSetBack(STYLE_INDENTGUIDE, 0xFFFFFF);
+    applyEditorTheme(editor);
 
     // STYLE_CONTROLCHAR
     // STYLE_CALLTIP
@@ -315,7 +271,8 @@ void EditorManager::setupEditor(ScintillaNext *editor)
     SmartHighlighter *s = new SmartHighlighter(editor);
     s->setEnabled(true);
 
-    HighlightedScrollBarDecorator *h = new HighlightedScrollBarDecorator(editor);
+    HighlightedScrollBarDecorator *h = new HighlightedScrollBarDecorator(
+        editor, appearanceManager);
     h->setEnabled(true);
 
     BraceMatch *b = new BraceMatch(editor);
@@ -343,6 +300,27 @@ void EditorManager::setupEditor(ScintillaNext *editor)
     bm->setEnabled(true);
 
     new HTMLAutoCompleteDecorator(editor);
+    EditorAppearance::applyDecorations(editor, appearanceManager->tokens());
+}
+
+void EditorManager::applyEditorTheme(ScintillaNext *editor)
+{
+    EditorAppearance::apply(editor, appearanceManager->tokens(),
+                            settings->fontName(), settings->fontSize());
+    EditorAppearance::applyDecorations(editor, appearanceManager->tokens());
+    if (editor->verticalScrollBar())
+        editor->verticalScrollBar()->update();
+}
+
+void EditorManager::applyEditorNamedStyles(ScintillaNext *editor)
+{
+    EditorAppearance::applyNamedStyles(editor, appearanceManager->tokens());
+}
+
+void EditorManager::applyAppearanceToAllEditors()
+{
+    for (ScintillaNext *editor : getEditors())
+        applyEditorTheme(editor);
 }
 
 void EditorManager::purgeOldEditorPointers()
