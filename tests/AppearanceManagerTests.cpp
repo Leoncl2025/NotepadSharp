@@ -11,6 +11,7 @@ class AppearanceManagerTests : public QObject
 
 private slots:
     void parsesOnlyCanonicalWireValues();
+    void defaultsMissingSettingsToClassicLight();
     void defaultsInvalidSettingsToSystem();
     void persistsExplicitMode();
     void emitsOnlyWhenEffectiveAppearanceChanges();
@@ -28,6 +29,19 @@ void AppearanceManagerTests::parsesOnlyCanonicalWireValues()
     QCOMPARE(AppearanceManager::modeFromString(QString()), AppearanceManager::Mode::System);
     QCOMPARE(AppearanceManager::scintillaElementColor(QColor(0x27, 0x67, 0x82, 0xDD)),
              0xDD826727u);
+}
+
+void AppearanceManagerTests::defaultsMissingSettingsToClassicLight()
+{
+    QTemporaryDir directory;
+    QVERIFY(directory.isValid());
+
+    ApplicationSettings settings(directory.filePath(QStringLiteral("settings.ini")), QSettings::IniFormat);
+    QCOMPARE(settings.appearance(), QStringLiteral("light"));
+
+    AppearanceManager manager(&settings, [] { return Qt::ColorScheme::Dark; });
+    QCOMPARE(manager.requestedMode(), AppearanceManager::Mode::Light);
+    QCOMPARE(manager.effectiveAppearance(), AppearanceManager::EffectiveAppearance::Light);
 }
 
 void AppearanceManagerTests::defaultsInvalidSettingsToSystem()
@@ -83,6 +97,7 @@ void AppearanceManagerTests::followsSystemChangesOnlyInSystemMode()
 {
     QTemporaryDir directory;
     ApplicationSettings settings(directory.filePath(QStringLiteral("settings.ini")), QSettings::IniFormat);
+    settings.setAppearance(QStringLiteral("system"));
     Qt::ColorScheme scheme = Qt::ColorScheme::Light;
     AppearanceManager manager(&settings, [&scheme] { return scheme; });
     QSignalSpy spy(&manager, &AppearanceManager::effectiveAppearanceChanged);
@@ -103,6 +118,7 @@ void AppearanceManagerTests::systemDarkKeepsSemanticSyntax()
 {
     QTemporaryDir directory;
     ApplicationSettings settings(directory.filePath(QStringLiteral("settings.ini")), QSettings::IniFormat);
+    settings.setAppearance(QStringLiteral("system"));
     AppearanceManager manager(&settings, [] { return Qt::ColorScheme::Dark; });
 
     QCOMPARE(manager.effectiveAppearance(), AppearanceManager::EffectiveAppearance::Dark);
