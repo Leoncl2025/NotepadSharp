@@ -42,6 +42,10 @@ int main(int argc, char *argv[])
 
     // Default settings format
     QSettings::setDefaultFormat(QSettings::IniFormat);
+    const QString configHome = qEnvironmentVariable("NOTEPADSHARP_CONFIG_HOME");
+    if (!configHome.isEmpty()) {
+        QSettings::setPath(QSettings::IniFormat, QSettings::UserScope, configHome);
+    }
 
     NotepadSharpApplication app(argc, argv);
 

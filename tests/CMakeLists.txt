@@ -1,3 +1,67 @@
+qt_add_executable(AppearanceManagerTests
+    AppearanceManagerTests.cpp
+    ${CMAKE_SOURCE_DIR}/src/AppearanceManager.cpp
+    ${CMAKE_SOURCE_DIR}/src/AppearanceManager.h
+    ${CMAKE_SOURCE_DIR}/src/ApplicationSettings.cpp
+    ${CMAKE_SOURCE_DIR}/src/ApplicationSettings.h
+    ${CMAKE_SOURCE_DIR}/src/WindowsAppearance.cpp
+    ${CMAKE_SOURCE_DIR}/src/WindowsAppearance.h
+)
+
+target_include_directories(AppearanceManagerTests PRIVATE ${CMAKE_SOURCE_DIR}/src)
+
+target_link_libraries(AppearanceManagerTests PRIVATE
+    Qt6::Core
+    Qt6::Gui
+    Qt6::Test
+    Qt6::Widgets
+)
+
+if(WIN32)
+    target_link_libraries(AppearanceManagerTests PRIVATE dwmapi)
+endif()
+
+add_test(NAME AppearanceManagerTests COMMAND AppearanceManagerTests)
+set_tests_properties(AppearanceManagerTests PROPERTIES
+    ENVIRONMENT "QT_QPA_PLATFORM=offscreen"
+    TIMEOUT 30
+)
+
+qt_add_executable(EditorAppearanceTests
+    EditorAppearanceTests.cpp
+    ${CMAKE_SOURCE_DIR}/src/AppearanceManager.cpp
+    ${CMAKE_SOURCE_DIR}/src/AppearanceManager.h
+    ${CMAKE_SOURCE_DIR}/src/ApplicationSettings.cpp
+    ${CMAKE_SOURCE_DIR}/src/ApplicationSettings.h
+    ${CMAKE_SOURCE_DIR}/src/EditorAppearance.cpp
+    ${CMAKE_SOURCE_DIR}/src/EditorAppearance.h
+    ${CMAKE_SOURCE_DIR}/src/QRegexSearch.cpp
+    ${CMAKE_SOURCE_DIR}/src/QRegexSearch.h
+    ${CMAKE_SOURCE_DIR}/src/WindowsAppearance.cpp
+    ${CMAKE_SOURCE_DIR}/src/WindowsAppearance.h
+)
+
+target_include_directories(EditorAppearanceTests PRIVATE ${CMAKE_SOURCE_DIR}/src)
+
+target_link_libraries(EditorAppearanceTests PRIVATE
+    Qt6::Core
+    Qt6::Core5Compat
+    Qt6::Gui
+    Qt6::Test
+    Qt6::Widgets
+    scintilla
+)
+
+if(WIN32)
+    target_link_libraries(EditorAppearanceTests PRIVATE dwmapi)
+endif()
+
+add_test(NAME EditorAppearanceTests COMMAND EditorAppearanceTests)
+set_tests_properties(EditorAppearanceTests PROPERTIES
+    ENVIRONMENT "QT_QPA_PLATFORM=offscreen"
+    TIMEOUT 30
+)
+
 qt_add_executable(CompareEngineTests
     CompareEngineTests.cpp
     ${CMAKE_SOURCE_DIR}/src/compare/CompareEngine.cpp

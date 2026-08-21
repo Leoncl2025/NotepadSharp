@@ -36,6 +36,7 @@ public:
     void setVariable(const char *name, const QString &value);
     void setVariable(const char *name, const char *value);
     void setVariable(const char *name, bool value);
+    void setVariable(const char *name, int value);
 
     void executeFile(const QString &fileName);
     void clearStack();

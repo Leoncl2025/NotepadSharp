@@ -32,4 +32,8 @@ public:
     void mark(ScintillaNext *editor, int i);
     void clear(ScintillaNext *editor, int i);
     void clearAll(ScintillaNext *editor);
+
+private:
+    QList<QColor> markerColors() const;
+    void applyAppearance(ScintillaNext *editor) const;
 };

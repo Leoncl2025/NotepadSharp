@@ -68,6 +68,7 @@ class ApplicationSettings : public QSettings
 
 public:
     explicit ApplicationSettings(QObject *parent = nullptr);
+    ApplicationSettings(const QString &fileName, QSettings::Format format, QObject *parent = nullptr);
 
     enum DefaultDirectoryBehaviorEnum {
         FollowCurrentDocument,
@@ -107,6 +108,8 @@ public:
     DEFINE_SETTING(DefaultDirectory, defaultDirectory, QString)
 
     DEFINE_SETTING(Translation, translation, QString)
+
+    DEFINE_SETTING(Appearance, appearance, QString)
 
     DEFINE_SETTING(ShowWhitespace, showWhitespace, bool);
     DEFINE_SETTING(ShowEndOfLine, showEndOfLine, bool);

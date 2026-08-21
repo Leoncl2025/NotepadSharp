@@ -18,6 +18,7 @@
 
 
 #include "PreferencesDialog.h"
+#include "AppearanceManager.h"
 #include "NotepadSharpApplication.h"
 #include "TranslationManager.h"
 #include "ui_PreferencesDialog.h"
@@ -40,6 +41,22 @@ PreferencesDialog::PreferencesDialog(ApplicationSettings *settings, QWidget *par
     ui->labelAppRestartIcon->setPixmap(pixmap);
     ui->labelAppRestartIcon->hide();
     ui->labelAppRestart->hide();
+
+    ui->comboBoxAppearance->addItem(tr("System"), QStringLiteral("system"));
+    ui->comboBoxAppearance->addItem(tr("Light"), QStringLiteral("light"));
+    ui->comboBoxAppearance->addItem(tr("Dark"), QStringLiteral("dark"));
+    const QString appearance = AppearanceManager::modeToString(
+        AppearanceManager::modeFromString(settings->appearance()));
+    ui->comboBoxAppearance->setCurrentIndex(ui->comboBoxAppearance->findData(appearance));
+    connect(ui->comboBoxAppearance, QOverload<int>::of(&QComboBox::currentIndexChanged),
+            this, [=](int index) {
+        settings->setAppearance(ui->comboBoxAppearance->itemData(index).toString());
+    });
+    connect(settings, &ApplicationSettings::appearanceChanged, this, [=](const QString &value) {
+        const QString canonical = AppearanceManager::modeToString(
+            AppearanceManager::modeFromString(value));
+        ui->comboBoxAppearance->setCurrentIndex(ui->comboBoxAppearance->findData(canonical));
+    });
 
     MapSettingToCheckBox(ui->checkBoxMenuBar, &ApplicationSettings::showMenuBar, &ApplicationSettings::setShowMenuBar, &ApplicationSettings::showMenuBarChanged);
     MapSettingToCheckBox(ui->checkBoxToolBar, &ApplicationSettings::showToolBar, &ApplicationSettings::setShowToolBar, &ApplicationSettings::showToolBarChanged);

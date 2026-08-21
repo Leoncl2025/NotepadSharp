@@ -133,6 +133,12 @@ void LuaState::setVariable(const char *name, bool value)
     lua_setglobal(L, name);
 }
 
+void LuaState::setVariable(const char *name, int value)
+{
+    lua_pushinteger(L, static_cast<lua_Integer>(value));
+    lua_setglobal(L, name);
+}
+
 void LuaState::internal_execute(const char *statement, bool clear)
 {
     // There may be other things on the stack so save the top of it

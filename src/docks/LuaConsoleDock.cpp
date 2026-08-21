@@ -20,6 +20,7 @@
 #include "LuaConsoleDock.h"
 #include "ui_LuaConsoleDock.h"
 
+#include "AppearanceManager.h"
 #include "ScintillaNext.h"
 #include "ILexer.h"
 #include "Lexilla.h"
@@ -83,9 +84,11 @@ static int cf_global_print(lua_State *L) {
 }
 
 
-LuaConsoleDock::LuaConsoleDock(LuaState *l, QWidget *parent) :
+LuaConsoleDock::LuaConsoleDock(LuaState *l, AppearanceManager *appearanceManager,
+                               QWidget *parent) :
     QDockWidget(parent),
-    ui(new Ui::LuaConsoleDock)
+    ui(new Ui::LuaConsoleDock),
+    appearanceManager(appearanceManager)
 {
     L = l;
 
@@ -182,8 +185,10 @@ LuaConsoleDock::LuaConsoleDock(LuaState *l, QWidget *parent) :
 
     setupStyle(input);
     setupStyle(output);
-
-    output->styleSetFore(39, 0x0000FF); // For error messages
+    connect(appearanceManager, &AppearanceManager::effectiveAppearanceChanged, this, [this]() {
+        setupStyle(input);
+        setupStyle(output);
+    });
 
     input->setExtraAscent(2);
     input->setExtraDescent(2);
@@ -377,10 +382,13 @@ bool LuaConsoleDock::eventFilter(QObject *obj, QEvent *event)
 
 void LuaConsoleDock::setupStyle(ScintillaNext *editor)
 {
+    const AppearanceTokens &tokens = appearanceManager->tokens();
+    const auto color = &AppearanceManager::scintillaColor;
+
     editor->setEOLMode(SC_EOL_CRLF);
 
-    editor->styleSetFore(STYLE_DEFAULT, 0x000000);
-    editor->styleSetBack(STYLE_DEFAULT, 0xFFFFFF);
+    editor->styleSetFore(STYLE_DEFAULT, color(tokens.textEditor));
+    editor->styleSetBack(STYLE_DEFAULT, color(tokens.surfaceEditor));
     editor->styleSetFont(STYLE_DEFAULT, "Courier New");
     editor->styleSetSize(STYLE_DEFAULT, 10);
     editor->styleClearAll();
@@ -392,29 +400,35 @@ void LuaConsoleDock::setupStyle(ScintillaNext *editor)
     editor->setMarginWidthN(4, 0);
 
     editor->setCodePage(SC_CP_UTF8);
-    editor->styleSetFore(SCE_LUA_COMMENT, 0x008000);
-    editor->styleSetFore(SCE_LUA_COMMENTLINE, 0x008000);
-    editor->styleSetFore(SCE_LUA_COMMENTDOC, 0x808000);
-    editor->styleSetFore(SCE_LUA_LITERALSTRING, 0x4A0095);
-    editor->styleSetFore(SCE_LUA_PREPROCESSOR, 0x004080); // Technically not used since this is lua 5+
-    editor->styleSetFore(SCE_LUA_WORD, 0xFF0000);
+    editor->styleSetFore(SCE_LUA_COMMENT, color(tokens.syntaxComment));
+    editor->styleSetFore(SCE_LUA_COMMENTLINE, color(tokens.syntaxComment));
+    editor->styleSetFore(SCE_LUA_COMMENTDOC, color(tokens.syntaxComment));
+    editor->styleSetFore(SCE_LUA_LITERALSTRING, color(tokens.syntaxString));
+    editor->styleSetFore(SCE_LUA_PREPROCESSOR, color(tokens.syntaxConstant));
+    editor->styleSetFore(SCE_LUA_WORD, color(tokens.syntaxKeyword));
     editor->styleSetBold(SCE_LUA_WORD, 1); // for SCI_SETKEYWORDS, 0
-    editor->styleSetFore(SCE_LUA_NUMBER, 0x0080FF);
-    editor->styleSetFore(SCE_LUA_STRING, 0x808080);
-    editor->styleSetFore(SCE_LUA_CHARACTER, 0x808080);
-    editor->styleSetFore(SCE_LUA_OPERATOR, 0x800000);
+    editor->styleSetFore(SCE_LUA_NUMBER, color(tokens.syntaxNumber));
+    editor->styleSetFore(SCE_LUA_STRING, color(tokens.syntaxString));
+    editor->styleSetFore(SCE_LUA_CHARACTER, color(tokens.syntaxString));
+    editor->styleSetFore(SCE_LUA_OPERATOR, color(tokens.textEditor));
     editor->styleSetBold(SCE_LUA_OPERATOR, 1);
-    editor->styleSetFore(SCE_LUA_WORD2, 0xC08000);
+    editor->styleSetFore(SCE_LUA_WORD2, color(tokens.syntaxFunction));
     editor->styleSetBold(SCE_LUA_WORD2, 1); // for SCI_SETKEYWORDS, 1
-    editor->styleSetFore(SCE_LUA_WORD3, 0xFF0080);
+    editor->styleSetFore(SCE_LUA_WORD3, color(tokens.syntaxControlFlow));
     editor->styleSetBold(SCE_LUA_WORD3, 1); // for SCI_SETKEYWORDS, 2
-    editor->styleSetFore(SCE_LUA_WORD4, 0xA00000);
+    editor->styleSetFore(SCE_LUA_WORD4, color(tokens.syntaxType));
     editor->styleSetBold(SCE_LUA_WORD4, 1);
     editor->styleSetItalic(SCE_LUA_WORD4, 1); // for SCI_SETKEYWORDS, 3
-    editor->styleSetFore(SCE_LUA_LABEL, 0x008080);
+    editor->styleSetFore(SCE_LUA_LABEL, color(tokens.syntaxConstant));
     editor->styleSetBold(SCE_LUA_LABEL, 1);
-    editor->styleSetFore(SCE_LUA_WORD5, 0x004080); // for SCI_SETKEYWORDS, 4, Scintilla defines
+    editor->styleSetFore(SCE_LUA_WORD5, color(tokens.syntaxAttribute));
     editor->styleSetBold(SCE_LUA_WORD5, 1);
-    editor->styleSetFore(SCE_LUA_WORD6, 0x004080); // for SCI_SETKEYWORDS, 5, Notepad++ defines
+    editor->styleSetFore(SCE_LUA_WORD6, color(tokens.syntaxAttribute));
     editor->styleSetBold(SCE_LUA_WORD6, 1);
+    editor->styleSetFore(STYLE_LINENUMBER, color(tokens.textSecondary));
+    editor->styleSetBack(STYLE_LINENUMBER, color(tokens.surfaceShell));
+    editor->styleSetFore(39, color(tokens.stateError));
+    editor->setCaretFore(color(tokens.editorCaret));
+    editor->setElementColour(SC_ELEMENT_SELECTION_BACK,
+                             AppearanceManager::scintillaElementColor(tokens.selectionActive));
 }

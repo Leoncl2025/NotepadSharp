@@ -18,6 +18,7 @@
 
 
 #include "ApplicationSettings.h"
+#include "AppearanceManager.h"
 #include "NotepadSharpApplication.h"
 #include "SearchResultHighlighterDelegate.h"
 #include "SearchResultData.h"
@@ -32,9 +33,10 @@
 #include <QClipboard>
 
 
-SearchResultsDock::SearchResultsDock(QWidget *parent) :
+SearchResultsDock::SearchResultsDock(AppearanceManager *appearanceManager, QWidget *parent) :
     QDockWidget(parent),
-    ui(new Ui::SearchResultsDock)
+    ui(new Ui::SearchResultsDock),
+    appearanceManager(appearanceManager)
 {
     ui->setupUi(this);
 
@@ -66,7 +68,10 @@ SearchResultsDock::SearchResultsDock(QWidget *parent) :
         menu.exec(QCursor::pos());
     });
 
-    ui->treeWidget->setItemDelegate(new SearchResultHighlighterDelegate(ui->treeWidget));
+    ui->treeWidget->setItemDelegate(
+        new SearchResultHighlighterDelegate(appearanceManager, ui->treeWidget));
+    connect(appearanceManager, &AppearanceManager::effectiveAppearanceChanged,
+            this, &SearchResultsDock::applyAppearance);
 
     ApplicationSettings *settings = qobject_cast<NotepadSharpApplication*>(qApp)->getSettings();
     auto updateTreeWidgetFont = [=, this]() {
@@ -99,8 +104,7 @@ void SearchResultsDock::newSearch(const QString searchTerm)
     currentSearch = new QTreeWidgetItem();
     ui->treeWidget->insertTopLevelItem(0, currentSearch);
 
-    currentSearch->setBackground(0, QColor(232, 232, 255));
-    currentSearch->setForeground(0, QColor(0, 0, 170));
+    applyItemAppearance(currentSearch);
     currentSearch->setExpanded(true);
     currentSearch->setFirstColumnSpanned(true);
 
@@ -118,8 +122,7 @@ void SearchResultsDock::newFileEntry(ScintillaNext *editor)
     currentFile = new QTreeWidgetItem(currentSearch);
     currentFile->setData(0, Qt::UserRole, QVariant::fromValue(editor_pointer));
 
-    currentFile->setBackground(0, QColor(213, 255, 213));
-    currentFile->setForeground(0, QColor(0, 128, 0));
+    applyItemAppearance(currentFile);
     currentFile->setExpanded(true);
     currentFile->setFirstColumnSpanned(true);
 
@@ -133,7 +136,7 @@ void SearchResultsDock::newResultsEntry(const QString line, int lineNumber, int 
 
     // Scintilla internally references line numbers starting at 0, however it needs displayed starting at 1
     item->setText(0, QString::number(lineNumber + 1));
-    item->setBackground(0, QBrush(QColor(220, 220, 220)));
+    applyItemAppearance(item);
     item->setTextAlignment(0, Qt::AlignRight);
 
     item->setData(1, SearchResultData::LineNumber, lineNumber);
@@ -158,6 +161,36 @@ void SearchResultsDock::completeSearch()
 
     ui->treeWidget->resizeColumnToContents(0);
     ui->treeWidget->resizeColumnToContents(1);
+}
+
+void SearchResultsDock::applyAppearance()
+{
+    for (int index = 0; index < ui->treeWidget->topLevelItemCount(); ++index)
+        applyItemAppearance(ui->treeWidget->topLevelItem(index));
+    ui->treeWidget->viewport()->update();
+}
+
+void SearchResultsDock::applyItemAppearance(QTreeWidgetItem *item) const
+{
+    if (!item)
+        return;
+
+    const AppearanceTokens &tokens = appearanceManager->tokens();
+    if (!item->parent()) {
+        item->setBackground(0, tokens.surfaceRaised);
+        item->setForeground(0, tokens.textPrimary);
+    }
+    else if (!item->parent()->parent()) {
+        item->setBackground(0, tokens.selectionInactive);
+        item->setForeground(0, tokens.stateSuccess);
+    }
+    else {
+        item->setBackground(0, tokens.surfaceShell);
+        item->setForeground(0, tokens.textSecondary);
+    }
+
+    for (int index = 0; index < item->childCount(); ++index)
+        applyItemAppearance(item->child(index));
 }
 
 void SearchResultsDock::collapseAll() const

@@ -27,6 +27,7 @@
 #include "SessionManager.h"
 #include "TranslationManager.h"
 #include "ApplicationSettings.h"
+#include "AppearanceManager.h"
 
 #include "LuaState.h"
 #include "lua.hpp"
@@ -105,6 +106,8 @@ bool NotepadSharpApplication::init()
         settings->clear();
     }
 
+    appearanceManager = new AppearanceManager(settings, this);
+
     // Translation files are stored as a qresource
     translationManager = new TranslationManager(this, QStringLiteral(":/i18n/"));
 
@@ -125,7 +128,7 @@ bool NotepadSharpApplication::init()
     luaState = new LuaState();
 
     recentFilesListManager = new RecentFilesListManager(this);
-    editorManager = new EditorManager(settings, this);
+    editorManager = new EditorManager(settings, appearanceManager, this);
     sessionManager = new SessionManager(this);
 
     connect(editorManager, &EditorManager::editorCreated, recentFilesListManager, [this](ScintillaNext *editor) {
@@ -149,8 +152,12 @@ bool NotepadSharpApplication::init()
     MarkerAppDecorator *mad = new MarkerAppDecorator(this);
     mad->setEnabled(true);
 
-    luaState->executeFile(":/scripts/init.lua");
+        updateLuaAppearance();
+        luaState->executeFile(":/scripts/init.lua");
     LuaExtension::Instance().Initialise(luaState->L, Q_NULLPTR);
+
+        connect(appearanceManager, &AppearanceManager::effectiveAppearanceChanged,
+            this, &NotepadSharpApplication::refreshEditorAppearance);
 
     createNewWindow();
     connect(editorManager, &EditorManager::editorCreated, window, &MainWindow::addEditor);
@@ -295,6 +302,41 @@ void NotepadSharpApplication::setEditorLanguage(ScintillaNext *editor, const QSt
     getLuaState()->setVariable("skip_tabwidth", skipTabWidth);
 
     getLuaState()->execute("SetLanguage(languageName)");
+    editorManager->applyEditorNamedStyles(editor);
+}
+
+void NotepadSharpApplication::updateLuaAppearance() const
+{
+    const AppearanceTokens &tokens = appearanceManager->tokens();
+    luaState->setVariable("theme_dark_mode", appearanceManager->isDark());
+    luaState->setVariable("theme_default_fg", AppearanceManager::scintillaColor(tokens.textEditor));
+    luaState->setVariable("theme_default_bg", AppearanceManager::scintillaColor(tokens.surfaceEditor));
+    luaState->setVariable("theme_comment", AppearanceManager::scintillaColor(tokens.syntaxComment));
+    luaState->setVariable("theme_string", AppearanceManager::scintillaColor(tokens.syntaxString));
+    luaState->setVariable("theme_number", AppearanceManager::scintillaColor(tokens.syntaxNumber));
+    luaState->setVariable("theme_keyword", AppearanceManager::scintillaColor(tokens.syntaxKeyword));
+    luaState->setVariable("theme_control_flow", AppearanceManager::scintillaColor(tokens.syntaxControlFlow));
+    luaState->setVariable("theme_function", AppearanceManager::scintillaColor(tokens.syntaxFunction));
+    luaState->setVariable("theme_type", AppearanceManager::scintillaColor(tokens.syntaxType));
+    luaState->setVariable("theme_variable", AppearanceManager::scintillaColor(tokens.syntaxVariable));
+    luaState->setVariable("theme_constant", AppearanceManager::scintillaColor(tokens.syntaxConstant));
+    luaState->setVariable("theme_tag", AppearanceManager::scintillaColor(tokens.syntaxTag));
+    luaState->setVariable("theme_attribute", AppearanceManager::scintillaColor(tokens.syntaxAttribute));
+    luaState->setVariable("theme_error", AppearanceManager::scintillaColor(tokens.stateError));
+}
+
+void NotepadSharpApplication::refreshEditorAppearance()
+{
+    updateLuaAppearance();
+    luaState->execute("UpdateTheme()");
+
+    for (ScintillaNext *editor : editorManager->getEditors()) {
+        editorManager->applyEditorTheme(editor);
+        if (editor->languageName.isEmpty())
+            editorManager->applyEditorNamedStyles(editor);
+        else
+            setEditorLanguage(editor, editor->languageName);
+    }
 }
 
 QStringList NotepadSharpApplication::getLanguageKeywords(const QString &languageName) const

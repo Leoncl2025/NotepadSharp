@@ -2,6 +2,7 @@ qt_add_executable(NotepadSharp
 	WIN32
 	MACOSX_BUNDLE
 	ActionUtils.h
+	AppearanceManager.h
 	ApplicationSettings.h
 	ByteArrayUtils.h
 	ColorPickerDelegate.h
@@ -17,6 +18,7 @@ qt_add_executable(NotepadSharp
 	DefaultDirectoryManager.h
 	DockedEditor.h
 	DockedEditorTitleBar.h
+	EditorAppearance.h
 
 	EditorManager.h
 	EditorPrintPreviewRenderer.h
@@ -55,9 +57,11 @@ qt_add_executable(NotepadSharp
 	SpinBoxDelegate.h
 	TranslationManager.h
 	UndoAction.h
+	WindowsAppearance.h
 	ZoomEventWatcher.h
 	resources.qrc
 	scripts.qrc
+	AppearanceManager.cpp
 	ApplicationSettings.cpp
 	ColorPickerDelegate.cpp
 	ComboBoxDelegate.cpp
@@ -70,6 +74,8 @@ qt_add_executable(NotepadSharp
 	DebugManager.cpp
 	DefaultDirectoryManager.cpp
 	DockedEditor.cpp
+	EditorDecorationAppearance.cpp
+	EditorAppearance.cpp
 
 	EditorManager.cpp
 	EditorPrintPreviewRenderer.cpp
@@ -105,6 +111,7 @@ qt_add_executable(NotepadSharp
 	SpinBoxDelegate.cpp
 	TranslationManager.cpp
 	UndoAction.cpp
+	WindowsAppearance.cpp
 	ZoomEventWatcher.cpp
 	decorators/ApplicationDecorator.cpp
 	decorators/ApplicationDecorator.h
@@ -230,6 +237,7 @@ if(WIN32)
 		@ONLY
 	)
 	target_sources(NotepadSharp PRIVATE "${CMAKE_BINARY_DIR}/version.rc")
+	target_link_libraries(NotepadSharp PRIVATE dwmapi)
 	configure_file(
 		"${CMAKE_SOURCE_DIR}/icon/NotepadSharp.ico"
 		"${CMAKE_BINARY_DIR}/NotepadSharp.ico"

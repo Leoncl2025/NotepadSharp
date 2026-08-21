@@ -2,6 +2,28 @@ function rgb(x)
     return ((x & 0xFF) << 16) | (x & 0xFF00) | ((x & 0xFF0000) >> 16)
 end
 
+function UpdateTheme()
+    theme = {
+        dark = theme_dark_mode,
+        default_fg = theme_default_fg,
+        default_bg = theme_default_bg,
+        comment = theme_comment,
+        string = theme_string,
+        number = theme_number,
+        keyword = theme_keyword,
+        control_flow = theme_control_flow,
+        func = theme_function,
+        type = theme_type,
+        variable = theme_variable,
+        constant = theme_constant,
+        tag = theme_tag,
+        attribute = theme_attribute,
+        error = theme_error,
+    }
+end
+
+UpdateTheme()
+
 function DetectLanguageFromContents(contents)
     for name, L in pairs(languages) do
         if L.first_line then
@@ -48,11 +70,63 @@ function DialogFilters()
     return table.concat(filters, ";;")
 end
 
+local function themedForeground(styleName, fallback)
+    if not theme.dark then return fallback end
+
+    local name = string.upper(tostring(styleName))
+        if string.find(name, "ERROR", 1, true) or string.find(name, "ILLEGAL", 1, true)
+            or string.find(name, "UNKNOWN", 1, true) then
+            return theme.error
+        end
+    if string.find(name, "COMMENT", 1, true) then return theme.comment end
+    if string.find(name, "STRING", 1, true) or string.find(name, "CHARACTER", 1, true)
+        or string.find(name, "VERBATIM", 1, true) or string.find(name, "REGEX", 1, true) then
+        return theme.string
+    end
+    if string.find(name, "NUMBER", 1, true) or string.find(name, "NUMERIC", 1, true)
+        or string.find(name, "HEX", 1, true) or string.find(name, "BIN", 1, true) then
+        return theme.number
+    end
+    if string.find(name, "FUNCTION", 1, true) or string.find(name, "METHOD", 1, true)
+        or string.find(name, "DEFNAME", 1, true) or string.find(name, "CMDLET", 1, true) then
+        return theme.func
+    end
+    if string.find(name, "CLASS", 1, true) or string.find(name, "TYPE", 1, true) then
+        return theme.type
+    end
+    if string.find(name, "ATTRIBUTE", 1, true) or string.find(name, "PROPERTY", 1, true) then
+        return theme.attribute
+    end
+    if string.find(name, "TAG", 1, true) then return theme.tag end
+    if string.find(name, "VARIABLE", 1, true) or string.find(name, "PARAM", 1, true) then
+        return theme.variable
+    end
+    if string.find(name, "CONSTANT", 1, true) or string.find(name, "MACRO", 1, true) then
+        return theme.constant
+        end
+        if string.find(name, "LABEL", 1, true) or string.find(name, "PREPROCESSOR", 1, true) then
+            return theme.constant
+    end
+    if string.find(name, "CONTROL", 1, true) then return theme.control_flow end
+    if string.find(name, "KEYWORD", 1, true) or string.find(name, "INSTRUCTION", 1, true)
+        or string.find(name, "COMMAND", 1, true) or string.find(name, "DIRECTIVE", 1, true)
+        or string.find(name, "RESERVED", 1, true) then
+        return theme.keyword
+    end
+    if string.find(name, "DEFAULT", 1, true) or string.find(name, "WHITE", 1, true)
+        or string.find(name, "IDENTIFIER", 1, true) or string.find(name, "OPERATOR", 1, true)
+        or string.find(name, "PUNCTUATION", 1, true) then
+        return theme.default_fg
+    end
+    if fallback == rgb(0x000000) then return theme.default_fg end
+    return fallback
+end
+
 function SetStyle(L)
     if L.styles then
-        for _, style in pairs(L.styles) do
-            editor.StyleFore[style.id] = style.fgColor
-            editor.StyleBack[style.id] = style.bgColor
+        for styleName, style in pairs(L.styles) do
+            editor.StyleFore[style.id] = themedForeground(styleName, style.fgColor)
+            editor.StyleBack[style.id] = theme.dark and theme.default_bg or style.bgColor
 
             if style.fontStyle then
                 editor.StyleBold[style.id] = (style.fontStyle & 1 == 1)

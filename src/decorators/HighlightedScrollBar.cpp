@@ -19,6 +19,7 @@
 
 #include <QPainter>
 
+#include "AppearanceManager.h"
 #include "HighlightedScrollBar.h"
 
 
@@ -26,14 +27,10 @@ using namespace Scintilla;
 
 const int DEFAULT_TICK_HEIGHT = 3;
 const int DEFAULT_TICK_PADDING = 3;
-const QColor CURSOR_SELECTION_COLOR = QColor(0, 0, 0, 25);
-const QColor CURSOR_CARET_COLOR = QColor(0, 0, 0, 100);
-const QColor COMPARE_ADDED_COLOR = QColor(49, 153, 78);
-const QColor COMPARE_DELETED_COLOR = QColor(211, 63, 63);
-const QColor COMPARE_CURRENT_COLOR = QColor(46, 125, 233);
-
-HighlightedScrollBarDecorator::HighlightedScrollBarDecorator(ScintillaNext *editor)
-    : EditorDecorator(editor), scrollBar(new HighlightedScrollBar(editor, Qt::Vertical, editor))
+HighlightedScrollBarDecorator::HighlightedScrollBarDecorator(
+        ScintillaNext *editor, AppearanceManager *appearanceManager)
+        : EditorDecorator(editor),
+            scrollBar(new HighlightedScrollBar(editor, appearanceManager, Qt::Vertical, editor))
 {
     connect(scrollBar, &QScrollBar::valueChanged, editor, &ScintillaEditBase::scrollVertical);
 
@@ -57,8 +54,13 @@ void HighlightedScrollBarDecorator::notify(const NotificationData *pscn)
 
 
 
-HighlightedScrollBar::HighlightedScrollBar(ScintillaNext *editor, Qt::Orientation orientation, QWidget *parent)
-    : QScrollBar(orientation, parent), editor(editor)
+HighlightedScrollBar::HighlightedScrollBar(ScintillaNext *editor,
+                                                                                     AppearanceManager *appearanceManager,
+                                                                                     Qt::Orientation orientation,
+                                                                                     QWidget *parent)
+        : QScrollBar(orientation, parent),
+            editor(editor),
+            appearanceManager(appearanceManager)
 {
     smartHighlighterIndicator = editor->allocateIndicator("smart_highlighter");
 }
@@ -68,11 +70,12 @@ void HighlightedScrollBar::paintEvent(QPaintEvent *event)
     // Paint the default scrollbar first
     QScrollBar::paintEvent(event);
     QPainter p(this);
+    const AppearanceTokens &tokens = appearanceManager->tokens();
 
-    drawMarker(p, 24, QColor(100, 100, 255));
-    drawMarker(p, 16, COMPARE_ADDED_COLOR, 5);
-    drawMarker(p, 17, COMPARE_DELETED_COLOR, 5);
-    drawMarker(p, 19, COMPARE_CURRENT_COLOR, 7);
+    drawMarker(p, 24, tokens.diffModifiedMarker);
+    drawMarker(p, 16, tokens.diffAddedMarker, 5);
+    drawMarker(p, 17, tokens.diffDeletedMarker, 5);
+    drawMarker(p, 19, tokens.accentPrimary, 7);
     drawIndicator(p, smartHighlighterIndicator);
     drawCursors(p);
 }
@@ -104,15 +107,18 @@ void HighlightedScrollBar::drawIndicator(QPainter &p, int indicator)
 
 void HighlightedScrollBar::drawCursors(QPainter &p)
 {
+    QColor selectionColor = appearanceManager->tokens().selectionInactive;
+    QColor caretColor = appearanceManager->tokens().editorCaret;
+    caretColor.setAlpha(130);
     for (int i = 0; i < editor->selections() ; i++) {
         int startCaretY = posToScrollBarY(editor->selectionNCaret(i));
         int startAnchorY = posToScrollBarY(editor->selectionNAnchor(i));
 
         if (startCaretY != startAnchorY) {
-            drawTickMark(p, startAnchorY, startCaretY - startAnchorY, CURSOR_SELECTION_COLOR);
+            drawTickMark(p, startAnchorY, startCaretY - startAnchorY, selectionColor);
         }
 
-        drawTickMark(p, startCaretY, DEFAULT_TICK_HEIGHT, CURSOR_CARET_COLOR);
+        drawTickMark(p, startCaretY, DEFAULT_TICK_HEIGHT, caretColor);
     }
 }
 

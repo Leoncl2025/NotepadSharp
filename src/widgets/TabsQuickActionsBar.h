@@ -65,7 +65,11 @@ public:
     void setVisibileButtons(const Buttons &buttons);
     void setVisibileButton(Button button, bool on = true);
 
+protected:
+    bool event(QEvent *event) override;
+
 private:
+    void applyAppearance();
     Buttons visibileButtons = TabsQuickActionsBar::All;
 
     QAction *createNewTabAction = nullptr;

@@ -17,6 +17,7 @@
  */
 
 #include "SearchResultHighlighterDelegate.h"
+#include "AppearanceManager.h"
 #include "SearchResultData.h"
 
 #include <QPainter>
@@ -58,26 +59,30 @@ void SearchResultHighlighterDelegate::paint(QPainter *painter, const QStyleOptio
 
     // Draw 'before' text (normal)
     painter->setFont(opt.font);
-    painter->setPen(opt.palette.color(QPalette::Text));
+    const QColor normalText = opt.state & QStyle::State_Selected
+        ? opt.palette.color(QPalette::HighlightedText)
+        : opt.palette.color(QPalette::Text);
+    painter->setPen(normalText);
     painter->drawText(x, y, before);
     x += fm.horizontalAdvance(before);
 
-    // Draw highlighted 'match' text (bold, red, yellow bg)
     QFont boldFont = opt.font;
     boldFont.setBold(true);
     painter->setFont(boldFont);
 
     int matchWidth = fm.horizontalAdvance(match);
     QRect highlightRect(x, textRect.top(), matchWidth, textRect.height());
-    painter->fillRect(highlightRect, QColor(Qt::yellow));
+    QColor matchBackground = appearanceManager->tokens().accentPrimary;
+    matchBackground.setAlpha(110);
+    painter->fillRect(highlightRect, matchBackground);
 
-    painter->setPen(Qt::red);
+    painter->setPen(appearanceManager->tokens().textPrimary);
     painter->drawText(x, y, match);
     x += matchWidth;
 
     // Draw 'after' text (normal)
     painter->setFont(opt.font);
-    painter->setPen(opt.palette.color(QPalette::Text));
+    painter->setPen(normalText);
     painter->drawText(x, y, after);
 
     painter->restore();
