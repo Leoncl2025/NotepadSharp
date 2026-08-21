@@ -1,26 +1,32 @@
-name: "Build Notepad #"
+name: Windows Build
 
 on:
-  workflow_dispatch: 
+  workflow_dispatch:
   push:
     branches:
       - main
     tags:
-      - '*'
+      - 'v*'
   pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+concurrency:
+  group: windows-build-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 env:
-  QT_RELEASE_VER: 6.5
+  BUILD_DIR: build
+  QT_VERSION: 6.5.3
 
 jobs:
-  build:
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ubuntu-24.04, windows-2022, macos-latest]
-        qt_version: ["6.5", "6.8", "6.10"]
-
-    runs-on: ${{ matrix.os }}
+  windows:
+    name: Windows x64
+    runs-on: windows-2022
+    timeout-minutes: 45
 
     steps:
       - name: Checkout Repository
@@ -29,136 +35,89 @@ jobs:
       - name: Install Qt
         uses: jurplel/install-qt-action@v4
         with:
-          version: ${{ matrix.qt_version }}
+          version: ${{ env.QT_VERSION }}
           modules: 'qt5compat'
           cache: true
 
       - name: Setup Visual Studio Tools
-        if: runner.os == 'Windows'
         uses: egor-tensin/vs-shell@v2
         with:
           arch: x64
 
       - name: Install NSIS
-        if: runner.os == 'Windows'
-        uses: repolevedavaj/install-nsis@v1.2.1
+        uses: repolevedavaj/install-nsis@v1.3.0
         with:
           nsis-version: '3.12'
 
-      - name: Setup Linux
-        if: runner.os == 'Linux'
-        run: |
-          echo "DISTRIBUTION=AppImage" >> "$GITHUB_ENV"
-
-          # Qt 6.10+ renamed wayland plugins
-          if [[ "${{ matrix.qt_version }}" == "6.10" ]]; then
-            echo "EXTRA_PLATFORM_PLUGINS=libqwayland.so" >> "$GITHUB_ENV"
-          else
-            echo "EXTRA_PLATFORM_PLUGINS=libqwayland-generic.so" >> "$GITHUB_ENV"
-          fi
-
-          sudo apt-get install libxkbcommon-dev libxkbcommon-x11-0 fuse libxcb-cursor-dev libcups2-dev
-
       - name: Configure
-        run: cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DAPP_DISTRIBUTION=${{ env.DISTRIBUTION }}
+        run: >-
+          cmake -S . -B "${{ env.BUILD_DIR }}" -G Ninja
+          -DCMAKE_BUILD_TYPE=Release
+          -DBUILD_TESTING=ON
 
       - name: Build
-        run: cmake --build build --parallel
+        run: cmake --build "${{ env.BUILD_DIR }}" --parallel
 
-      - name: Build Windows Targets
-        if: runner.os == 'Windows'
-        run: cmake --build build --target installer_bundle --parallel
+      - name: Test
+        run: ctest --test-dir "${{ env.BUILD_DIR }}" --output-on-failure
 
-      - name: Build MacOS Targets
-        if: runner.os == 'macOS'
-        run: cmake --build build --target dmg --parallel
+      - name: Package Installer and Portable Build
+        run: cmake --build "${{ env.BUILD_DIR }}" --target installer_bundle --parallel
 
-      - name: Build Linux Targets
-        if: runner.os == 'Linux'
-        run: cmake --build build --target appimage --parallel
+      - name: Verify Package Artifacts
+        shell: pwsh
+        run: |
+          $artifactDir = Join-Path '${{ github.workspace }}' '${{ env.BUILD_DIR }}\artifacts'
+          $patterns = @(
+            'NotepadSharp-*-Setup.exe'
+            'NotepadSharp-*-Portable.zip'
+            'NotepadSharp-*-source.zip'
+            'SHA256SUMS.txt'
+          )
 
-      - name: Upload Windows Portable
+          foreach ($pattern in $patterns) {
+            $matches = @(Get-ChildItem -Path $artifactDir -Filter $pattern -File)
+            if ($matches.Count -ne 1) {
+              throw "Expected exactly one artifact matching $pattern, found $($matches.Count)."
+            }
+          }
+
+          Get-ChildItem -Path $artifactDir -File | Select-Object Name, Length
+          Get-Content (Join-Path $artifactDir 'SHA256SUMS.txt')
+
+      - name: Upload Windows Installer and Portable Bundle
         uses: actions/upload-artifact@v7
-        if: runner.os == 'Windows'
         with:
-          name: NotepadSharp-Windows-Qt${{ matrix.qt_version }}-Portable
-          path: ${{ github.workspace }}/build/artifacts/NotepadSharp-*-Portable.zip
+          name: NotepadSharp-Windows-x64
+          path: ${{ github.workspace }}/${{ env.BUILD_DIR }}/artifacts/
+          if-no-files-found: error
+          retention-days: 14
+          compression-level: 0
 
-      - name: Upload Windows Source
-        uses: actions/upload-artifact@v7
-        if: runner.os == 'Windows'
-        with:
-          name: NotepadSharp-Windows-Qt${{ matrix.qt_version }}-Source
-          path: ${{ github.workspace }}/build/artifacts/NotepadSharp-*-source.zip
-
-      - name: Upload Windows Checksums
-        uses: actions/upload-artifact@v7
-        if: runner.os == 'Windows'
-        with:
-          name: NotepadSharp-Windows-Qt${{ matrix.qt_version }}-Checksums
-          path: ${{ github.workspace }}/build/artifacts/SHA256SUMS.txt
-
-      - name: Upload Windows Installer
-        uses: actions/upload-artifact@v7
-        if: runner.os == 'Windows'
-        with:
-          name: NotepadSharp-Windows-Qt${{ matrix.qt_version }}-Installer
-          path: ${{ github.workspace }}/build/artifacts/NotepadSharp*.exe
-
-      - name: Upload MacOS dmg
-        uses: actions/upload-artifact@v7
-        if: runner.os == 'macOS'
-        with:
-          name: NotepadSharp-macOS-Qt${{ matrix.qt_version }}
-          path: ${{ github.workspace }}/build/NotepadSharp*.dmg
-
-      - name: Upload Linux AppImage
-        uses: actions/upload-artifact@v7
-        if: runner.os == 'Linux'
-        with:
-          name: NotepadSharp-Linux-Qt${{ matrix.qt_version }}-AppImage
-          path: ${{ github.workspace }}/build/NotepadSharp*.AppImage
-
-  github:
-    name: Draft GitHub Release
-    runs-on: ubuntu-latest
-    needs: [build]
+  release:
+    name: Draft Windows Release
+    runs-on: ubuntu-24.04
+    needs: windows
 
     if: github.repository == 'Leoncl2025/NotepadSharp' && github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    permissions:
+      contents: write
 
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v7
-
-      - name: Create Draft Release
-        run: |
-          gh release create ${{ github.ref_name }} --title ${{ github.ref_name }} --generate-notes --draft
-
-      - name: Download all artifacts
+      - name: Download Windows Bundle
         uses: actions/download-artifact@v8
+        with:
+          name: NotepadSharp-Windows-x64
+          path: release-artifacts
 
-      - name: Upload Windows Installer
+      - name: Create Draft Release and Upload Assets
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
-          gh release upload ${{ github.ref_name }} NotepadSharp-Windows-Qt$QT_RELEASE_VER-Installer/NotepadSharp-*.exe
-
-      - name: Upload Windows Zip
-        run: |
-          gh release upload ${{ github.ref_name }} NotepadSharp-Windows-Qt$QT_RELEASE_VER-Portable/NotepadSharp-*-Portable.zip
-
-      - name: Upload Windows Source
-        run: |
-          gh release upload ${{ github.ref_name }} NotepadSharp-Windows-Qt$QT_RELEASE_VER-Source/NotepadSharp-*-source.zip
-
-      - name: Upload Windows Checksums
-        run: |
-          gh release upload ${{ github.ref_name }} NotepadSharp-Windows-Qt$QT_RELEASE_VER-Checksums/SHA256SUMS.txt
-
-      - name: Upload Linux AppImage
-        run: |
-          gh release upload ${{ github.ref_name }} NotepadSharp-Linux-Qt$QT_RELEASE_VER-AppImage/NotepadSharp-${{ github.ref_name }}-x86_64.AppImage
-
-      - name: Upload macOS App
-        run: |
-          gh release upload ${{ github.ref_name }} NotepadSharp-macOS-Qt$QT_RELEASE_VER/NotepadSharp-${{ github.ref_name }}.dmg
+          if ! gh release view "${{ github.ref_name }}" >/dev/null 2>&1; then
+            gh release create "${{ github.ref_name }}" \
+              --title "${{ github.ref_name }}" \
+              --generate-notes \
+              --draft
+          fi
+          gh release upload "${{ github.ref_name }}" release-artifacts/* --clobber
