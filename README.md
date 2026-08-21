@@ -1,5 +1,10 @@
 # Notepad \#
 
+[![Release](https://img.shields.io/github/v/release/Leoncl2025/NotepadSharp?display_name=tag&sort=semver)](https://github.com/Leoncl2025/NotepadSharp/releases)
+[![Downloads](https://img.shields.io/github/downloads/Leoncl2025/NotepadSharp/total)](https://github.com/Leoncl2025/NotepadSharp/releases)
+[![License](https://img.shields.io/github/license/Leoncl2025/NotepadSharp)](LICENSE)
+[![Platform](https://img.shields.io/badge/platform-Windows%20x64-0078D4)](#platform-support)
+
 Notepad # is a reimplementation of Notepad++ built with compliance and stronger security as core design goals.
 
 ![screenshot](/doc/screenshot.png)
