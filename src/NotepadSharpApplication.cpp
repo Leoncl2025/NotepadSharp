@@ -325,6 +325,14 @@ void NotepadSharpApplication::updateLuaAppearance() const
     luaState->setVariable("theme_error", AppearanceManager::scintillaColor(tokens.stateError));
 }
 
+void NotepadSharpApplication::refreshEditorLanguageAppearance(ScintillaNext *editor) const
+{
+    LuaExtension::Instance().setEditor(editor);
+    getLuaState()->setVariable("languageName", editor->languageName);
+    getLuaState()->execute("SetLanguageAppearance(languageName)");
+    editorManager->applyEditorNamedStyles(editor);
+}
+
 void NotepadSharpApplication::refreshEditorAppearance()
 {
     updateLuaAppearance();
@@ -335,7 +343,7 @@ void NotepadSharpApplication::refreshEditorAppearance()
         if (editor->languageName.isEmpty())
             editorManager->applyEditorNamedStyles(editor);
         else
-            setEditorLanguage(editor, editor->languageName);
+            refreshEditorLanguageAppearance(editor);
     }
 }
 

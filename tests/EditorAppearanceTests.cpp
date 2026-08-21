@@ -16,6 +16,7 @@ private slots:
     void appliesDarkTokensAndPreservesDocumentState();
     void restoresNamedStylesAfterStyleClearAll();
     void switchesTheSameEditorBackToLight();
+    void preservesExistingLexerStyleAssignments();
 };
 
 void EditorAppearanceTests::appliesDarkTokensAndPreservesDocumentState()
@@ -94,6 +95,27 @@ void EditorAppearanceTests::switchesTheSameEditorBackToLight()
     EditorAppearance::apply(&editor, manager.tokens(), QStringLiteral("Courier New"), 11);
     QCOMPARE(editor.styleBack(STYLE_DEFAULT),
              static_cast<sptr_t>(AppearanceManager::scintillaColor(QColor(QStringLiteral("#FFFFFF")))));
+}
+
+void EditorAppearanceTests::preservesExistingLexerStyleAssignments()
+{
+    QTemporaryDir directory;
+    ApplicationSettings settings(directory.filePath(QStringLiteral("settings.ini")), QSettings::IniFormat);
+    AppearanceManager manager(&settings, [] { return Qt::ColorScheme::Dark; });
+    manager.setRequestedMode(AppearanceManager::Mode::Dark);
+
+    ScintillaEdit editor;
+    editor.setText("token");
+    editor.startStyling(0, 0);
+    editor.setStyling(editor.length(), 7);
+    QCOMPARE(editor.styleAt(0), 7);
+
+    EditorAppearance::apply(&editor, manager.tokens(), QStringLiteral("Courier New"), 11);
+
+    QCOMPARE(editor.styleAt(0), 7);
+    editor.styleSetFore(7, AppearanceManager::scintillaColor(manager.tokens().syntaxString));
+    QCOMPARE(editor.styleFore(7),
+             static_cast<sptr_t>(AppearanceManager::scintillaColor(manager.tokens().syntaxString)));
 }
 
 QTEST_MAIN(EditorAppearanceTests)

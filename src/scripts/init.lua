@@ -122,7 +122,7 @@ local function themedForeground(styleName, fallback)
     return fallback
 end
 
-function SetStyle(L)
+local function SetStyleAppearance(L)
     if L.styles then
         for styleName, style in pairs(L.styles) do
             editor.StyleFore[style.id] = themedForeground(styleName, style.fgColor)
@@ -136,6 +136,10 @@ function SetStyle(L)
             end
         end
     end
+end
+
+function SetStyle(L)
+    SetStyleAppearance(L)
 
     if L.keywords then
         for id, kw in pairs(L.keywords) do
@@ -146,6 +150,18 @@ function SetStyle(L)
     if L.properties then
         for p, v in pairs(L.properties) do
             editor.Property[p] = v
+        end
+    end
+end
+
+function SetLanguageAppearance(languageName)
+    local L = languages[languageName]
+
+    SetStyleAppearance(L)
+
+    if L.additionalLanguages then
+        for _, language in pairs(L.additionalLanguages) do
+            SetStyleAppearance(languages[language])
         end
     end
 end

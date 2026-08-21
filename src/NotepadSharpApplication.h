@@ -87,6 +87,7 @@ private:
 
     void loadSettings();
     void updateLuaAppearance() const;
+    void refreshEditorLanguageAppearance(ScintillaNext *editor) const;
 
     EditorManager *editorManager;
     AppearanceManager *appearanceManager;
