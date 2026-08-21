@@ -8,6 +8,7 @@
 #include <QEvent>
 #include <QGuiApplication>
 #include <QPalette>
+#include <QScopedValueRollback>
 #include <QStyle>
 #include <QStyleHints>
 #include <QWidget>
@@ -173,7 +174,7 @@ void AppearanceManager::applyApplicationAppearance()
 bool AppearanceManager::eventFilter(QObject *watched, QEvent *event)
 {
     if (event->type() == QEvent::ApplicationPaletteChange
-        && mode == Mode::System && !applyingPalette) {
+        && mode == Mode::System && !applyingPalette && !updatingAppearance) {
         updateEffectiveAppearance(true);
     }
     else if (event->type() == QEvent::Show || event->type() == QEvent::WinIdChange) {
@@ -199,6 +200,10 @@ void AppearanceManager::applyNativeAppearance(QWidget *window)
 
 void AppearanceManager::updateEffectiveAppearance(bool forceUpdate)
 {
+    if (updatingAppearance)
+        return;
+    QScopedValueRollback<bool> guard(updatingAppearance, true);
+
     const EffectiveAppearance resolved = resolveEffectiveAppearance();
     if (effective == resolved && !forceUpdate)
         return;

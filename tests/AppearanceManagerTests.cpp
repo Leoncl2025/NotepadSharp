@@ -1,5 +1,6 @@
 #include <QSignalSpy>
 #include <QTemporaryDir>
+#include <QEvent>
 #include <QtTest>
 
 #include "AppearanceManager.h"
@@ -17,6 +18,7 @@ private slots:
     void emitsOnlyWhenEffectiveAppearanceChanges();
     void followsSystemChangesOnlyInSystemMode();
     void systemDarkKeepsSemanticSyntax();
+    void ignoresPaletteChangesDuringSynchronousRefresh();
 };
 
 void AppearanceManagerTests::parsesOnlyCanonicalWireValues()
@@ -125,6 +127,29 @@ void AppearanceManagerTests::systemDarkKeepsSemanticSyntax()
     QVERIFY(manager.tokens().syntaxKeyword != manager.tokens().textEditor);
     QVERIFY(manager.tokens().syntaxString != manager.tokens().syntaxKeyword);
     QVERIFY(manager.tokens().diffAddedMarker != manager.tokens().diffDeletedMarker);
+}
+
+void AppearanceManagerTests::ignoresPaletteChangesDuringSynchronousRefresh()
+{
+    QTemporaryDir directory;
+    ApplicationSettings settings(directory.filePath(QStringLiteral("settings.ini")), QSettings::IniFormat);
+    AppearanceManager manager(&settings, [] { return Qt::ColorScheme::Light; });
+    QSignalSpy spy(&manager, &AppearanceManager::effectiveAppearanceChanged);
+    int refreshCount = 0;
+
+    connect(&manager, &AppearanceManager::effectiveAppearanceChanged, qApp, [&]() {
+        if (++refreshCount < 4) {
+            QEvent paletteChange(QEvent::ApplicationPaletteChange);
+            QCoreApplication::sendEvent(qApp, &paletteChange);
+        }
+    });
+
+    manager.setRequestedMode(AppearanceManager::Mode::System);
+
+    QCOMPARE(spy.count(), 1);
+    QCOMPARE(refreshCount, 1);
+    QCOMPARE(manager.requestedMode(), AppearanceManager::Mode::System);
+    QCOMPARE(manager.effectiveAppearance(), AppearanceManager::EffectiveAppearance::Light);
 }
 
 QTEST_MAIN(AppearanceManagerTests)

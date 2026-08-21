@@ -125,4 +125,5 @@ private:
     EffectiveAppearance effective;
     AppearanceTokens currentTokens;
     bool applyingPalette = false;
+    bool updatingAppearance = false;
 };
