@@ -5,38 +5,85 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: 'New Version (do not include v)'
+        description: 'New numeric version greater than the current version (do not include v)'
         required: true
+        type: string
+
+concurrency:
+  group: create-release
+  cancel-in-progress: false
 
 jobs:
   release:
     runs-on: ubuntu-latest
+    permissions:
+      actions: write
+      contents: write
+    env:
+      RELEASE_VERSION: ${{ inputs.version }}
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7
         with:
-          token: ${{ secrets.CREATE_RELEASE_TOKEN }}
+          ref: main
+          fetch-depth: 0
+
+      - name: Validate release version
+        run: |
+          if [[ ! "${RELEASE_VERSION}" =~ ^[0-9]+\.[0-9]+(\.[0-9]+){0,2}$ ]]; then
+            echo "Version must contain two to four numeric components, for example 0.15 or 1.0.0." >&2
+            exit 1
+          fi
+
+          current_version="$(sed -nE 's/^[[:space:]]*VERSION[[:space:]]+([0-9.]+).*/\1/p' CMakeLists.txt | head -n 1)"
+          if [[ -z "${current_version}" ]]; then
+            echo "Could not read the current project version from CMakeLists.txt." >&2
+            exit 1
+          fi
+
+          highest_version="$(printf '%s\n%s\n' "${current_version}" "${RELEASE_VERSION}" | sort -V | tail -n 1)"
+          if [[ "${highest_version}" != "${RELEASE_VERSION}" || "${current_version}" == "${RELEASE_VERSION}" ]]; then
+            echo "Version ${RELEASE_VERSION} must be greater than current version ${current_version}." >&2
+            exit 1
+          fi
+
+          if git show-ref --verify --quiet "refs/tags/v${RELEASE_VERSION}"; then
+            echo "Tag v${RELEASE_VERSION} already exists and must not be moved or reused." >&2
+            exit 1
+          fi
 
       - name: Update App Version
         run: |
-          sed -i 's/^\([[:space:]]*VERSION[[:space:]]*\).*/\1${{ github.event.inputs.version }}/' CMakeLists.txt
+          sed -i -E "s/^([[:space:]]*VERSION[[:space:]]+).*/\1${RELEASE_VERSION}/" CMakeLists.txt
 
       - name: Update Flatpak Version
         run: |
-          sed -i "s@<releases>@<releases>\n        <release version=\"v${{ github.event.inputs.version }}\" date=\"$(date +'%Y-%m-%d')\" />@" deploy/linux/io.github.leoncl2025.NotepadSharp.metainfo.xml
+          sed -i "s@<releases>@<releases>\n        <release version=\"v${RELEASE_VERSION}\" date=\"$(date +'%Y-%m-%d')\" />@" deploy/linux/io.github.leoncl2025.NotepadSharp.metainfo.xml
+
+      - name: Verify release metadata
+        run: |
+          grep -Eq "^[[:space:]]*VERSION[[:space:]]+${RELEASE_VERSION}$" CMakeLists.txt
+          grep -Fq "<release version=\"v${RELEASE_VERSION}\"" deploy/linux/io.github.leoncl2025.NotepadSharp.metainfo.xml
+          git diff --check
 
       - name: Commit changes
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add CMakeLists.txt deploy/linux/io.github.leoncl2025.NotepadSharp.metainfo.xml
-          git commit -m "v${{ github.event.inputs.version }} release"
+          git commit -m "v${RELEASE_VERSION} release"
 
       - name: Tag commit
         run: |
-          git tag v${{ github.event.inputs.version }}
+          git tag -a "v${RELEASE_VERSION}" -m "Notepad # v${RELEASE_VERSION}"
 
-      - name: Push
+      - name: Push release commit and tag
         run: |
-          git push origin main --tags
+          git push --atomic origin HEAD:main "refs/tags/v${RELEASE_VERSION}"
+
+      - name: Dispatch tagged Windows build
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: gh workflow run build.yml --ref "v${RELEASE_VERSION}"

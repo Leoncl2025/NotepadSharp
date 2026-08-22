@@ -61,6 +61,23 @@ jobs:
       - name: Test
         run: ctest --test-dir "${{ env.BUILD_DIR }}" --output-on-failure
 
+      - name: Verify release tag matches project version
+        if: startsWith(github.ref, 'refs/tags/v')
+        shell: pwsh
+        env:
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: |
+          $versionLine = Select-String -Path CMakeLists.txt -Pattern '^\s*VERSION\s+([0-9.]+)\s*$' | Select-Object -First 1
+          if (-not $versionLine) {
+            throw 'Could not read the project version from CMakeLists.txt.'
+          }
+
+          $projectVersion = $versionLine.Matches[0].Groups[1].Value
+          $tagVersion = $env:RELEASE_TAG -replace '^v', ''
+          if ($projectVersion -ne $tagVersion) {
+            throw "Tag $env:RELEASE_TAG does not match project version $projectVersion."
+          }
+
       - name: Prepare Source Archive
         shell: pwsh
         run: |
@@ -109,7 +126,7 @@ jobs:
     runs-on: ubuntu-24.04
     needs: windows
 
-    if: github.repository == 'Leoncl2025/NotepadSharp' && github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
+    if: github.repository == 'Leoncl2025/NotepadSharp' && startsWith(github.ref, 'refs/tags/v') && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
     permissions:
       contents: write
 
@@ -123,11 +140,17 @@ jobs:
       - name: Create Draft Release and Upload Assets
         env:
           GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          RELEASE_TAG: ${{ github.ref_name }}
         run: |
-          if ! gh release view "${{ github.ref_name }}" >/dev/null 2>&1; then
-            gh release create "${{ github.ref_name }}" \
-              --title "${{ github.ref_name }}" \
+          if ! gh release view "${RELEASE_TAG}" >/dev/null 2>&1; then
+            gh release create "${RELEASE_TAG}" \
+              --title "${RELEASE_TAG}" \
               --generate-notes \
+              --verify-tag \
               --draft
+          elif [[ "$(gh release view "${RELEASE_TAG}" --json isDraft --jq '.isDraft')" != "true" ]]; then
+            echo "Refusing to replace assets on published release ${RELEASE_TAG}." >&2
+            exit 1
           fi
-          gh release upload "${{ github.ref_name }}" release-artifacts/* --clobber
+          gh release upload "${RELEASE_TAG}" release-artifacts/* --clobber
