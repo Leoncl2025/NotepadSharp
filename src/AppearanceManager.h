@@ -107,6 +107,7 @@ private:
     EffectiveAppearance resolveEffectiveAppearance() const;
     EffectiveAppearance paletteFallback() const;
     void restoreSystemPalette();
+    void restoreLightPalette();
     void applyApplicationAppearance();
     void applyNativeAppearance();
     void applyNativeAppearance(QWidget *window);
@@ -124,6 +125,7 @@ private:
     Mode mode;
     EffectiveAppearance effective;
     AppearanceTokens currentTokens;
+    QPalette lightPalette;
     QPalette systemPaletteSnapshot;
     bool hasSystemPaletteSnapshot = false;
     bool applyingPalette = false;
