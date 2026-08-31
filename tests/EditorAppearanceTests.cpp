@@ -95,6 +95,8 @@ void EditorAppearanceTests::switchesTheSameEditorBackToLight()
     EditorAppearance::apply(&editor, manager.tokens(), QStringLiteral("Courier New"), 11);
     QCOMPARE(editor.styleBack(STYLE_DEFAULT),
              static_cast<sptr_t>(AppearanceManager::scintillaColor(QColor(QStringLiteral("#FFFFFF")))));
+    QCOMPARE(static_cast<quint32>(editor.elementColour(SC_ELEMENT_CARET_LINE_BACK)),
+             0xFFFFE8E8u);
 }
 
 void EditorAppearanceTests::preservesExistingLexerStyleAssignments()

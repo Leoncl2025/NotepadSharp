@@ -45,6 +45,7 @@ class AppearanceManagerTests : public QObject
 private slots:
     void parsesOnlyCanonicalWireValues();
     void defaultsMissingSettingsToClassicLight();
+    void explicitLightRestoresNativePalette();
     void defaultsInvalidSettingsToSystem();
     void persistsExplicitMode();
     void emitsOnlyWhenEffectiveAppearanceChanges();
@@ -76,10 +77,36 @@ void AppearanceManagerTests::defaultsMissingSettingsToClassicLight()
 
     ApplicationSettings settings(directory.filePath(QStringLiteral("settings.ini")), QSettings::IniFormat);
     QCOMPARE(settings.appearance(), QStringLiteral("light"));
+    QVERIFY(!QApplication::testAttribute(Qt::AA_SetPalette));
 
     AppearanceManager manager(&settings, [] { return Qt::ColorScheme::Dark; });
     QCOMPARE(manager.requestedMode(), AppearanceManager::Mode::Light);
     QCOMPARE(manager.effectiveAppearance(), AppearanceManager::EffectiveAppearance::Light);
+    QVERIFY(!QApplication::testAttribute(Qt::AA_SetPalette));
+}
+
+void AppearanceManagerTests::explicitLightRestoresNativePalette()
+{
+    QTemporaryDir directory;
+    QVERIFY(directory.isValid());
+
+    const QPalette nativePalette = QApplication::palette();
+    ApplicationSettings settings(directory.filePath(QStringLiteral("settings.ini")), QSettings::IniFormat);
+    AppearanceManager manager(&settings, [] { return Qt::ColorScheme::Light; });
+
+    manager.setRequestedMode(AppearanceManager::Mode::Dark);
+    QVERIFY(QApplication::palette() != nativePalette);
+
+    manager.setRequestedMode(AppearanceManager::Mode::Light);
+    const QPalette actualPalette = QApplication::palette();
+    for (QPalette::ColorGroup group : {QPalette::Active, QPalette::Inactive, QPalette::Disabled}) {
+        for (int role = 0; role < QPalette::NColorRoles; ++role) {
+            if (role == QPalette::NoRole)
+                continue;
+            QCOMPARE(actualPalette.color(group, static_cast<QPalette::ColorRole>(role)),
+                     nativePalette.color(group, static_cast<QPalette::ColorRole>(role)));
+        }
+    }
 }
 
 void AppearanceManagerTests::defaultsInvalidSettingsToSystem()

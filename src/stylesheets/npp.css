@@ -13,13 +13,34 @@ QMenuBar::item:selected, QMenu::item:selected {
 }
 
 QMenu::separator {
+    height: 1px;
     background: palette(mid);
+    margin: 4px 6px;
 }
 
 QToolTip {
     background: palette(tool-tip-base);
     color: palette(tool-tip-text);
     border: 1px solid palette(mid);
+}
+
+QMessageBox {
+    background: palette(window);
+}
+
+QMessageBox QLabel {
+    background: transparent;
+    color: palette(window-text);
+}
+
+QMessageBox QDialogButtonBox {
+    background: palette(button);
+    border-top: 1px solid palette(mid);
+}
+
+QMessageBox QPushButton {
+    min-width: 72px;
+    padding: 5px 12px;
 }
 
 QLineEdit, QComboBox, QSpinBox, QDoubleSpinBox, QTextEdit, QPlainTextEdit,

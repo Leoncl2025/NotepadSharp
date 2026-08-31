@@ -21,9 +21,14 @@
 #include <QElapsedTimer>
 #include <QFile>
 #include <QIcon>
+#include <QImage>
 #include <QLabel>
 #include <QMainWindow>
+#include <QMenu>
+#include <QMessageBox>
 #include <QPointer>
+#include <QPushButton>
+#include <QScopeGuard>
 #include <QSplitter>
 #include <QTemporaryDir>
 #include <QTest>
@@ -40,6 +45,122 @@ class CompareSessionTests : public QObject
     Q_OBJECT
 
 private slots:
+    void lightStylePreservesNativeControls()
+    {
+        QFile styleSheet(QStringLiteral(":/stylesheets/npp-light.css"));
+        QVERIFY(styleSheet.open(QIODevice::ReadOnly | QIODevice::Text));
+        const QString css = QString::fromUtf8(styleSheet.readAll())
+            + DockedEditor::tabTitleStyleSheet(Qt::black, Qt::gray);
+
+        QWidget nativeHost;
+        QWidget lightHost;
+        lightHost.setStyleSheet(css);
+
+        QMessageBox nativeMessageBox(&nativeHost);
+        QMessageBox lightMessageBox(&lightHost);
+        auto addButtons = [](QMessageBox &messageBox) {
+            QPushButton *saveButton = messageBox.addButton(
+                QStringLiteral("Save"), QMessageBox::AcceptRole);
+            messageBox.addButton(QStringLiteral("Discard"), QMessageBox::DestructiveRole);
+            messageBox.addButton(QMessageBox::Cancel);
+            return saveButton;
+        };
+        QPushButton *nativeSaveButton = addButtons(nativeMessageBox);
+        QPushButton *lightSaveButton = addButtons(lightMessageBox);
+
+        QMenu nativeMenu(&nativeHost);
+        QMenu lightMenu(&lightHost);
+        nativeMenu.addAction(QStringLiteral("First"));
+        QAction *nativeSeparator = nativeMenu.addSeparator();
+        nativeMenu.addAction(QStringLiteral("Second"));
+        lightMenu.addAction(QStringLiteral("First"));
+        QAction *lightSeparator = lightMenu.addSeparator();
+        lightMenu.addAction(QStringLiteral("Second"));
+
+        nativeMessageBox.show();
+        lightMessageBox.show();
+        nativeMenu.show();
+        lightMenu.show();
+        QCoreApplication::processEvents();
+
+        QCOMPARE(lightSaveButton->size(), nativeSaveButton->size());
+        QCOMPARE(lightMenu.actionGeometry(lightSeparator).height(),
+                 nativeMenu.actionGeometry(nativeSeparator).height());
+    }
+
+    void darkStyleKeepsMenuSeparatorsCompact()
+    {
+        QFile styleSheet(QStringLiteral(":/stylesheets/npp.css"));
+        QVERIFY(styleSheet.open(QIODevice::ReadOnly | QIODevice::Text));
+
+        QWidget host;
+        QPalette palette = host.palette();
+        palette.setColor(QPalette::Window, QColor(QStringLiteral("#101010")));
+        palette.setColor(QPalette::Mid, QColor(QStringLiteral("#5A5A5A")));
+        host.setPalette(palette);
+        host.setStyleSheet(QString::fromUtf8(styleSheet.readAll()));
+        QMenu menu(&host);
+        menu.addAction(QStringLiteral("First"));
+        QAction *separator = menu.addSeparator();
+        menu.addAction(QStringLiteral("Second"));
+        menu.show();
+        QCoreApplication::processEvents();
+
+        QImage image(menu.size(), QImage::Format_ARGB32);
+        image.fill(Qt::transparent);
+        menu.render(&image);
+
+        const QRect separatorGeometry = menu.actionGeometry(separator);
+        const int sampleX = separatorGeometry.center().x();
+        const QColor backgroundColor = image.pixelColor(sampleX, separatorGeometry.top());
+        int separatorRows = 0;
+        for (int y = separatorGeometry.top(); y <= separatorGeometry.bottom(); ++y) {
+            if (image.pixelColor(sampleX, y) != backgroundColor)
+                ++separatorRows;
+        }
+        QCOMPARE(separatorRows, 1);
+    }
+
+    void darkStyleKeepsMessageBoxesDark()
+    {
+        QFile styleSheet(QStringLiteral(":/stylesheets/npp.css"));
+        QVERIFY(styleSheet.open(QIODevice::ReadOnly | QIODevice::Text));
+
+        QWidget host;
+        QPalette darkPalette = host.palette();
+        darkPalette.setColor(QPalette::Window, QColor(QStringLiteral("#191A1B")));
+        darkPalette.setColor(QPalette::WindowText, QColor(QStringLiteral("#BFBFBF")));
+        darkPalette.setColor(QPalette::Button, QColor(QStringLiteral("#202122")));
+        darkPalette.setColor(QPalette::ButtonText, QColor(QStringLiteral("#BFBFBF")));
+        darkPalette.setColor(QPalette::Mid, QColor(QStringLiteral("#333536")));
+        const QPalette originalPalette = QApplication::palette();
+        const auto restorePalette = qScopeGuard([originalPalette] {
+            QApplication::setPalette(originalPalette);
+        });
+        QApplication::setPalette(darkPalette);
+        host.setPalette(darkPalette);
+        host.setStyleSheet(QString::fromUtf8(styleSheet.readAll()));
+
+        QMessageBox messageBox(&host);
+        messageBox.setIcon(QMessageBox::Question);
+        messageBox.setText(QStringLiteral("Save changes to <b>New 1</b>?"));
+        messageBox.addButton(QStringLiteral("Save"), QMessageBox::AcceptRole);
+        messageBox.addButton(QStringLiteral("Discard"), QMessageBox::DestructiveRole);
+        messageBox.addButton(QMessageBox::Cancel);
+        messageBox.show();
+        QCoreApplication::processEvents();
+
+        QImage image(messageBox.size(), QImage::Format_ARGB32);
+        image.fill(Qt::transparent);
+        messageBox.render(&image);
+
+        const QColor bodyPixel = image.pixelColor(messageBox.width() / 2, 12);
+        const QColor footerPixel = image.pixelColor(12, messageBox.height() - 12);
+        QCOMPARE(bodyPixel, darkPalette.color(QPalette::Window));
+        QVERIFY(footerPixel.lightness() < 80);
+        QVERIFY(messageBox.buttons().first()->width() >= 72);
+    }
+
     void darkStyleKeepsInactiveTabTitlesReadable()
     {
         QFile styleSheet(QStringLiteral(":/stylesheets/npp.css"));

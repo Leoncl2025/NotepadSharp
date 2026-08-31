@@ -2011,7 +2011,10 @@ void MainWindow::applyStyleSheet()
     bool hasCustomStyleSheet = false;
     {
         AppearanceTrace::Scope readTrace(QStringLiteral("stylesheet-read"));
-        QFile f(":/stylesheets/npp.css");
+        const QString styleSheetPath = app->getAppearanceManager()->isDark()
+            ? QStringLiteral(":/stylesheets/npp.css")
+            : QStringLiteral(":/stylesheets/npp-light.css");
+        QFile f(styleSheetPath);
         qInfo() << "Loading stylesheet:" << f.fileName();
 
         f.open(QFile::ReadOnly);

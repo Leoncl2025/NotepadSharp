@@ -17,6 +17,12 @@
 
 namespace {
 
+const QPalette &initialApplicationPalette()
+{
+    static const QPalette palette = QApplication::palette();
+    return palette;
+}
+
 double relativeLuminance(const QColor &color)
 {
     auto linearChannel = [](int channel) {
@@ -46,6 +52,7 @@ AppearanceManager::AppearanceManager(ApplicationSettings *settings,
     })
     , mode(modeFromString(settings->appearance()))
     , effective(EffectiveAppearance::Light)
+    , lightPalette(initialApplicationPalette())
 {
     AppearanceTrace::initialize();
     if (mode == Mode::System)
@@ -197,6 +204,16 @@ void AppearanceManager::restoreSystemPalette()
     hasSystemPaletteSnapshot = true;
 }
 
+void AppearanceManager::restoreLightPalette()
+{
+    if (QApplication::palette() == lightPalette)
+        return;
+
+    applyingPalette = true;
+    QApplication::setPalette(lightPalette);
+    applyingPalette = false;
+}
+
 void AppearanceManager::applyApplicationAppearance()
 {
     if (mode == Mode::System) {
@@ -206,6 +223,11 @@ void AppearanceManager::applyApplicationAppearance()
     }
 
     currentTokens = effective == EffectiveAppearance::Dark ? darkTokens() : lightTokens();
+    if (effective == EffectiveAppearance::Light) {
+        restoreLightPalette();
+        return;
+    }
+
     applyingPalette = true;
     QApplication::setPalette(explicitPalette(currentTokens));
     applyingPalette = false;
@@ -328,7 +350,7 @@ AppearanceTokens AppearanceManager::lightTokens()
         QColor(0, 120, 212, 128), QColor(128, 128, 128, 80),
         QColor(QStringLiteral("#A1260D")), QColor(QStringLiteral("#8A6D00")),
         QColor(QStringLiteral("#107C10")), QColor(QStringLiteral("#0067B8")),
-        QColor(QStringLiteral("#000000")), QColor(QStringLiteral("#FFF4CE")),
+        QColor(QStringLiteral("#000000")), QColor(QStringLiteral("#E8E8FF")),
         QColor(QStringLiteral("#A0A0A0")), QColor(QStringLiteral("#C0C0C0")),
         QColor(QStringLiteral("#707070")), QColor(QStringLiteral("#0078D4")),
         QColor(QStringLiteral("#A1260D")), QColor(QStringLiteral("#008000")),
