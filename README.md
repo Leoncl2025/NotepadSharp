@@ -26,3 +26,13 @@ Notepad # currently supports Windows only. Linux and macOS support is planned fo
 | Windows | Supported |
 | Linux | Planned |
 | macOS | Planned |
+
+## Roadmap
+
+| Feature | Delivery Model | Status |
+| --- | --- | --- |
+| Compare | Core | Supported |
+| XML/JSON Viewer | Core | Planned |
+| Markdown View/Edit | Plugin | Planned |
+
+Plugin support is planned for a future release. Features such as Markdown viewing and editing will be delivered as plugins rather than built into the core application.
