@@ -166,38 +166,60 @@ private slots:
         QFile styleSheet(QStringLiteral(":/stylesheets/npp.css"));
         QVERIFY(styleSheet.open(QIODevice::ReadOnly | QIODevice::Text));
         const QByteArray css = styleSheet.readAll();
+        const QPalette originalPalette = QApplication::palette();
+        const auto restorePalette = qScopeGuard([originalPalette] {
+            QApplication::setPalette(originalPalette);
+        });
+
+        QPalette lightPalette = originalPalette;
+        lightPalette.setColor(QPalette::Window, Qt::white);
+        lightPalette.setColor(QPalette::WindowText, Qt::black);
+        lightPalette.setColor(QPalette::Base, Qt::white);
+        lightPalette.setColor(QPalette::Text, Qt::black);
+        QApplication::setPalette(lightPalette);
+
         QWidget host;
-        QPalette darkPalette = host.palette();
+        host.resize(900, 600);
+        DockedEditor dockedEditor(&host);
+        dockedEditor.addEditor(new ScintillaNext(QStringLiteral("first.cpp")));
+        dockedEditor.addEditor(new ScintillaNext(QStringLiteral("second.cpp")));
+        dockedEditor.addEditor(new ScintillaNext(QStringLiteral("third.cpp")));
+        host.show();
+        QCoreApplication::processEvents();
+
+        QPalette darkPalette = lightPalette;
         darkPalette.setColor(QPalette::Window, QColor(QStringLiteral("#191A1B")));
         darkPalette.setColor(QPalette::WindowText, QColor(QStringLiteral("#BFBFBF")));
         darkPalette.setColor(QPalette::Base, QColor(QStringLiteral("#121314")));
         darkPalette.setColor(QPalette::Text, QColor(QStringLiteral("#BBBEBF")));
         darkPalette.setColor(QPalette::PlaceholderText, QColor(QStringLiteral("#555555")));
-        host.setPalette(darkPalette);
-        host.resize(900, 600);
-
-        DockedEditor dockedEditor(&host);
-        dockedEditor.addEditor(new ScintillaNext(QStringLiteral("first.cpp")));
-        dockedEditor.addEditor(new ScintillaNext(QStringLiteral("second.cpp")));
+        darkPalette.setColor(QPalette::Light, QColor(QStringLiteral("#242526")));
+        QApplication::setPalette(darkPalette);
         host.setStyleSheet(QString::fromUtf8(css)
             + DockedEditor::tabTitleStyleSheet(
                 QColor(QStringLiteral("#BFBFBF")), QColor(QStringLiteral("#8C8C8C"))));
-        host.show();
         QCoreApplication::processEvents();
 
-        const QList<ads::CDockWidgetTab *> tabs = host.findChildren<ads::CDockWidgetTab *>();
-        QCOMPARE(tabs.size(), 2);
-        auto inactive = std::find_if(tabs.cbegin(), tabs.cend(), [](const auto *tab) {
-            return !tab->isActiveTab();
-        });
-        QVERIFY(inactive != tabs.cend());
+        ads::CDockManager *dockManager = host.findChild<ads::CDockManager *>();
+        QVERIFY(dockManager != nullptr);
+        QVERIFY(dockManager->styleSheet().isEmpty());
 
-        const QList<ads::CElidingLabel *> labels =
-            (*inactive)->findChildren<ads::CElidingLabel *>();
-        QCOMPARE(labels.size(), 1);
-        labels.first()->ensurePolished();
-        QCOMPARE(labels.first()->palette().color(QPalette::WindowText),
-                 QColor(QStringLiteral("#8C8C8C")));
+        const QList<ads::CDockWidgetTab *> tabs = host.findChildren<ads::CDockWidgetTab *>();
+        QCOMPARE(tabs.size(), 3);
+        int inactiveCount = 0;
+        for (ads::CDockWidgetTab *tab : tabs) {
+            if (tab->isActiveTab())
+                continue;
+
+            ++inactiveCount;
+            const QList<ads::CElidingLabel *> labels =
+                tab->findChildren<ads::CElidingLabel *>();
+            QCOMPARE(labels.size(), 1);
+            labels.first()->ensurePolished();
+            QCOMPARE(labels.first()->palette().color(QPalette::WindowText),
+                     QColor(QStringLiteral("#8C8C8C")));
+        }
+        QCOMPARE(inactiveCount, 2);
     }
 
     void navigationWrapsInBothDirections()

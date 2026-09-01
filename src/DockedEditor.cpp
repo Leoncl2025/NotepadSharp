@@ -63,6 +63,7 @@ DockedEditor::DockedEditor(QWidget *parent) : QObject(parent)
     ads::CDockManager::setConfigFlag(ads::CDockManager::EqualSplitOnInsertion, true);
     ads::CDockManager::setConfigFlag(ads::CDockManager::MiddleMouseButtonClosesTab, true);
     ads::CDockManager::setConfigFlag(ads::CDockManager::DockAreaHasTabsMenuButton, false);
+    ads::CDockManager::setConfigFlag(ads::CDockManager::DisableStylesheet, true);
 
     dockManager = new ads::CDockManager(parent);
     dockManager->setStyleSheet("");
