@@ -28,6 +28,9 @@ icon/NotepadSharp.icns
 icon/NotepadSharp.ico
 icon/NotepadSharp.svg
 installer/notepadsharp.nsi
+packaging/macos/README.txt
+packaging/macos/SOURCE_INFO.txt.in
+packaging/macos/THIRD_PARTY_NOTICES.txt
 packaging/windows/LICENSE-Lua-5.3.4.txt
 packaging/windows/README.txt
 packaging/windows/SOURCE_INFO.txt.in

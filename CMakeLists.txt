@@ -39,6 +39,17 @@ find_package(Qt6
             Core5Compat
 )
 
+if(APPLE AND TARGET WrapOpenGL::WrapOpenGL)
+    if(OPENGL_gl_LIBRARY MATCHES "^(.*)/OpenGL[.]framework(/.*)?$")
+        set(MACOS_FRAMEWORK_DIR "${CMAKE_MATCH_1}")
+        if(NOT EXISTS "${MACOS_FRAMEWORK_DIR}/AGL.framework")
+            get_target_property(QT_OPENGL_LIBRARIES WrapOpenGL::WrapOpenGL INTERFACE_LINK_LIBRARIES)
+            list(FILTER QT_OPENGL_LIBRARIES EXCLUDE REGEX "/AGL[.]framework(/.*)?$|^-framework AGL$")
+            set_property(TARGET WrapOpenGL::WrapOpenGL PROPERTY INTERFACE_LINK_LIBRARIES "${QT_OPENGL_LIBRARIES}")
+        endif()
+    endif()
+endif()
+
 set(CMAKE_AUTORCC ON)
 qt_standard_project_setup()
 

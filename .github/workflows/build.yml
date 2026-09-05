@@ -1,4 +1,4 @@
-name: Windows Build
+name: Build
 
 on:
   workflow_dispatch:
@@ -15,7 +15,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: windows-build-${{ github.ref }}
+  group: build-${{ github.ref }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 env:
@@ -121,21 +121,102 @@ jobs:
           retention-days: 14
           compression-level: 0
 
+  macos:
+    name: macOS Universal
+    runs-on: macos-15
+    timeout-minutes: 45
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v7
+
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: ${{ env.QT_VERSION }}
+          arch: clang_64
+          modules: 'qt5compat'
+          cache: true
+
+      - name: Configure
+        run: >-
+          cmake -S . -B "${{ env.BUILD_DIR }}" -G Ninja
+          -DCMAKE_BUILD_TYPE=Release
+          -DBUILD_TESTING=ON
+          '-DCMAKE_OSX_ARCHITECTURES=arm64;x86_64'
+          -DCMAKE_OSX_DEPLOYMENT_TARGET=11.0
+
+      - name: Build
+        run: cmake --build "${{ env.BUILD_DIR }}" --parallel
+
+      - name: Test
+        run: ctest --test-dir "${{ env.BUILD_DIR }}" --output-on-failure
+
+      - name: Verify release tag matches project version
+        if: startsWith(github.ref, 'refs/tags/v')
+        env:
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: |
+          project_version="$(sed -nE 's/^[[:space:]]*VERSION[[:space:]]+([0-9.]+).*/\1/p' CMakeLists.txt | head -n 1)"
+          if [[ -z "${project_version}" || "${RELEASE_TAG}" != "v${project_version}" ]]; then
+            echo "Tag ${RELEASE_TAG} does not match project version ${project_version}." >&2
+            exit 1
+          fi
+
+      - name: Prepare Source Archive
+        run: |
+          rm -f aqtinstall.log
+          changes="$(git status --porcelain --untracked-files=all)"
+          if [[ -n "${changes}" ]]; then
+            printf '%s\n' "${changes}" >&2
+            echo 'The source tree must be clean before packaging.' >&2
+            exit 1
+          fi
+
+      - name: Package macOS Bundle
+        run: cmake --build "${{ env.BUILD_DIR }}" --target macos_bundle --parallel
+
+      - name: Verify Package Artifacts
+        run: |
+          app="${BUILD_DIR}/install/NotepadSharp.app"
+          codesign --verify --deep --strict "${app}"
+          test -s "${app}/Contents/Resources/NotepadSharp.icns"
+          lipo "${app}/Contents/MacOS/NotepadSharp" -verify_arch arm64 x86_64
+          cd "${BUILD_DIR}/artifacts"
+          shasum -a 256 -c SHA256SUMS-macOS-universal.txt
+          ls -lh
+
+      - name: Upload macOS Bundle
+        uses: actions/upload-artifact@v7
+        with:
+          name: NotepadSharp-macOS-universal
+          path: ${{ github.workspace }}/${{ env.BUILD_DIR }}/artifacts/
+          if-no-files-found: error
+          retention-days: 14
+          compression-level: 0
+
   release:
-    name: Draft Windows Release
+    name: Draft Release
     runs-on: ubuntu-24.04
-    needs: windows
+    needs: [windows, macos]
 
     if: github.repository == 'Leoncl2025/NotepadSharp' && startsWith(github.ref, 'refs/tags/v') && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
     permissions:
       contents: write
 
     steps:
-      - name: Download Windows Bundle
+      - name: Download Release Bundles
         uses: actions/download-artifact@v8
         with:
-          name: NotepadSharp-Windows-x64
+          pattern: NotepadSharp-*
+          merge-multiple: true
           path: release-artifacts
+
+      - name: Verify Combined Release Checksums
+        working-directory: release-artifacts
+        run: |
+          cat SHA256SUMS-macOS-universal.txt >> SHA256SUMS.txt
+          sha256sum --check SHA256SUMS.txt
 
       - name: Create Draft Release and Upload Assets
         env:

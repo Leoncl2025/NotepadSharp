@@ -32,6 +32,7 @@
 #include <QSplitter>
 #include <QTemporaryDir>
 #include <QTest>
+#include <QToolButton>
 
 #include <algorithm>
 
@@ -282,6 +283,94 @@ private slots:
         QCOMPARE(dockedEditor.previousEditor(dockedEditor.getCurrentEditor()), firstEditor);
     }
 
+    void darkMainToolBarUsesThemePalette()
+    {
+        const QPalette originalPalette = QApplication::palette();
+        const auto restorePalette = qScopeGuard([originalPalette] {
+            QApplication::setPalette(originalPalette);
+        });
+        QPalette darkPalette = originalPalette;
+        darkPalette.setColor(QPalette::Window, QColor(QStringLiteral("#191A1B")));
+        darkPalette.setColor(QPalette::WindowText, QColor(QStringLiteral("#BFBFBF")));
+        darkPalette.setColor(QPalette::Button, QColor(QStringLiteral("#202122")));
+        darkPalette.setColor(QPalette::ButtonText, QColor(QStringLiteral("#BFBFBF")));
+        darkPalette.setColor(QPalette::Mid, QColor(QStringLiteral("#333536")));
+        darkPalette.setColor(QPalette::AlternateBase, QColor(QStringLiteral("#242526")));
+        darkPalette.setColor(QPalette::Highlight, QColor(QStringLiteral("#276782")));
+        QApplication::setPalette(darkPalette);
+
+        QFile styleSheetFile(QStringLiteral(":/stylesheets/npp.css"));
+        QVERIFY(styleSheetFile.open(QIODevice::ReadOnly));
+        const QString darkStyleSheet = QString::fromUtf8(styleSheetFile.readAll());
+        QMainWindow window;
+        window.setStyleSheet(darkStyleSheet);
+        QToolBar toolBar(&window);
+        toolBar.setObjectName(QStringLiteral("mainToolBar"));
+        toolBar.setMovable(false);
+        toolBar.setIconSize(QSize(24, 24));
+        const QIcon icon = ThemedIcon::monochrome(
+            QStringLiteral(":/icons/git-compare-arrows.svg"),
+            darkPalette.color(QPalette::WindowText), QColor(QStringLiteral("#6A6D70")));
+        QAction compareAction(icon, QStringLiteral("Compare"), &window);
+        toolBar.addAction(&compareAction);
+        window.addToolBar(&toolBar);
+        window.resize(480, 160);
+        window.show();
+        QApplication::processEvents();
+
+        const QImage toolbarImage = toolBar.grab().toImage();
+        QVERIFY(!toolbarImage.isNull());
+        QCOMPARE(toolbarImage.pixelColor(toolbarImage.width() - 20, toolbarImage.height() / 2),
+                 darkPalette.color(QPalette::Window));
+
+        QToolButton *button = qobject_cast<QToolButton *>(toolBar.widgetForAction(&compareAction));
+        QVERIFY(button);
+        button->setAttribute(Qt::WA_UnderMouse, false);
+        const QSize buttonSize = button->size();
+        auto buttonBackground = [&] {
+            const QImage image = toolBar.grab().toImage();
+            const QPoint sample = button->mapTo(&toolBar, QPoint(3, 3));
+            const qreal pixelRatio = image.devicePixelRatio();
+            return image.pixelColor(qRound(sample.x() * pixelRatio),
+                                    qRound(sample.y() * pixelRatio));
+        };
+        QCOMPARE(buttonBackground(), darkPalette.color(QPalette::Window));
+
+        compareAction.setEnabled(false);
+        QCOMPARE(buttonBackground(), darkPalette.color(QPalette::Window));
+        compareAction.setEnabled(true);
+        compareAction.setCheckable(true);
+        compareAction.setChecked(true);
+        QCOMPARE(buttonBackground(), darkPalette.color(QPalette::Button));
+
+        button->setAttribute(Qt::WA_UnderMouse, true);
+        QCOMPARE(buttonBackground(), darkPalette.color(QPalette::AlternateBase));
+        button->setDown(true);
+        QCOMPARE(buttonBackground(), darkPalette.color(QPalette::Highlight));
+        button->setDown(false);
+        button->setAttribute(Qt::WA_UnderMouse, false);
+        compareAction.setChecked(false);
+        QCOMPARE(buttonBackground(), darkPalette.color(QPalette::Window));
+        QCOMPARE(button->size(), buttonSize);
+
+        const QString screenshotPath = qEnvironmentVariable("NOTEPADSHARP_TOOLBAR_SCREENSHOT");
+        if (!screenshotPath.isEmpty())
+            QVERIFY(toolBar.grab().save(screenshotPath));
+
+        QFile lightStyleSheetFile(QStringLiteral(":/stylesheets/npp-light.css"));
+        QVERIFY(lightStyleSheetFile.open(QIODevice::ReadOnly));
+        QApplication::setPalette(originalPalette);
+        window.setStyleSheet(QString::fromUtf8(lightStyleSheetFile.readAll()));
+        QApplication::processEvents();
+        QCOMPARE(toolBar.palette().color(QPalette::Window), originalPalette.color(QPalette::Window));
+
+        QApplication::setPalette(darkPalette);
+        window.setStyleSheet(darkStyleSheet);
+        QApplication::processEvents();
+        button->setAttribute(Qt::WA_UnderMouse, false);
+        QCOMPARE(buttonBackground(), darkPalette.color(QPalette::Window));
+    }
+
     void darkCompareActionIconUsesThemeColors()
     {
         const QColor normal(QStringLiteral("#BFBFBF"));
@@ -295,7 +384,7 @@ private slots:
             for (int y = 0; y < image.height(); ++y) {
                 for (int x = 0; x < image.width(); ++x) {
                     const QColor pixel = image.pixelColor(x, y);
-                    if (pixel.alpha() > 0)
+                    if (pixel.alpha() == 255)
                         return pixel;
                 }
             }

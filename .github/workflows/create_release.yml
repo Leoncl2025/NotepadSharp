@@ -82,7 +82,7 @@ jobs:
         run: |
           git push --atomic origin HEAD:main "refs/tags/v${RELEASE_VERSION}"
 
-      - name: Dispatch tagged Windows build
+      - name: Dispatch tagged platform builds
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}

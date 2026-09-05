@@ -1,0 +1,39 @@
+Notepad # macOS Project Source Snapshot and Build Provenance
+==========================================================
+
+Product: Notepad #
+Technical identity: NotepadSharp
+Version: @PROJECT_VERSION@
+Package type: experimental macOS build, ad-hoc signed, not notarized
+Architecture: @MACOS_PACKAGE_ARCH@
+Minimum macOS version: @MACOS_MINIMUM_VERSION@
+
+Product source
+--------------
+Matching project source archive: @SOURCE_ARCHIVE_NAME@
+Product repository revision: @GIT_HEAD@
+Working-tree state captured in source ZIP: @GIT_WORKTREE_STATE@
+Notepad Next baseline: 1f117bc6d82d96e43718b2d0e43b6b2611bc4f5f
+Product repository: https://github.com/Leoncl2025/NotepadSharp
+Upstream source: https://github.com/dail8859/NotepadNext
+
+The source ZIP contains tracked working-tree files and reviewed allowlisted
+untracked files at package time. Generated output, Git metadata, local caches,
+and external dependency source trees are excluded. CPM dependencies are pinned
+in thirdparty/CMakeLists.txt and fetched from their listed repositories.
+This snapshot records build provenance, not final legal or security approval.
+
+Qt source
+---------
+Runtime version: Qt @Qt6_VERSION@
+Qt source archive: https://download.qt.io/archive/qt/6.5/@Qt6_VERSION@/single/qt-everywhere-src-@Qt6_VERSION@.zip
+Qt frameworks and plugins are dynamically linked. This GPLv3 application
+includes the GPLv3 text. Compatible replacement frameworks must be re-signed
+locally if the application bundle is modified.
+
+Build inputs
+------------
+CMake: @CMAKE_VERSION@
+Generator: @CMAKE_GENERATOR@
+Build type: @CMAKE_BUILD_TYPE@
+Compiler: @CMAKE_CXX_COMPILER_ID@ @CMAKE_CXX_COMPILER_VERSION@

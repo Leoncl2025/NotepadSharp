@@ -532,7 +532,7 @@ void Overlay::addGapLines(ScintillaNext *editor,
         return;
     }
 
-    anchorLine = std::min(anchorLine, editor->lineCount() - 1);
+    anchorLine = std::min<qsizetype>(anchorLine, editor->lineCount() - 1);
     const QByteArray hatchUnit("/ ");
     const int annotationStyle = editor->QObject::property(AnnotationStyleProperty).toInt();
     const qsizetype hatchUnitWidth = std::max<qsizetype>(1, editor->textWidth(annotationStyle, hatchUnit.constData()));
