@@ -7,6 +7,12 @@
 
 Notepad # is a reimplementation of Notepad++ built with compliance and stronger security as core design goals.
 
+## macOS: Dark Mode & Compare
+
+![Notepad # on macOS in dark mode with side-by-side file comparison](/doc/screenshot_macos.png)
+
+## Windows: Dark Mode & Compare
+
 ![screenshot](/doc/screenshot.png)
 
 ## Origin and License
@@ -28,8 +34,6 @@ Notepad # supports Windows and provides experimental macOS builds. Linux support
 | macOS 11 or later | Experimental; universal Apple Silicon and Intel build |
 
 ## macOS Packages
-
-![Notepad # on macOS in dark mode with side-by-side file comparison](/doc/screenshot_macos.png)
 
 The release workflow builds macOS packages alongside Windows packages for [GitHub Releases](https://github.com/Leoncl2025/NotepadSharp/releases). macOS artifacts include a DMG, a portable application ZIP, a matching project-source ZIP, and `SHA256SUMS-macOS-universal.txt`.
 
