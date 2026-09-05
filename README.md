@@ -29,6 +29,8 @@ Notepad # supports Windows and provides experimental macOS builds. Linux support
 
 ## macOS Packages
 
+![Notepad # on macOS in dark mode with side-by-side file comparison](/doc/screenshot_macos.png)
+
 The release workflow builds macOS packages alongside Windows packages for [GitHub Releases](https://github.com/Leoncl2025/NotepadSharp/releases). macOS artifacts include a DMG, a portable application ZIP, a matching project-source ZIP, and `SHA256SUMS-macOS-universal.txt`.
 
 Open the DMG and drag `NotepadSharp.app` to Applications, or extract the portable ZIP. Qt is included in the application bundle and does not need to be installed separately.
