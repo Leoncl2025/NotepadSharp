@@ -1871,6 +1871,52 @@
       <source>No updates are available at this time.</source>
       <translation>現在利用可能な更新はありません。</translation>
     </message>
+    <message>
+      <source>Pretty Print JSON</source>
+      <translation>JSON を整形</translation>
+    </message>
+    <message>
+      <source>Compact JSON</source>
+      <translation>JSON を圧縮</translation>
+    </message>
+    <message>
+      <source>Toggle Pretty / Compact</source>
+      <translation>整形／圧縮を切り替え</translation>
+    </message>
+    <message>
+      <source>JSON formatting requires a writable document and a single, non-rectangular selection.</source>
+      <translation>JSON の整形には、書き込み可能な文書と矩形ではない単一の選択範囲が必要です。</translation>
+    </message>
+    <message>
+      <source>Invalid JSON at line %1, column %2: %3
+Best-effort formatting was applied; syntax errors were not repaired.</source>
+      <translation>%1 行 %2 列の JSON が無効です: %3
+可能な範囲で整形しましたが、構文エラーは修復していません。</translation>
+    </message>
+    <message>
+      <source>JSON Format Warning</source>
+      <translation>JSON 形式の警告</translation>
+    </message>
+    <message>
+      <source>JSON pretty-printed.</source>
+      <translation>JSON を整形しました。</translation>
+    </message>
+    <message>
+      <source>JSON compacted.</source>
+      <translation>JSON を圧縮しました。</translation>
+    </message>
+    <message>
+      <source>Serialized JSON string decoded.</source>
+      <translation>シリアル化された JSON 文字列をデコードしました。</translation>
+    </message>
+    <message>
+      <source>JSON Tools</source>
+      <translation>JSON ツール</translation>
+    </message>
+    <message>
+      <source>Find JSON Path...</source>
+      <translation>JSON パスを検索...</translation>
+    </message>
   </context>
   <context>
     <name>PreferencesDialog</name>
@@ -2139,6 +2185,369 @@
       <location filename="../src/widgets/TabsQuickActionsBar.cpp" line="49"/>
       <source>Close the current file</source>
       <translation>現在のファイルを閉じる</translation>
+    </message>
+  </context>
+  <context>
+    <name>JsonFormatter</name>
+    <message>
+      <source>Expected a single JSON value.</source>
+      <translation>単一の JSON 値が必要です。</translation>
+    </message>
+  </context>
+  <context>
+    <name>JsonTools</name>
+    <message>
+      <source>Expected a single JSON value.</source>
+      <translation>単一の JSON 値が必要です。</translation>
+    </message>
+    <message>
+      <source>JSON navigation limit exceeded.</source>
+      <translation>JSON ナビゲーションの上限を超えました。</translation>
+    </message>
+    <message>
+      <source>Duplicate key: %1</source>
+      <translation>重複キー: %1</translation>
+    </message>
+    <message>
+      <source>Object</source>
+      <translation>オブジェクト</translation>
+    </message>
+    <message>
+      <source>Array</source>
+      <translation>配列</translation>
+    </message>
+    <message>
+      <source>String</source>
+      <translation>文字列</translation>
+    </message>
+    <message>
+      <source>Number</source>
+      <translation>数値</translation>
+    </message>
+    <message>
+      <source>Boolean</source>
+      <translation>真偽値</translation>
+    </message>
+    <message>
+      <source>Incomplete</source>
+      <translation>不完全</translation>
+    </message>
+    <message>
+      <source>Enter a JSONPath or JSON Pointer.</source>
+      <translation>JSONPath または JSON Pointer を入力してください。</translation>
+    </message>
+    <message>
+      <source>Comparison requires valid JSON without duplicate keys.</source>
+      <translation>比較には重複キーのない有効な JSON が必要です。</translation>
+    </message>
+  </context>
+  <context>
+    <name>JsonTools::Session</name>
+    <message>
+      <source>JSON tools are limited to 32 MiB per document.</source>
+      <translation>JSON ツールは文書ごとに 32 MiB まで対応します。</translation>
+    </message>
+    <message>
+      <source>Indexing JSON...</source>
+      <translation>JSON の索引を作成中...</translation>
+    </message>
+  </context>
+  <context>
+    <name>JsonTools::TreeModel</name>
+    <message>
+      <source>Record %1</source>
+      <translation>レコード %1</translation>
+    </message>
+    <message>
+      <source>%1 items</source>
+      <translation>%1 項目</translation>
+    </message>
+    <message>
+      <source>Key</source>
+      <translation>キー</translation>
+    </message>
+    <message>
+      <source>Value</source>
+      <translation>値</translation>
+    </message>
+    <message>
+      <source>Type</source>
+      <translation>型</translation>
+    </message>
+    <message>
+      <source>Line</source>
+      <translation>行</translation>
+    </message>
+  </context>
+  <context>
+    <name>JsonTools::Workbench</name>
+    <message>
+      <source>JSON Tools</source>
+      <translation>JSON ツール</translation>
+    </message>
+    <message>
+      <source>Parent Node</source>
+      <translation>親ノード</translation>
+    </message>
+    <message>
+      <source>Previous Sibling</source>
+      <translation>前の同階層ノード</translation>
+    </message>
+    <message>
+      <source>Next Sibling</source>
+      <translation>次の同階層ノード</translation>
+    </message>
+    <message>
+      <source>Pretty Print Node</source>
+      <translation>ノードを整形</translation>
+    </message>
+    <message>
+      <source>Compact Node</source>
+      <translation>ノードを圧縮</translation>
+    </message>
+    <message>
+      <source>Fold / Unfold Node</source>
+      <translation>ノードを折りたたむ／展開</translation>
+    </message>
+    <message>
+      <source>Refresh JSON</source>
+      <translation>JSON を更新</translation>
+    </message>
+    <message>
+      <source>Structure</source>
+      <translation>構造</translation>
+    </message>
+    <message>
+      <source>Path</source>
+      <translation>パス</translation>
+    </message>
+    <message>
+      <source>Key</source>
+      <translation>キー</translation>
+    </message>
+    <message>
+      <source>Value</source>
+      <translation>値</translation>
+    </message>
+    <message>
+      <source>JSONPath or Search Text</source>
+      <translation>JSONPath または検索文字列</translation>
+    </message>
+    <message>
+      <source>Run Query</source>
+      <translation>クエリを実行</translation>
+    </message>
+    <message>
+      <source>Match Case</source>
+      <translation>大文字と小文字を区別</translation>
+    </message>
+    <message>
+      <source>Select Value</source>
+      <translation>値を選択</translation>
+    </message>
+    <message>
+      <source>Select Key</source>
+      <translation>キーを選択</translation>
+    </message>
+    <message>
+      <source>Copy Results</source>
+      <translation>結果をコピー</translation>
+    </message>
+    <message>
+      <source>Line</source>
+      <translation>行</translation>
+    </message>
+    <message>
+      <source>Type</source>
+      <translation>型</translation>
+    </message>
+    <message>
+      <source>Query</source>
+      <translation>クエリ</translation>
+    </message>
+    <message>
+      <source>Schema file</source>
+      <translation>スキーマファイル</translation>
+    </message>
+    <message>
+      <source>Open Schema</source>
+      <translation>スキーマを開く</translation>
+    </message>
+    <message>
+      <source>Validate JSON</source>
+      <translation>JSON を検証</translation>
+    </message>
+    <message>
+      <source>Issue</source>
+      <translation>問題</translation>
+    </message>
+    <message>
+      <source>Validation</source>
+      <translation>検証</translation>
+    </message>
+    <message>
+      <source>Comparison file</source>
+      <translation>比較ファイル</translation>
+    </message>
+    <message>
+      <source>Open Comparison File</source>
+      <translation>比較ファイルを開く</translation>
+    </message>
+    <message>
+      <source>Compare JSON</source>
+      <translation>JSON を比較</translation>
+    </message>
+    <message>
+      <source>Ignore Object Key Order</source>
+      <translation>オブジェクトのキー順序を無視</translation>
+    </message>
+    <message>
+      <source>Change</source>
+      <translation>変更</translation>
+    </message>
+    <message>
+      <source>Before</source>
+      <translation>変更前</translation>
+    </message>
+    <message>
+      <source>After</source>
+      <translation>変更後</translation>
+    </message>
+    <message>
+      <source>Compare</source>
+      <translation>比較</translation>
+    </message>
+    <message>
+      <source>Copy JSON Path</source>
+      <translation>JSON パスをコピー</translation>
+    </message>
+    <message>
+      <source>JSON files (*.json);;All files (*)</source>
+      <translation>JSON ファイル (*.json);;すべてのファイル (*)</translation>
+    </message>
+    <message>
+      <source>%1 issues; %2 records validated</source>
+      <translation>%1 件の問題、%2 件のレコードを検証済み</translation>
+    </message>
+    <message>
+      <source>JSON files (*.json *.jsonl *.ndjson);;All files (*)</source>
+      <translation>JSON ファイル (*.json *.jsonl *.ndjson);;すべてのファイル (*)</translation>
+    </message>
+    <message>
+      <source>JSON Comparison</source>
+      <translation>JSON 比較</translation>
+    </message>
+    <message>
+      <source>Added</source>
+      <translation>追加</translation>
+    </message>
+    <message>
+      <source>Removed</source>
+      <translation>削除</translation>
+    </message>
+    <message>
+      <source>Modified</source>
+      <translation>変更</translation>
+    </message>
+    <message>
+      <source>Key Order</source>
+      <translation>キー順序</translation>
+    </message>
+    <message>
+      <source>Line %1: %2</source>
+      <translation>%1 行: %2</translation>
+    </message>
+    <message>
+      <source>%1 differences</source>
+      <translation>%1 件の差異</translation>
+    </message>
+    <message>
+      <source>Results limited to 10000.</source>
+      <translation>結果は 10000 件までです。</translation>
+    </message>
+    <message>
+      <source>%1 nodes; %2 issues</source>
+      <translation>%1 ノード、%2 件の問題</translation>
+    </message>
+    <message>
+      <source>Ambiguous: %1</source>
+      <translation>曖昧: %1</translation>
+    </message>
+    <message>
+      <source>Duplicate keys: this path is not unique.</source>
+      <translation>重複キーにより、このパスは一意ではありません。</translation>
+    </message>
+    <message>
+      <source>Copy JSON Pointer</source>
+      <translation>JSON Pointer をコピー</translation>
+    </message>
+    <message>
+      <source>Copy Key</source>
+      <translation>キーをコピー</translation>
+    </message>
+    <message>
+      <source>Copy JSON Value</source>
+      <translation>JSON 値をコピー</translation>
+    </message>
+    <message>
+      <source>Copy Decoded String</source>
+      <translation>デコードした文字列をコピー</translation>
+    </message>
+    <message>
+      <source>Preview Node</source>
+      <translation>ノードをプレビュー</translation>
+    </message>
+    <message>
+      <source>Querying...</source>
+      <translation>クエリ実行中...</translation>
+    </message>
+    <message>
+      <source>%1 matches; %2 invalid or ambiguous records skipped</source>
+      <translation>%1 件一致、無効または曖昧なレコード %2 件をスキップ</translation>
+    </message>
+    <message>
+      <source>Copy limit exceeded; narrow the query.</source>
+      <translation>コピー上限を超えました。クエリを絞り込んでください。</translation>
+    </message>
+    <message>
+      <source>Best-effort formatting: %1</source>
+      <translation>可能な範囲で整形: %1</translation>
+    </message>
+    <message>
+      <source>JSON Preview</source>
+      <translation>JSON プレビュー</translation>
+    </message>
+    <message>
+      <source>JSON index is not ready.</source>
+      <translation>JSON の索引はまだ準備できていません。</translation>
+    </message>
+    <message>
+      <source>JSON Lines compacted; %1 invalid records unchanged.</source>
+      <translation>JSON Lines を圧縮しました。無効なレコード %1 件は変更していません。</translation>
+    </message>
+    <message>
+      <source>Validating...</source>
+      <translation>検証中...</translation>
+    </message>
+    <message>
+      <source>Warning: %1</source>
+      <translation>警告: %1</translation>
+    </message>
+    <message>
+      <source>Error: %1</source>
+      <translation>エラー: %1</translation>
+    </message>
+    <message>
+      <source>%1 issues</source>
+      <translation>%1 件の問題</translation>
+    </message>
+    <message>
+      <source>Select a comparison file.</source>
+      <translation>比較ファイルを選択してください。</translation>
+    </message>
+    <message>
+      <source>Comparing...</source>
+      <translation>比較中...</translation>
     </message>
   </context>
 </TS>

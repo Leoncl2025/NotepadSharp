@@ -1886,6 +1886,52 @@
       <source>No updates are available at this time.</source>
       <translation>В настоящее время обновлений нет.</translation>
     </message>
+    <message>
+      <source>Pretty Print JSON</source>
+      <translation>Форматировать JSON</translation>
+    </message>
+    <message>
+      <source>Compact JSON</source>
+      <translation>Сжать JSON</translation>
+    </message>
+    <message>
+      <source>Toggle Pretty / Compact</source>
+      <translation>Переключить форматирование / сжатие</translation>
+    </message>
+    <message>
+      <source>JSON formatting requires a writable document and a single, non-rectangular selection.</source>
+      <translation>Для форматирования JSON нужен доступный для записи документ и одно непрямоугольное выделение.</translation>
+    </message>
+    <message>
+      <source>Invalid JSON at line %1, column %2: %3
+Best-effort formatting was applied; syntax errors were not repaired.</source>
+      <translation>Некорректный JSON в строке %1, столбце %2: %3
+Применено частичное форматирование; синтаксические ошибки не исправлены.</translation>
+    </message>
+    <message>
+      <source>JSON Format Warning</source>
+      <translation>Предупреждение формата JSON</translation>
+    </message>
+    <message>
+      <source>JSON pretty-printed.</source>
+      <translation>JSON отформатирован.</translation>
+    </message>
+    <message>
+      <source>JSON compacted.</source>
+      <translation>JSON сжат.</translation>
+    </message>
+    <message>
+      <source>Serialized JSON string decoded.</source>
+      <translation>Сериализованная строка JSON декодирована.</translation>
+    </message>
+    <message>
+      <source>JSON Tools</source>
+      <translation>Инструменты JSON</translation>
+    </message>
+    <message>
+      <source>Find JSON Path...</source>
+      <translation>Найти путь JSON...</translation>
+    </message>
   </context>
   <context>
     <name>PreferencesDialog</name>
@@ -2154,6 +2200,369 @@
       <location filename="../src/widgets/TabsQuickActionsBar.cpp" line="49"/>
       <source>Close the current file</source>
       <translation>Закрыть текущий файл</translation>
+    </message>
+  </context>
+  <context>
+    <name>JsonFormatter</name>
+    <message>
+      <source>Expected a single JSON value.</source>
+      <translation>Ожидается одно значение JSON.</translation>
+    </message>
+  </context>
+  <context>
+    <name>JsonTools</name>
+    <message>
+      <source>Expected a single JSON value.</source>
+      <translation>Ожидается одно значение JSON.</translation>
+    </message>
+    <message>
+      <source>JSON navigation limit exceeded.</source>
+      <translation>Превышен предел навигации JSON.</translation>
+    </message>
+    <message>
+      <source>Duplicate key: %1</source>
+      <translation>Повторяющийся ключ: %1</translation>
+    </message>
+    <message>
+      <source>Object</source>
+      <translation>Объект</translation>
+    </message>
+    <message>
+      <source>Array</source>
+      <translation>Массив</translation>
+    </message>
+    <message>
+      <source>String</source>
+      <translation>Строка</translation>
+    </message>
+    <message>
+      <source>Number</source>
+      <translation>Число</translation>
+    </message>
+    <message>
+      <source>Boolean</source>
+      <translation>Логическое</translation>
+    </message>
+    <message>
+      <source>Incomplete</source>
+      <translation>Неполный</translation>
+    </message>
+    <message>
+      <source>Enter a JSONPath or JSON Pointer.</source>
+      <translation>Введите JSONPath или JSON Pointer.</translation>
+    </message>
+    <message>
+      <source>Comparison requires valid JSON without duplicate keys.</source>
+      <translation>Для сравнения нужен корректный JSON без повторяющихся ключей.</translation>
+    </message>
+  </context>
+  <context>
+    <name>JsonTools::Session</name>
+    <message>
+      <source>JSON tools are limited to 32 MiB per document.</source>
+      <translation>Инструменты JSON поддерживают до 32 MiB на документ.</translation>
+    </message>
+    <message>
+      <source>Indexing JSON...</source>
+      <translation>Индексация JSON...</translation>
+    </message>
+  </context>
+  <context>
+    <name>JsonTools::TreeModel</name>
+    <message>
+      <source>Record %1</source>
+      <translation>Запись %1</translation>
+    </message>
+    <message>
+      <source>%1 items</source>
+      <translation>Элементов: %1</translation>
+    </message>
+    <message>
+      <source>Key</source>
+      <translation>Ключ</translation>
+    </message>
+    <message>
+      <source>Value</source>
+      <translation>Значение</translation>
+    </message>
+    <message>
+      <source>Type</source>
+      <translation>Тип</translation>
+    </message>
+    <message>
+      <source>Line</source>
+      <translation>Строка</translation>
+    </message>
+  </context>
+  <context>
+    <name>JsonTools::Workbench</name>
+    <message>
+      <source>JSON Tools</source>
+      <translation>Инструменты JSON</translation>
+    </message>
+    <message>
+      <source>Parent Node</source>
+      <translation>Родительский узел</translation>
+    </message>
+    <message>
+      <source>Previous Sibling</source>
+      <translation>Предыдущий соседний узел</translation>
+    </message>
+    <message>
+      <source>Next Sibling</source>
+      <translation>Следующий соседний узел</translation>
+    </message>
+    <message>
+      <source>Pretty Print Node</source>
+      <translation>Форматировать узел</translation>
+    </message>
+    <message>
+      <source>Compact Node</source>
+      <translation>Сжать узел</translation>
+    </message>
+    <message>
+      <source>Fold / Unfold Node</source>
+      <translation>Свернуть / развернуть узел</translation>
+    </message>
+    <message>
+      <source>Refresh JSON</source>
+      <translation>Обновить JSON</translation>
+    </message>
+    <message>
+      <source>Structure</source>
+      <translation>Структура</translation>
+    </message>
+    <message>
+      <source>Path</source>
+      <translation>Путь</translation>
+    </message>
+    <message>
+      <source>Key</source>
+      <translation>Ключ</translation>
+    </message>
+    <message>
+      <source>Value</source>
+      <translation>Значение</translation>
+    </message>
+    <message>
+      <source>JSONPath or Search Text</source>
+      <translation>JSONPath или текст поиска</translation>
+    </message>
+    <message>
+      <source>Run Query</source>
+      <translation>Выполнить запрос</translation>
+    </message>
+    <message>
+      <source>Match Case</source>
+      <translation>Учитывать регистр</translation>
+    </message>
+    <message>
+      <source>Select Value</source>
+      <translation>Выделить значение</translation>
+    </message>
+    <message>
+      <source>Select Key</source>
+      <translation>Выделить ключ</translation>
+    </message>
+    <message>
+      <source>Copy Results</source>
+      <translation>Копировать результаты</translation>
+    </message>
+    <message>
+      <source>Line</source>
+      <translation>Строка</translation>
+    </message>
+    <message>
+      <source>Type</source>
+      <translation>Тип</translation>
+    </message>
+    <message>
+      <source>Query</source>
+      <translation>Запрос</translation>
+    </message>
+    <message>
+      <source>Schema file</source>
+      <translation>Файл схемы</translation>
+    </message>
+    <message>
+      <source>Open Schema</source>
+      <translation>Открыть схему</translation>
+    </message>
+    <message>
+      <source>Validate JSON</source>
+      <translation>Проверить JSON</translation>
+    </message>
+    <message>
+      <source>Issue</source>
+      <translation>Проблема</translation>
+    </message>
+    <message>
+      <source>Validation</source>
+      <translation>Проверка</translation>
+    </message>
+    <message>
+      <source>Comparison file</source>
+      <translation>Файл для сравнения</translation>
+    </message>
+    <message>
+      <source>Open Comparison File</source>
+      <translation>Открыть файл для сравнения</translation>
+    </message>
+    <message>
+      <source>Compare JSON</source>
+      <translation>Сравнить JSON</translation>
+    </message>
+    <message>
+      <source>Ignore Object Key Order</source>
+      <translation>Игнорировать порядок ключей</translation>
+    </message>
+    <message>
+      <source>Change</source>
+      <translation>Изменение</translation>
+    </message>
+    <message>
+      <source>Before</source>
+      <translation>До</translation>
+    </message>
+    <message>
+      <source>After</source>
+      <translation>После</translation>
+    </message>
+    <message>
+      <source>Compare</source>
+      <translation>Сравнение</translation>
+    </message>
+    <message>
+      <source>Copy JSON Path</source>
+      <translation>Копировать путь JSON</translation>
+    </message>
+    <message>
+      <source>JSON files (*.json);;All files (*)</source>
+      <translation>Файлы JSON (*.json);;Все файлы (*)</translation>
+    </message>
+    <message>
+      <source>%1 issues; %2 records validated</source>
+      <translation>Проблем: %1; проверено записей: %2</translation>
+    </message>
+    <message>
+      <source>JSON files (*.json *.jsonl *.ndjson);;All files (*)</source>
+      <translation>Файлы JSON (*.json *.jsonl *.ndjson);;Все файлы (*)</translation>
+    </message>
+    <message>
+      <source>JSON Comparison</source>
+      <translation>Сравнение JSON</translation>
+    </message>
+    <message>
+      <source>Added</source>
+      <translation>Добавлено</translation>
+    </message>
+    <message>
+      <source>Removed</source>
+      <translation>Удалено</translation>
+    </message>
+    <message>
+      <source>Modified</source>
+      <translation>Изменено</translation>
+    </message>
+    <message>
+      <source>Key Order</source>
+      <translation>Порядок ключей</translation>
+    </message>
+    <message>
+      <source>Line %1: %2</source>
+      <translation>Строка %1: %2</translation>
+    </message>
+    <message>
+      <source>%1 differences</source>
+      <translation>Различий: %1</translation>
+    </message>
+    <message>
+      <source>Results limited to 10000.</source>
+      <translation>Результаты ограничены 10000 записями.</translation>
+    </message>
+    <message>
+      <source>%1 nodes; %2 issues</source>
+      <translation>Узлов: %1; проблем: %2</translation>
+    </message>
+    <message>
+      <source>Ambiguous: %1</source>
+      <translation>Неоднозначно: %1</translation>
+    </message>
+    <message>
+      <source>Duplicate keys: this path is not unique.</source>
+      <translation>Повторяющиеся ключи: путь не уникален.</translation>
+    </message>
+    <message>
+      <source>Copy JSON Pointer</source>
+      <translation>Копировать JSON Pointer</translation>
+    </message>
+    <message>
+      <source>Copy Key</source>
+      <translation>Копировать ключ</translation>
+    </message>
+    <message>
+      <source>Copy JSON Value</source>
+      <translation>Копировать значение JSON</translation>
+    </message>
+    <message>
+      <source>Copy Decoded String</source>
+      <translation>Копировать декодированную строку</translation>
+    </message>
+    <message>
+      <source>Preview Node</source>
+      <translation>Предпросмотр узла</translation>
+    </message>
+    <message>
+      <source>Querying...</source>
+      <translation>Выполнение запроса...</translation>
+    </message>
+    <message>
+      <source>%1 matches; %2 invalid or ambiguous records skipped</source>
+      <translation>Совпадений: %1; пропущено некорректных или неоднозначных записей: %2</translation>
+    </message>
+    <message>
+      <source>Copy limit exceeded; narrow the query.</source>
+      <translation>Превышен предел копирования; сузьте запрос.</translation>
+    </message>
+    <message>
+      <source>Best-effort formatting: %1</source>
+      <translation>Частичное форматирование: %1</translation>
+    </message>
+    <message>
+      <source>JSON Preview</source>
+      <translation>Предпросмотр JSON</translation>
+    </message>
+    <message>
+      <source>JSON index is not ready.</source>
+      <translation>Индекс JSON ещё не готов.</translation>
+    </message>
+    <message>
+      <source>JSON Lines compacted; %1 invalid records unchanged.</source>
+      <translation>JSON Lines сжат; некорректных записей без изменений: %1.</translation>
+    </message>
+    <message>
+      <source>Validating...</source>
+      <translation>Проверка...</translation>
+    </message>
+    <message>
+      <source>Warning: %1</source>
+      <translation>Предупреждение: %1</translation>
+    </message>
+    <message>
+      <source>Error: %1</source>
+      <translation>Ошибка: %1</translation>
+    </message>
+    <message>
+      <source>%1 issues</source>
+      <translation>Проблем: %1</translation>
+    </message>
+    <message>
+      <source>Select a comparison file.</source>
+      <translation>Выберите файл для сравнения.</translation>
+    </message>
+    <message>
+      <source>Comparing...</source>
+      <translation>Сравнение...</translation>
     </message>
   </context>
 </TS>

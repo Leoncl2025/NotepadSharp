@@ -15,6 +15,42 @@ Notepad # is a reimplementation of Notepad++ built with compliance and stronger 
 
 ![screenshot](/doc/screenshot.png)
 
+## JSON Pretty View
+
+Use **Edit > JSON** to pretty-print or compact JSON in place.
+
+| Command | Windows | macOS |
+| --- | --- | --- |
+| Toggle Pretty / Compact | Ctrl+Alt+J | Cmd+Option+J |
+| Compact JSON | Ctrl+Alt+Shift+J | Cmd+Option+Shift+J |
+| Pretty Print JSON | Edit > JSON menu | Edit > JSON menu |
+
+A single selection limits formatting to that selection; otherwise the whole document is formatted. The editor's indentation and line-ending settings are respected, and the operation can be undone in one step. Formatting a whole plain-text document also enables JSON syntax highlighting. Read-only documents, rectangular selections, and multiple selections are not modified.
+
+Malformed JSON is still laid out as far as its recognizable structure allows. A warning reports the error's line and column in the formatted document. Formatting does not repair syntax or discard comments and incomplete strings. Key order, duplicate keys, number spelling, and escapes inside JSON values are preserved.
+
+Serialized JSON objects and arrays are decoded automatically, including multiple encoding layers and escaped fragments without outer quotes. For example, `"{\"name\":\"demo\",\"items\":[1,2]}"` becomes:
+
+```json
+{
+	"name": "demo",
+	"items": [
+		1,
+		2
+	]
+}
+```
+
+Decoding removes the serialization layer's `\"` escapes using a JSON parser, while retaining necessary escapes within the resulting values. Nested string values in an ordinary JSON document are not automatically unwrapped. If the decoded JSON is malformed, it is still formatted with a warning.
+
+### JSON Navigation, Queries, and JSON Lines
+
+**Edit > JSON > JSON Tools** opens the Structure, Query, Validation, and Compare panel. **Find JSON Path** uses Ctrl+Alt+P on Windows and Cmd+Option+P on macOS.
+
+The status bar follows the current JSON node and copies its path when clicked. The editor's JSON context menu copies the clicked node's JSONPath, JSON Pointer, key, raw JSON value, or decoded string. The panel supports JSONPath filters and wildcards, key/value search, source selection, subtree formatting and folding, duplicate-key warnings, offline JSON Schema validation, and structural comparison with optional object-key-order checking.
+
+Files ending in `.jsonl` or `.ndjson` use JSON Lines mode automatically; it can also be selected in the panel. Invalid records do not block later records. Pretty-printing a record opens an unsaved preview, while compacting leaves invalid records unchanged. See [the JSON tools guide](doc/JSON.md) for examples, limits, and test fixtures.
+
 ## Origin and License
 
 Notepad # is a modified version of [Notepad Next](https://github.com/dail8859/NotepadNext). The Notepad # modifications began in 2026. Original copyright, license, warranty, and attribution notices are retained in the source tree and distribution materials.
@@ -68,7 +104,8 @@ Packages are written to `build-macos/artifacts`. Tagged builds create a draft Gi
 | Feature | Delivery Model | Status |
 | --- | --- | --- |
 | Compare | Core | Supported |
-| XML/JSON Viewer | Core | Planned |
+| JSON Pretty View | Core | Supported |
+| XML Viewer | Core | Planned |
 | Markdown View/Edit | Plugin | Planned |
 
 Plugin support is planned for a future release. Features such as Markdown viewing and editing will be delivered as plugins rather than built into the core application.

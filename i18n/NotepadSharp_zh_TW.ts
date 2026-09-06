@@ -758,6 +758,44 @@
   <context>
     <name>MainWindow</name>
     <message>
+      <source>Pretty Print JSON</source>
+      <translation>展開 JSON（Pretty）</translation>
+    </message>
+    <message>
+      <source>Compact JSON</source>
+      <translation>壓縮 JSON（Compact）</translation>
+    </message>
+    <message>
+      <source>Toggle Pretty / Compact</source>
+      <translation>切換展開／壓縮</translation>
+    </message>
+    <message>
+      <source>JSON formatting requires a writable document and a single, non-rectangular selection.</source>
+      <translation>JSON 格式化需要可寫入的文件，且不能使用矩形或多重選取範圍。</translation>
+    </message>
+    <message>
+      <source>Invalid JSON at line %1, column %2: %3
+Best-effort formatting was applied; syntax errors were not repaired.</source>
+      <translation>JSON 格式有誤（第 %1 行，第 %2 欄）：%3
+已盡量排版，語法錯誤未自動修復。</translation>
+    </message>
+    <message>
+      <source>JSON Format Warning</source>
+      <translation>JSON 格式警告</translation>
+    </message>
+    <message>
+      <source>JSON pretty-printed.</source>
+      <translation>JSON 已展開。</translation>
+    </message>
+    <message>
+      <source>JSON compacted.</source>
+      <translation>JSON 已壓縮。</translation>
+    </message>
+    <message>
+      <source>Serialized JSON string decoded.</source>
+      <translation>已還原序列化 JSON 字串。</translation>
+    </message>
+    <message>
       <location filename="../src/dialogs/MainWindow.ui" line="17"/>
       <source>Notepad #[*]</source>
       <translation>Notepad #[*]</translation>
@@ -1865,6 +1903,14 @@
       <source>No updates are available at this time.</source>
       <translation>目前沒有可用的更新。</translation>
     </message>
+    <message>
+      <source>JSON Tools</source>
+      <translation>JSON 工具</translation>
+    </message>
+    <message>
+      <source>Find JSON Path...</source>
+      <translation>尋找 JSON 路徑…</translation>
+    </message>
   </context>
   <context>
     <name>PreferencesDialog</name>
@@ -2133,6 +2179,369 @@
       <location filename="../src/widgets/TabsQuickActionsBar.cpp" line="49"/>
       <source>Close the current file</source>
       <translation>關閉目前檔案</translation>
+    </message>
+  </context>
+  <context>
+    <name>JsonFormatter</name>
+    <message>
+      <source>Expected a single JSON value.</source>
+      <translation>應包含且僅包含一個 JSON 值。</translation>
+    </message>
+  </context>
+  <context>
+    <name>JsonTools</name>
+    <message>
+      <source>Expected a single JSON value.</source>
+      <translation>應包含且僅包含一個 JSON 值。</translation>
+    </message>
+    <message>
+      <source>JSON navigation limit exceeded.</source>
+      <translation>超出 JSON 導覽限制。</translation>
+    </message>
+    <message>
+      <source>Duplicate key: %1</source>
+      <translation>重複的鍵：%1</translation>
+    </message>
+    <message>
+      <source>Object</source>
+      <translation>物件</translation>
+    </message>
+    <message>
+      <source>Array</source>
+      <translation>陣列</translation>
+    </message>
+    <message>
+      <source>String</source>
+      <translation>字串</translation>
+    </message>
+    <message>
+      <source>Number</source>
+      <translation>數字</translation>
+    </message>
+    <message>
+      <source>Boolean</source>
+      <translation>布林值</translation>
+    </message>
+    <message>
+      <source>Incomplete</source>
+      <translation>不完整</translation>
+    </message>
+    <message>
+      <source>Enter a JSONPath or JSON Pointer.</source>
+      <translation>請輸入 JSONPath 或 JSON Pointer。</translation>
+    </message>
+    <message>
+      <source>Comparison requires valid JSON without duplicate keys.</source>
+      <translation>比較需要格式正確且沒有重複鍵的 JSON。</translation>
+    </message>
+  </context>
+  <context>
+    <name>JsonTools::Session</name>
+    <message>
+      <source>JSON tools are limited to 32 MiB per document.</source>
+      <translation>JSON 工具每個文件最多支援 32 MiB。</translation>
+    </message>
+    <message>
+      <source>Indexing JSON...</source>
+      <translation>正在建立 JSON 索引…</translation>
+    </message>
+  </context>
+  <context>
+    <name>JsonTools::TreeModel</name>
+    <message>
+      <source>Record %1</source>
+      <translation>記錄 %1</translation>
+    </message>
+    <message>
+      <source>%1 items</source>
+      <translation>%1 個項目</translation>
+    </message>
+    <message>
+      <source>Key</source>
+      <translation>鍵</translation>
+    </message>
+    <message>
+      <source>Value</source>
+      <translation>值</translation>
+    </message>
+    <message>
+      <source>Type</source>
+      <translation>類型</translation>
+    </message>
+    <message>
+      <source>Line</source>
+      <translation>行</translation>
+    </message>
+  </context>
+  <context>
+    <name>JsonTools::Workbench</name>
+    <message>
+      <source>JSON Tools</source>
+      <translation>JSON 工具</translation>
+    </message>
+    <message>
+      <source>Parent Node</source>
+      <translation>父節點</translation>
+    </message>
+    <message>
+      <source>Previous Sibling</source>
+      <translation>上一個同層節點</translation>
+    </message>
+    <message>
+      <source>Next Sibling</source>
+      <translation>下一個同層節點</translation>
+    </message>
+    <message>
+      <source>Pretty Print Node</source>
+      <translation>展開節點</translation>
+    </message>
+    <message>
+      <source>Compact Node</source>
+      <translation>壓縮節點</translation>
+    </message>
+    <message>
+      <source>Fold / Unfold Node</source>
+      <translation>摺疊／展開節點</translation>
+    </message>
+    <message>
+      <source>Refresh JSON</source>
+      <translation>重新整理 JSON</translation>
+    </message>
+    <message>
+      <source>Structure</source>
+      <translation>結構</translation>
+    </message>
+    <message>
+      <source>Path</source>
+      <translation>路徑</translation>
+    </message>
+    <message>
+      <source>Key</source>
+      <translation>鍵</translation>
+    </message>
+    <message>
+      <source>Value</source>
+      <translation>值</translation>
+    </message>
+    <message>
+      <source>JSONPath or Search Text</source>
+      <translation>JSONPath 或搜尋文字</translation>
+    </message>
+    <message>
+      <source>Run Query</source>
+      <translation>執行查詢</translation>
+    </message>
+    <message>
+      <source>Match Case</source>
+      <translation>區分大小寫</translation>
+    </message>
+    <message>
+      <source>Select Value</source>
+      <translation>選取值</translation>
+    </message>
+    <message>
+      <source>Select Key</source>
+      <translation>選取鍵</translation>
+    </message>
+    <message>
+      <source>Copy Results</source>
+      <translation>複製結果</translation>
+    </message>
+    <message>
+      <source>Line</source>
+      <translation>行</translation>
+    </message>
+    <message>
+      <source>Type</source>
+      <translation>類型</translation>
+    </message>
+    <message>
+      <source>Query</source>
+      <translation>查詢</translation>
+    </message>
+    <message>
+      <source>Schema file</source>
+      <translation>Schema 檔案</translation>
+    </message>
+    <message>
+      <source>Open Schema</source>
+      <translation>開啟 Schema</translation>
+    </message>
+    <message>
+      <source>Validate JSON</source>
+      <translation>驗證 JSON</translation>
+    </message>
+    <message>
+      <source>Issue</source>
+      <translation>問題</translation>
+    </message>
+    <message>
+      <source>Validation</source>
+      <translation>驗證</translation>
+    </message>
+    <message>
+      <source>Comparison file</source>
+      <translation>比較檔案</translation>
+    </message>
+    <message>
+      <source>Open Comparison File</source>
+      <translation>開啟比較檔案</translation>
+    </message>
+    <message>
+      <source>Compare JSON</source>
+      <translation>比較 JSON</translation>
+    </message>
+    <message>
+      <source>Ignore Object Key Order</source>
+      <translation>忽略物件鍵的順序</translation>
+    </message>
+    <message>
+      <source>Change</source>
+      <translation>變更</translation>
+    </message>
+    <message>
+      <source>Before</source>
+      <translation>之前</translation>
+    </message>
+    <message>
+      <source>After</source>
+      <translation>之後</translation>
+    </message>
+    <message>
+      <source>Compare</source>
+      <translation>比較</translation>
+    </message>
+    <message>
+      <source>Copy JSON Path</source>
+      <translation>複製 JSON 路徑</translation>
+    </message>
+    <message>
+      <source>JSON files (*.json);;All files (*)</source>
+      <translation>JSON 檔案 (*.json);;所有檔案 (*)</translation>
+    </message>
+    <message>
+      <source>%1 issues; %2 records validated</source>
+      <translation>%1 個問題；已驗證 %2 筆記錄</translation>
+    </message>
+    <message>
+      <source>JSON files (*.json *.jsonl *.ndjson);;All files (*)</source>
+      <translation>JSON 檔案 (*.json *.jsonl *.ndjson);;所有檔案 (*)</translation>
+    </message>
+    <message>
+      <source>JSON Comparison</source>
+      <translation>JSON 比較</translation>
+    </message>
+    <message>
+      <source>Added</source>
+      <translation>新增</translation>
+    </message>
+    <message>
+      <source>Removed</source>
+      <translation>移除</translation>
+    </message>
+    <message>
+      <source>Modified</source>
+      <translation>修改</translation>
+    </message>
+    <message>
+      <source>Key Order</source>
+      <translation>鍵順序</translation>
+    </message>
+    <message>
+      <source>Line %1: %2</source>
+      <translation>第 %1 行：%2</translation>
+    </message>
+    <message>
+      <source>%1 differences</source>
+      <translation>%1 處差異</translation>
+    </message>
+    <message>
+      <source>Results limited to 10000.</source>
+      <translation>最多顯示 10000 筆結果。</translation>
+    </message>
+    <message>
+      <source>%1 nodes; %2 issues</source>
+      <translation>%1 個節點；%2 個問題</translation>
+    </message>
+    <message>
+      <source>Ambiguous: %1</source>
+      <translation>有歧義：%1</translation>
+    </message>
+    <message>
+      <source>Duplicate keys: this path is not unique.</source>
+      <translation>存在重複鍵：此路徑不唯一。</translation>
+    </message>
+    <message>
+      <source>Copy JSON Pointer</source>
+      <translation>複製 JSON Pointer</translation>
+    </message>
+    <message>
+      <source>Copy Key</source>
+      <translation>複製鍵</translation>
+    </message>
+    <message>
+      <source>Copy JSON Value</source>
+      <translation>複製 JSON 值</translation>
+    </message>
+    <message>
+      <source>Copy Decoded String</source>
+      <translation>複製解碼後的字串</translation>
+    </message>
+    <message>
+      <source>Preview Node</source>
+      <translation>預覽節點</translation>
+    </message>
+    <message>
+      <source>Querying...</source>
+      <translation>正在查詢…</translation>
+    </message>
+    <message>
+      <source>%1 matches; %2 invalid or ambiguous records skipped</source>
+      <translation>%1 個符合項目；已略過 %2 筆無效或有歧義的記錄</translation>
+    </message>
+    <message>
+      <source>Copy limit exceeded; narrow the query.</source>
+      <translation>超出複製限制，請縮小查詢範圍。</translation>
+    </message>
+    <message>
+      <source>Best-effort formatting: %1</source>
+      <translation>已盡量排版：%1</translation>
+    </message>
+    <message>
+      <source>JSON Preview</source>
+      <translation>JSON 預覽</translation>
+    </message>
+    <message>
+      <source>JSON index is not ready.</source>
+      <translation>JSON 索引尚未就緒。</translation>
+    </message>
+    <message>
+      <source>JSON Lines compacted; %1 invalid records unchanged.</source>
+      <translation>JSON Lines 已壓縮；%1 筆無效記錄維持原樣。</translation>
+    </message>
+    <message>
+      <source>Validating...</source>
+      <translation>正在驗證…</translation>
+    </message>
+    <message>
+      <source>Warning: %1</source>
+      <translation>警告：%1</translation>
+    </message>
+    <message>
+      <source>Error: %1</source>
+      <translation>錯誤：%1</translation>
+    </message>
+    <message>
+      <source>%1 issues</source>
+      <translation>%1 個問題</translation>
+    </message>
+    <message>
+      <source>Select a comparison file.</source>
+      <translation>請選擇比較檔案。</translation>
+    </message>
+    <message>
+      <source>Comparing...</source>
+      <translation>正在比較…</translation>
     </message>
   </context>
 </TS>

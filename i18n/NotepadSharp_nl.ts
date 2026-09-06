@@ -1867,6 +1867,52 @@
       <source>No updates are available at this time.</source>
       <translation>Er zijn geen updates beschikbaar</translation>
     </message>
+    <message>
+      <source>Pretty Print JSON</source>
+      <translation>JSON opmaken</translation>
+    </message>
+    <message>
+      <source>Compact JSON</source>
+      <translation>JSON comprimeren</translation>
+    </message>
+    <message>
+      <source>Toggle Pretty / Compact</source>
+      <translation>Opmaken / comprimeren wisselen</translation>
+    </message>
+    <message>
+      <source>JSON formatting requires a writable document and a single, non-rectangular selection.</source>
+      <translation>JSON-opmaak vereist een beschrijfbaar document en één niet-rechthoekige selectie.</translation>
+    </message>
+    <message>
+      <source>Invalid JSON at line %1, column %2: %3
+Best-effort formatting was applied; syntax errors were not repaired.</source>
+      <translation>Ongeldige JSON op regel %1, kolom %2: %3
+Opgemaakt voor zover mogelijk; syntaxfouten zijn niet hersteld.</translation>
+    </message>
+    <message>
+      <source>JSON Format Warning</source>
+      <translation>Waarschuwing JSON-indeling</translation>
+    </message>
+    <message>
+      <source>JSON pretty-printed.</source>
+      <translation>JSON opgemaakt.</translation>
+    </message>
+    <message>
+      <source>JSON compacted.</source>
+      <translation>JSON gecomprimeerd.</translation>
+    </message>
+    <message>
+      <source>Serialized JSON string decoded.</source>
+      <translation>Geserialiseerde JSON-tekenreeks gedecodeerd.</translation>
+    </message>
+    <message>
+      <source>JSON Tools</source>
+      <translation>JSON-hulpmiddelen</translation>
+    </message>
+    <message>
+      <source>Find JSON Path...</source>
+      <translation>JSON-pad zoeken...</translation>
+    </message>
   </context>
   <context>
     <name>PreferencesDialog</name>
@@ -2135,6 +2181,369 @@
       <location filename="../src/widgets/TabsQuickActionsBar.cpp" line="49"/>
       <source>Close the current file</source>
       <translation type="unfinished"/>
+    </message>
+  </context>
+  <context>
+    <name>JsonFormatter</name>
+    <message>
+      <source>Expected a single JSON value.</source>
+      <translation>Er wordt één JSON-waarde verwacht.</translation>
+    </message>
+  </context>
+  <context>
+    <name>JsonTools</name>
+    <message>
+      <source>Expected a single JSON value.</source>
+      <translation>Er wordt één JSON-waarde verwacht.</translation>
+    </message>
+    <message>
+      <source>JSON navigation limit exceeded.</source>
+      <translation>De limiet voor JSON-navigatie is overschreden.</translation>
+    </message>
+    <message>
+      <source>Duplicate key: %1</source>
+      <translation>Dubbele sleutel: %1</translation>
+    </message>
+    <message>
+      <source>Object</source>
+      <translation>Object</translation>
+    </message>
+    <message>
+      <source>Array</source>
+      <translation>Array</translation>
+    </message>
+    <message>
+      <source>String</source>
+      <translation>Tekenreeks</translation>
+    </message>
+    <message>
+      <source>Number</source>
+      <translation>Getal</translation>
+    </message>
+    <message>
+      <source>Boolean</source>
+      <translation>Booleaanse waarde</translation>
+    </message>
+    <message>
+      <source>Incomplete</source>
+      <translation>Onvolledig</translation>
+    </message>
+    <message>
+      <source>Enter a JSONPath or JSON Pointer.</source>
+      <translation>Voer JSONPath of JSON Pointer in.</translation>
+    </message>
+    <message>
+      <source>Comparison requires valid JSON without duplicate keys.</source>
+      <translation>Vergelijken vereist geldige JSON zonder dubbele sleutels.</translation>
+    </message>
+  </context>
+  <context>
+    <name>JsonTools::Session</name>
+    <message>
+      <source>JSON tools are limited to 32 MiB per document.</source>
+      <translation>JSON-hulpmiddelen zijn beperkt tot 32 MiB per document.</translation>
+    </message>
+    <message>
+      <source>Indexing JSON...</source>
+      <translation>JSON indexeren...</translation>
+    </message>
+  </context>
+  <context>
+    <name>JsonTools::TreeModel</name>
+    <message>
+      <source>Record %1</source>
+      <translation>Record %1</translation>
+    </message>
+    <message>
+      <source>%1 items</source>
+      <translation>%1 items</translation>
+    </message>
+    <message>
+      <source>Key</source>
+      <translation>Sleutel</translation>
+    </message>
+    <message>
+      <source>Value</source>
+      <translation>Waarde</translation>
+    </message>
+    <message>
+      <source>Type</source>
+      <translation>Type</translation>
+    </message>
+    <message>
+      <source>Line</source>
+      <translation>Regel</translation>
+    </message>
+  </context>
+  <context>
+    <name>JsonTools::Workbench</name>
+    <message>
+      <source>JSON Tools</source>
+      <translation>JSON-hulpmiddelen</translation>
+    </message>
+    <message>
+      <source>Parent Node</source>
+      <translation>Bovenliggende knoop</translation>
+    </message>
+    <message>
+      <source>Previous Sibling</source>
+      <translation>Vorige zusterknoop</translation>
+    </message>
+    <message>
+      <source>Next Sibling</source>
+      <translation>Volgende zusterknoop</translation>
+    </message>
+    <message>
+      <source>Pretty Print Node</source>
+      <translation>Knoop opmaken</translation>
+    </message>
+    <message>
+      <source>Compact Node</source>
+      <translation>Knoop comprimeren</translation>
+    </message>
+    <message>
+      <source>Fold / Unfold Node</source>
+      <translation>Knoop in-/uitvouwen</translation>
+    </message>
+    <message>
+      <source>Refresh JSON</source>
+      <translation>JSON vernieuwen</translation>
+    </message>
+    <message>
+      <source>Structure</source>
+      <translation>Structuur</translation>
+    </message>
+    <message>
+      <source>Path</source>
+      <translation>Pad</translation>
+    </message>
+    <message>
+      <source>Key</source>
+      <translation>Sleutel</translation>
+    </message>
+    <message>
+      <source>Value</source>
+      <translation>Waarde</translation>
+    </message>
+    <message>
+      <source>JSONPath or Search Text</source>
+      <translation>JSONPath of zoektekst</translation>
+    </message>
+    <message>
+      <source>Run Query</source>
+      <translation>Query uitvoeren</translation>
+    </message>
+    <message>
+      <source>Match Case</source>
+      <translation>Hoofdlettergevoelig</translation>
+    </message>
+    <message>
+      <source>Select Value</source>
+      <translation>Waarde selecteren</translation>
+    </message>
+    <message>
+      <source>Select Key</source>
+      <translation>Sleutel selecteren</translation>
+    </message>
+    <message>
+      <source>Copy Results</source>
+      <translation>Resultaten kopiëren</translation>
+    </message>
+    <message>
+      <source>Line</source>
+      <translation>Regel</translation>
+    </message>
+    <message>
+      <source>Type</source>
+      <translation>Type</translation>
+    </message>
+    <message>
+      <source>Query</source>
+      <translation>Query</translation>
+    </message>
+    <message>
+      <source>Schema file</source>
+      <translation>Schemabestand</translation>
+    </message>
+    <message>
+      <source>Open Schema</source>
+      <translation>Schema openen</translation>
+    </message>
+    <message>
+      <source>Validate JSON</source>
+      <translation>JSON valideren</translation>
+    </message>
+    <message>
+      <source>Issue</source>
+      <translation>Probleem</translation>
+    </message>
+    <message>
+      <source>Validation</source>
+      <translation>Validatie</translation>
+    </message>
+    <message>
+      <source>Comparison file</source>
+      <translation>Vergelijkingsbestand</translation>
+    </message>
+    <message>
+      <source>Open Comparison File</source>
+      <translation>Vergelijkingsbestand openen</translation>
+    </message>
+    <message>
+      <source>Compare JSON</source>
+      <translation>JSON vergelijken</translation>
+    </message>
+    <message>
+      <source>Ignore Object Key Order</source>
+      <translation>Volgorde van objectsleutels negeren</translation>
+    </message>
+    <message>
+      <source>Change</source>
+      <translation>Wijziging</translation>
+    </message>
+    <message>
+      <source>Before</source>
+      <translation>Voor</translation>
+    </message>
+    <message>
+      <source>After</source>
+      <translation>Na</translation>
+    </message>
+    <message>
+      <source>Compare</source>
+      <translation>Vergelijken</translation>
+    </message>
+    <message>
+      <source>Copy JSON Path</source>
+      <translation>JSON-pad kopiëren</translation>
+    </message>
+    <message>
+      <source>JSON files (*.json);;All files (*)</source>
+      <translation>JSON-bestanden (*.json);;Alle bestanden (*)</translation>
+    </message>
+    <message>
+      <source>%1 issues; %2 records validated</source>
+      <translation>%1 problemen; %2 records gevalideerd</translation>
+    </message>
+    <message>
+      <source>JSON files (*.json *.jsonl *.ndjson);;All files (*)</source>
+      <translation>JSON-bestanden (*.json *.jsonl *.ndjson);;Alle bestanden (*)</translation>
+    </message>
+    <message>
+      <source>JSON Comparison</source>
+      <translation>JSON-vergelijking</translation>
+    </message>
+    <message>
+      <source>Added</source>
+      <translation>Toegevoegd</translation>
+    </message>
+    <message>
+      <source>Removed</source>
+      <translation>Verwijderd</translation>
+    </message>
+    <message>
+      <source>Modified</source>
+      <translation>Gewijzigd</translation>
+    </message>
+    <message>
+      <source>Key Order</source>
+      <translation>Sleutelvolgorde</translation>
+    </message>
+    <message>
+      <source>Line %1: %2</source>
+      <translation>Regel %1: %2</translation>
+    </message>
+    <message>
+      <source>%1 differences</source>
+      <translation>%1 verschillen</translation>
+    </message>
+    <message>
+      <source>Results limited to 10000.</source>
+      <translation>Resultaten beperkt tot 10000.</translation>
+    </message>
+    <message>
+      <source>%1 nodes; %2 issues</source>
+      <translation>%1 knopen; %2 problemen</translation>
+    </message>
+    <message>
+      <source>Ambiguous: %1</source>
+      <translation>Onduidelijk: %1</translation>
+    </message>
+    <message>
+      <source>Duplicate keys: this path is not unique.</source>
+      <translation>Dubbele sleutels: dit pad is niet uniek.</translation>
+    </message>
+    <message>
+      <source>Copy JSON Pointer</source>
+      <translation>JSON Pointer kopiëren</translation>
+    </message>
+    <message>
+      <source>Copy Key</source>
+      <translation>Sleutel kopiëren</translation>
+    </message>
+    <message>
+      <source>Copy JSON Value</source>
+      <translation>JSON-waarde kopiëren</translation>
+    </message>
+    <message>
+      <source>Copy Decoded String</source>
+      <translation>Gedecodeerde tekenreeks kopiëren</translation>
+    </message>
+    <message>
+      <source>Preview Node</source>
+      <translation>Knoopvoorbeeld</translation>
+    </message>
+    <message>
+      <source>Querying...</source>
+      <translation>Query uitvoeren...</translation>
+    </message>
+    <message>
+      <source>%1 matches; %2 invalid or ambiguous records skipped</source>
+      <translation>%1 overeenkomsten; %2 ongeldige of onduidelijke records overgeslagen</translation>
+    </message>
+    <message>
+      <source>Copy limit exceeded; narrow the query.</source>
+      <translation>Kopieerlimiet overschreden; beperk de query.</translation>
+    </message>
+    <message>
+      <source>Best-effort formatting: %1</source>
+      <translation>Opgemaakt voor zover mogelijk: %1</translation>
+    </message>
+    <message>
+      <source>JSON Preview</source>
+      <translation>JSON-voorbeeld</translation>
+    </message>
+    <message>
+      <source>JSON index is not ready.</source>
+      <translation>De JSON-index is nog niet gereed.</translation>
+    </message>
+    <message>
+      <source>JSON Lines compacted; %1 invalid records unchanged.</source>
+      <translation>JSON Lines gecomprimeerd; %1 ongeldige records ongewijzigd.</translation>
+    </message>
+    <message>
+      <source>Validating...</source>
+      <translation>Valideren...</translation>
+    </message>
+    <message>
+      <source>Warning: %1</source>
+      <translation>Waarschuwing: %1</translation>
+    </message>
+    <message>
+      <source>Error: %1</source>
+      <translation>Fout: %1</translation>
+    </message>
+    <message>
+      <source>%1 issues</source>
+      <translation>%1 problemen</translation>
+    </message>
+    <message>
+      <source>Select a comparison file.</source>
+      <translation>Selecteer een vergelijkingsbestand.</translation>
+    </message>
+    <message>
+      <source>Comparing...</source>
+      <translation>Vergelijken...</translation>
     </message>
   </context>
 </TS>

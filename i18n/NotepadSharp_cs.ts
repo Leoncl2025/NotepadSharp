@@ -1871,6 +1871,52 @@
       <source>No updates are available at this time.</source>
       <translation>V tuto chvíli nejsou k dispozici žádné aktualizace.</translation>
     </message>
+    <message>
+      <source>Pretty Print JSON</source>
+      <translation>Formátovat JSON</translation>
+    </message>
+    <message>
+      <source>Compact JSON</source>
+      <translation>Zkompaktovat JSON</translation>
+    </message>
+    <message>
+      <source>Toggle Pretty / Compact</source>
+      <translation>Přepnout formátování / kompaktování</translation>
+    </message>
+    <message>
+      <source>JSON formatting requires a writable document and a single, non-rectangular selection.</source>
+      <translation>Formátování JSON vyžaduje zapisovatelný dokument a jediný neobdélníkový výběr.</translation>
+    </message>
+    <message>
+      <source>Invalid JSON at line %1, column %2: %3
+Best-effort formatting was applied; syntax errors were not repaired.</source>
+      <translation>Neplatný JSON na řádku %1, sloupci %2: %3
+Bylo použito formátování podle možností; chyby syntaxe nebyly opraveny.</translation>
+    </message>
+    <message>
+      <source>JSON Format Warning</source>
+      <translation>Upozornění na formát JSON</translation>
+    </message>
+    <message>
+      <source>JSON pretty-printed.</source>
+      <translation>JSON byl naformátován.</translation>
+    </message>
+    <message>
+      <source>JSON compacted.</source>
+      <translation>JSON byl zkompaktován.</translation>
+    </message>
+    <message>
+      <source>Serialized JSON string decoded.</source>
+      <translation>Serializovaný řetězec JSON byl dekódován.</translation>
+    </message>
+    <message>
+      <source>JSON Tools</source>
+      <translation>Nástroje JSON</translation>
+    </message>
+    <message>
+      <source>Find JSON Path...</source>
+      <translation>Najít cestu JSON...</translation>
+    </message>
   </context>
   <context>
     <name>PreferencesDialog</name>
@@ -2139,6 +2185,369 @@
       <location filename="../src/widgets/TabsQuickActionsBar.cpp" line="49"/>
       <source>Close the current file</source>
       <translation type="unfinished"/>
+    </message>
+  </context>
+  <context>
+    <name>JsonFormatter</name>
+    <message>
+      <source>Expected a single JSON value.</source>
+      <translation>Očekává se jediná hodnota JSON.</translation>
+    </message>
+  </context>
+  <context>
+    <name>JsonTools</name>
+    <message>
+      <source>Expected a single JSON value.</source>
+      <translation>Očekává se jediná hodnota JSON.</translation>
+    </message>
+    <message>
+      <source>JSON navigation limit exceeded.</source>
+      <translation>Byl překročen limit navigace JSON.</translation>
+    </message>
+    <message>
+      <source>Duplicate key: %1</source>
+      <translation>Duplicitní klíč: %1</translation>
+    </message>
+    <message>
+      <source>Object</source>
+      <translation>Objekt</translation>
+    </message>
+    <message>
+      <source>Array</source>
+      <translation>Pole</translation>
+    </message>
+    <message>
+      <source>String</source>
+      <translation>Řetězec</translation>
+    </message>
+    <message>
+      <source>Number</source>
+      <translation>Číslo</translation>
+    </message>
+    <message>
+      <source>Boolean</source>
+      <translation>Logická hodnota</translation>
+    </message>
+    <message>
+      <source>Incomplete</source>
+      <translation>Neúplné</translation>
+    </message>
+    <message>
+      <source>Enter a JSONPath or JSON Pointer.</source>
+      <translation>Zadejte JSONPath nebo JSON Pointer.</translation>
+    </message>
+    <message>
+      <source>Comparison requires valid JSON without duplicate keys.</source>
+      <translation>Porovnání vyžaduje platný JSON bez duplicitních klíčů.</translation>
+    </message>
+  </context>
+  <context>
+    <name>JsonTools::Session</name>
+    <message>
+      <source>JSON tools are limited to 32 MiB per document.</source>
+      <translation>Nástroje JSON jsou omezeny na 32 MiB na dokument.</translation>
+    </message>
+    <message>
+      <source>Indexing JSON...</source>
+      <translation>Indexování JSON...</translation>
+    </message>
+  </context>
+  <context>
+    <name>JsonTools::TreeModel</name>
+    <message>
+      <source>Record %1</source>
+      <translation>Záznam %1</translation>
+    </message>
+    <message>
+      <source>%1 items</source>
+      <translation>%1 položek</translation>
+    </message>
+    <message>
+      <source>Key</source>
+      <translation>Klíč</translation>
+    </message>
+    <message>
+      <source>Value</source>
+      <translation>Hodnota</translation>
+    </message>
+    <message>
+      <source>Type</source>
+      <translation>Typ</translation>
+    </message>
+    <message>
+      <source>Line</source>
+      <translation>Řádek</translation>
+    </message>
+  </context>
+  <context>
+    <name>JsonTools::Workbench</name>
+    <message>
+      <source>JSON Tools</source>
+      <translation>Nástroje JSON</translation>
+    </message>
+    <message>
+      <source>Parent Node</source>
+      <translation>Nadřazený uzel</translation>
+    </message>
+    <message>
+      <source>Previous Sibling</source>
+      <translation>Předchozí sourozenecký uzel</translation>
+    </message>
+    <message>
+      <source>Next Sibling</source>
+      <translation>Další sourozenecký uzel</translation>
+    </message>
+    <message>
+      <source>Pretty Print Node</source>
+      <translation>Formátovat uzel</translation>
+    </message>
+    <message>
+      <source>Compact Node</source>
+      <translation>Zkompaktovat uzel</translation>
+    </message>
+    <message>
+      <source>Fold / Unfold Node</source>
+      <translation>Sbalit / rozbalit uzel</translation>
+    </message>
+    <message>
+      <source>Refresh JSON</source>
+      <translation>Obnovit JSON</translation>
+    </message>
+    <message>
+      <source>Structure</source>
+      <translation>Struktura</translation>
+    </message>
+    <message>
+      <source>Path</source>
+      <translation>Cesta</translation>
+    </message>
+    <message>
+      <source>Key</source>
+      <translation>Klíč</translation>
+    </message>
+    <message>
+      <source>Value</source>
+      <translation>Hodnota</translation>
+    </message>
+    <message>
+      <source>JSONPath or Search Text</source>
+      <translation>JSONPath nebo hledaný text</translation>
+    </message>
+    <message>
+      <source>Run Query</source>
+      <translation>Spustit dotaz</translation>
+    </message>
+    <message>
+      <source>Match Case</source>
+      <translation>Rozlišovat velikost písmen</translation>
+    </message>
+    <message>
+      <source>Select Value</source>
+      <translation>Vybrat hodnotu</translation>
+    </message>
+    <message>
+      <source>Select Key</source>
+      <translation>Vybrat klíč</translation>
+    </message>
+    <message>
+      <source>Copy Results</source>
+      <translation>Kopírovat výsledky</translation>
+    </message>
+    <message>
+      <source>Line</source>
+      <translation>Řádek</translation>
+    </message>
+    <message>
+      <source>Type</source>
+      <translation>Typ</translation>
+    </message>
+    <message>
+      <source>Query</source>
+      <translation>Dotaz</translation>
+    </message>
+    <message>
+      <source>Schema file</source>
+      <translation>Soubor schématu</translation>
+    </message>
+    <message>
+      <source>Open Schema</source>
+      <translation>Otevřít schéma</translation>
+    </message>
+    <message>
+      <source>Validate JSON</source>
+      <translation>Ověřit JSON</translation>
+    </message>
+    <message>
+      <source>Issue</source>
+      <translation>Problém</translation>
+    </message>
+    <message>
+      <source>Validation</source>
+      <translation>Ověření</translation>
+    </message>
+    <message>
+      <source>Comparison file</source>
+      <translation>Soubor k porovnání</translation>
+    </message>
+    <message>
+      <source>Open Comparison File</source>
+      <translation>Otevřít soubor k porovnání</translation>
+    </message>
+    <message>
+      <source>Compare JSON</source>
+      <translation>Porovnat JSON</translation>
+    </message>
+    <message>
+      <source>Ignore Object Key Order</source>
+      <translation>Ignorovat pořadí klíčů</translation>
+    </message>
+    <message>
+      <source>Change</source>
+      <translation>Změna</translation>
+    </message>
+    <message>
+      <source>Before</source>
+      <translation>Před</translation>
+    </message>
+    <message>
+      <source>After</source>
+      <translation>Po</translation>
+    </message>
+    <message>
+      <source>Compare</source>
+      <translation>Porovnání</translation>
+    </message>
+    <message>
+      <source>Copy JSON Path</source>
+      <translation>Kopírovat cestu JSON</translation>
+    </message>
+    <message>
+      <source>JSON files (*.json);;All files (*)</source>
+      <translation>Soubory JSON (*.json);;Všechny soubory (*)</translation>
+    </message>
+    <message>
+      <source>%1 issues; %2 records validated</source>
+      <translation>%1 problémů; ověřeno %2 záznamů</translation>
+    </message>
+    <message>
+      <source>JSON files (*.json *.jsonl *.ndjson);;All files (*)</source>
+      <translation>Soubory JSON (*.json *.jsonl *.ndjson);;Všechny soubory (*)</translation>
+    </message>
+    <message>
+      <source>JSON Comparison</source>
+      <translation>Porovnání JSON</translation>
+    </message>
+    <message>
+      <source>Added</source>
+      <translation>Přidáno</translation>
+    </message>
+    <message>
+      <source>Removed</source>
+      <translation>Odstraněno</translation>
+    </message>
+    <message>
+      <source>Modified</source>
+      <translation>Změněno</translation>
+    </message>
+    <message>
+      <source>Key Order</source>
+      <translation>Pořadí klíčů</translation>
+    </message>
+    <message>
+      <source>Line %1: %2</source>
+      <translation>Řádek %1: %2</translation>
+    </message>
+    <message>
+      <source>%1 differences</source>
+      <translation>%1 rozdílů</translation>
+    </message>
+    <message>
+      <source>Results limited to 10000.</source>
+      <translation>Výsledky omezeny na 10000.</translation>
+    </message>
+    <message>
+      <source>%1 nodes; %2 issues</source>
+      <translation>%1 uzlů; %2 problémů</translation>
+    </message>
+    <message>
+      <source>Ambiguous: %1</source>
+      <translation>Nejednoznačné: %1</translation>
+    </message>
+    <message>
+      <source>Duplicate keys: this path is not unique.</source>
+      <translation>Duplicitní klíče: tato cesta není jednoznačná.</translation>
+    </message>
+    <message>
+      <source>Copy JSON Pointer</source>
+      <translation>Kopírovat JSON Pointer</translation>
+    </message>
+    <message>
+      <source>Copy Key</source>
+      <translation>Kopírovat klíč</translation>
+    </message>
+    <message>
+      <source>Copy JSON Value</source>
+      <translation>Kopírovat hodnotu JSON</translation>
+    </message>
+    <message>
+      <source>Copy Decoded String</source>
+      <translation>Kopírovat dekódovaný řetězec</translation>
+    </message>
+    <message>
+      <source>Preview Node</source>
+      <translation>Náhled uzlu</translation>
+    </message>
+    <message>
+      <source>Querying...</source>
+      <translation>Provádění dotazu...</translation>
+    </message>
+    <message>
+      <source>%1 matches; %2 invalid or ambiguous records skipped</source>
+      <translation>%1 shod; přeskočeno %2 neplatných nebo nejednoznačných záznamů</translation>
+    </message>
+    <message>
+      <source>Copy limit exceeded; narrow the query.</source>
+      <translation>Překročen limit kopírování; zužte dotaz.</translation>
+    </message>
+    <message>
+      <source>Best-effort formatting: %1</source>
+      <translation>Formátování podle možností: %1</translation>
+    </message>
+    <message>
+      <source>JSON Preview</source>
+      <translation>Náhled JSON</translation>
+    </message>
+    <message>
+      <source>JSON index is not ready.</source>
+      <translation>Index JSON ještě není připraven.</translation>
+    </message>
+    <message>
+      <source>JSON Lines compacted; %1 invalid records unchanged.</source>
+      <translation>JSON Lines zkompaktován; %1 neplatných záznamů nezměněno.</translation>
+    </message>
+    <message>
+      <source>Validating...</source>
+      <translation>Ověřování...</translation>
+    </message>
+    <message>
+      <source>Warning: %1</source>
+      <translation>Upozornění: %1</translation>
+    </message>
+    <message>
+      <source>Error: %1</source>
+      <translation>Chyba: %1</translation>
+    </message>
+    <message>
+      <source>%1 issues</source>
+      <translation>%1 problémů</translation>
+    </message>
+    <message>
+      <source>Select a comparison file.</source>
+      <translation>Vyberte soubor k porovnání.</translation>
+    </message>
+    <message>
+      <source>Comparing...</source>
+      <translation>Porovnávání...</translation>
     </message>
   </context>
 </TS>

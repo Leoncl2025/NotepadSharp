@@ -26,6 +26,18 @@ set(NOTEPADSHARP_ADS_LICENSE "${ads_SOURCE_DIR}/LICENSE" PARENT_SCOPE)
 set(NOTEPADSHARP_SINGLEAPPLICATION_LICENSE "${SingleApplication_SOURCE_DIR}/LICENSE" PARENT_SCOPE)
 set(NOTEPADSHARP_EDITORCONFIG_LICENSE "${editorconfig_core_qt_SOURCE_DIR}/LICENSE" PARENT_SCOPE)
 
+CPMAddPackage(
+    NAME jsoncons
+    GITHUB_REPOSITORY danielaparker/jsoncons
+    GIT_TAG v1.9.0
+    GIT_SHALLOW TRUE
+    DOWNLOAD_ONLY YES
+)
+add_library(notepadsharp_jsoncons INTERFACE)
+target_include_directories(notepadsharp_jsoncons SYSTEM INTERFACE "${jsoncons_SOURCE_DIR}/include")
+set(NOTEPADSHARP_JSONCONS_LICENSE "${jsoncons_SOURCE_DIR}/LICENSE" PARENT_SCOPE)
+set(NOTEPADSHARP_JSONCONS_SOURCE "${jsoncons_SOURCE_DIR}" PARENT_SCOPE)
+
 add_subdirectory(lua)
 add_subdirectory(scintilla)
 add_subdirectory(lexilla)

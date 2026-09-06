@@ -1,3 +1,5 @@
+add_subdirectory(json)
+
 qt_add_executable(NotepadSharp
 	WIN32
 	MACOSX_BUNDLE
@@ -29,6 +31,7 @@ qt_add_executable(NotepadSharp
 	IFaceTable.h
 	IFaceTableMixer.h
 	ISearchResultsHandler.h
+	JsonFormatter.h
 	LanguageStylesModel.h
 	LuaExtension.h
 	LuaState.h
@@ -84,6 +87,7 @@ qt_add_executable(NotepadSharp
 	HtmlConverter.cpp
 	IFaceTable.cpp
 	IFaceTableMixer.cpp
+	JsonFormatter.cpp
 	LanguageStylesModel.cpp
 	LuaExtension.cpp
 	LuaState.cpp
@@ -252,6 +256,7 @@ target_link_libraries(NotepadSharp
         Qt6::Widgets
         Qt6::Network
         Qt6::PrintSupport
+		notepadsharp_json_widgets
         qtadvanceddocking-qt6
         SingleApplication::SingleApplication
         editorconfig-core-qt

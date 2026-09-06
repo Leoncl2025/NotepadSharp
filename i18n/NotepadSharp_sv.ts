@@ -1867,6 +1867,52 @@
       <source>No updates are available at this time.</source>
       <translation>Inga uppdateringar tillgängliga den här gången.</translation>
     </message>
+    <message>
+      <source>Pretty Print JSON</source>
+      <translation>Formatera JSON</translation>
+    </message>
+    <message>
+      <source>Compact JSON</source>
+      <translation>Komprimera JSON</translation>
+    </message>
+    <message>
+      <source>Toggle Pretty / Compact</source>
+      <translation>Växla formaterad / komprimerad</translation>
+    </message>
+    <message>
+      <source>JSON formatting requires a writable document and a single, non-rectangular selection.</source>
+      <translation>JSON-formatering kräver ett skrivbart dokument och en enda icke-rektangulär markering.</translation>
+    </message>
+    <message>
+      <source>Invalid JSON at line %1, column %2: %3
+Best-effort formatting was applied; syntax errors were not repaired.</source>
+      <translation>Ogiltig JSON på rad %1, kolumn %2: %3
+Formatering har tillämpats efter bästa förmåga; syntaxfel har inte rättats.</translation>
+    </message>
+    <message>
+      <source>JSON Format Warning</source>
+      <translation>JSON-formatvarning</translation>
+    </message>
+    <message>
+      <source>JSON pretty-printed.</source>
+      <translation>JSON formaterad.</translation>
+    </message>
+    <message>
+      <source>JSON compacted.</source>
+      <translation>JSON komprimerad.</translation>
+    </message>
+    <message>
+      <source>Serialized JSON string decoded.</source>
+      <translation>Serialiserad JSON-sträng avkodad.</translation>
+    </message>
+    <message>
+      <source>JSON Tools</source>
+      <translation>JSON-verktyg</translation>
+    </message>
+    <message>
+      <source>Find JSON Path...</source>
+      <translation>Sök JSON-sökväg...</translation>
+    </message>
   </context>
   <context>
     <name>PreferencesDialog</name>
@@ -2135,6 +2181,369 @@
       <location filename="../src/widgets/TabsQuickActionsBar.cpp" line="49"/>
       <source>Close the current file</source>
       <translation type="unfinished"/>
+    </message>
+  </context>
+  <context>
+    <name>JsonFormatter</name>
+    <message>
+      <source>Expected a single JSON value.</source>
+      <translation>Ett enda JSON-värde förväntas.</translation>
+    </message>
+  </context>
+  <context>
+    <name>JsonTools</name>
+    <message>
+      <source>Expected a single JSON value.</source>
+      <translation>Ett enda JSON-värde förväntas.</translation>
+    </message>
+    <message>
+      <source>JSON navigation limit exceeded.</source>
+      <translation>Gränsen för JSON-navigering har överskridits.</translation>
+    </message>
+    <message>
+      <source>Duplicate key: %1</source>
+      <translation>Duplicerad nyckel: %1</translation>
+    </message>
+    <message>
+      <source>Object</source>
+      <translation>Objekt</translation>
+    </message>
+    <message>
+      <source>Array</source>
+      <translation>Array</translation>
+    </message>
+    <message>
+      <source>String</source>
+      <translation>Sträng</translation>
+    </message>
+    <message>
+      <source>Number</source>
+      <translation>Tal</translation>
+    </message>
+    <message>
+      <source>Boolean</source>
+      <translation>Booleskt värde</translation>
+    </message>
+    <message>
+      <source>Incomplete</source>
+      <translation>Ofullständig</translation>
+    </message>
+    <message>
+      <source>Enter a JSONPath or JSON Pointer.</source>
+      <translation>Ange JSONPath eller JSON Pointer.</translation>
+    </message>
+    <message>
+      <source>Comparison requires valid JSON without duplicate keys.</source>
+      <translation>Jämförelse kräver giltig JSON utan duplicerade nycklar.</translation>
+    </message>
+  </context>
+  <context>
+    <name>JsonTools::Session</name>
+    <message>
+      <source>JSON tools are limited to 32 MiB per document.</source>
+      <translation>JSON-verktygen är begränsade till 32 MiB per dokument.</translation>
+    </message>
+    <message>
+      <source>Indexing JSON...</source>
+      <translation>Indexerar JSON...</translation>
+    </message>
+  </context>
+  <context>
+    <name>JsonTools::TreeModel</name>
+    <message>
+      <source>Record %1</source>
+      <translation>Post %1</translation>
+    </message>
+    <message>
+      <source>%1 items</source>
+      <translation>%1 objekt</translation>
+    </message>
+    <message>
+      <source>Key</source>
+      <translation>Nyckel</translation>
+    </message>
+    <message>
+      <source>Value</source>
+      <translation>Värde</translation>
+    </message>
+    <message>
+      <source>Type</source>
+      <translation>Typ</translation>
+    </message>
+    <message>
+      <source>Line</source>
+      <translation>Rad</translation>
+    </message>
+  </context>
+  <context>
+    <name>JsonTools::Workbench</name>
+    <message>
+      <source>JSON Tools</source>
+      <translation>JSON-verktyg</translation>
+    </message>
+    <message>
+      <source>Parent Node</source>
+      <translation>Överordnad nod</translation>
+    </message>
+    <message>
+      <source>Previous Sibling</source>
+      <translation>Föregående syskonnod</translation>
+    </message>
+    <message>
+      <source>Next Sibling</source>
+      <translation>Nästa syskonnod</translation>
+    </message>
+    <message>
+      <source>Pretty Print Node</source>
+      <translation>Formatera nod</translation>
+    </message>
+    <message>
+      <source>Compact Node</source>
+      <translation>Komprimera nod</translation>
+    </message>
+    <message>
+      <source>Fold / Unfold Node</source>
+      <translation>Fäll ihop / ut nod</translation>
+    </message>
+    <message>
+      <source>Refresh JSON</source>
+      <translation>Uppdatera JSON</translation>
+    </message>
+    <message>
+      <source>Structure</source>
+      <translation>Struktur</translation>
+    </message>
+    <message>
+      <source>Path</source>
+      <translation>Sökväg</translation>
+    </message>
+    <message>
+      <source>Key</source>
+      <translation>Nyckel</translation>
+    </message>
+    <message>
+      <source>Value</source>
+      <translation>Värde</translation>
+    </message>
+    <message>
+      <source>JSONPath or Search Text</source>
+      <translation>JSONPath eller söktext</translation>
+    </message>
+    <message>
+      <source>Run Query</source>
+      <translation>Kör fråga</translation>
+    </message>
+    <message>
+      <source>Match Case</source>
+      <translation>Skiftlägeskänslig</translation>
+    </message>
+    <message>
+      <source>Select Value</source>
+      <translation>Markera värde</translation>
+    </message>
+    <message>
+      <source>Select Key</source>
+      <translation>Markera nyckel</translation>
+    </message>
+    <message>
+      <source>Copy Results</source>
+      <translation>Kopiera resultat</translation>
+    </message>
+    <message>
+      <source>Line</source>
+      <translation>Rad</translation>
+    </message>
+    <message>
+      <source>Type</source>
+      <translation>Typ</translation>
+    </message>
+    <message>
+      <source>Query</source>
+      <translation>Fråga</translation>
+    </message>
+    <message>
+      <source>Schema file</source>
+      <translation>Schemafil</translation>
+    </message>
+    <message>
+      <source>Open Schema</source>
+      <translation>Öppna schema</translation>
+    </message>
+    <message>
+      <source>Validate JSON</source>
+      <translation>Validera JSON</translation>
+    </message>
+    <message>
+      <source>Issue</source>
+      <translation>Problem</translation>
+    </message>
+    <message>
+      <source>Validation</source>
+      <translation>Validering</translation>
+    </message>
+    <message>
+      <source>Comparison file</source>
+      <translation>Jämförelsefil</translation>
+    </message>
+    <message>
+      <source>Open Comparison File</source>
+      <translation>Öppna jämförelsefil</translation>
+    </message>
+    <message>
+      <source>Compare JSON</source>
+      <translation>Jämför JSON</translation>
+    </message>
+    <message>
+      <source>Ignore Object Key Order</source>
+      <translation>Ignorera objektens nyckelordning</translation>
+    </message>
+    <message>
+      <source>Change</source>
+      <translation>Ändring</translation>
+    </message>
+    <message>
+      <source>Before</source>
+      <translation>Före</translation>
+    </message>
+    <message>
+      <source>After</source>
+      <translation>Efter</translation>
+    </message>
+    <message>
+      <source>Compare</source>
+      <translation>Jämför</translation>
+    </message>
+    <message>
+      <source>Copy JSON Path</source>
+      <translation>Kopiera JSON-sökväg</translation>
+    </message>
+    <message>
+      <source>JSON files (*.json);;All files (*)</source>
+      <translation>JSON-filer (*.json);;Alla filer (*)</translation>
+    </message>
+    <message>
+      <source>%1 issues; %2 records validated</source>
+      <translation>%1 problem; %2 poster validerade</translation>
+    </message>
+    <message>
+      <source>JSON files (*.json *.jsonl *.ndjson);;All files (*)</source>
+      <translation>JSON-filer (*.json *.jsonl *.ndjson);;Alla filer (*)</translation>
+    </message>
+    <message>
+      <source>JSON Comparison</source>
+      <translation>JSON-jämförelse</translation>
+    </message>
+    <message>
+      <source>Added</source>
+      <translation>Tillagt</translation>
+    </message>
+    <message>
+      <source>Removed</source>
+      <translation>Borttaget</translation>
+    </message>
+    <message>
+      <source>Modified</source>
+      <translation>Ändrat</translation>
+    </message>
+    <message>
+      <source>Key Order</source>
+      <translation>Nyckelordning</translation>
+    </message>
+    <message>
+      <source>Line %1: %2</source>
+      <translation>Rad %1: %2</translation>
+    </message>
+    <message>
+      <source>%1 differences</source>
+      <translation>%1 skillnader</translation>
+    </message>
+    <message>
+      <source>Results limited to 10000.</source>
+      <translation>Resultaten är begränsade till 10000.</translation>
+    </message>
+    <message>
+      <source>%1 nodes; %2 issues</source>
+      <translation>%1 noder; %2 problem</translation>
+    </message>
+    <message>
+      <source>Ambiguous: %1</source>
+      <translation>Tvetydig: %1</translation>
+    </message>
+    <message>
+      <source>Duplicate keys: this path is not unique.</source>
+      <translation>Duplicerade nycklar: sökvägen är inte unik.</translation>
+    </message>
+    <message>
+      <source>Copy JSON Pointer</source>
+      <translation>Kopiera JSON Pointer</translation>
+    </message>
+    <message>
+      <source>Copy Key</source>
+      <translation>Kopiera nyckel</translation>
+    </message>
+    <message>
+      <source>Copy JSON Value</source>
+      <translation>Kopiera JSON-värde</translation>
+    </message>
+    <message>
+      <source>Copy Decoded String</source>
+      <translation>Kopiera avkodad sträng</translation>
+    </message>
+    <message>
+      <source>Preview Node</source>
+      <translation>Förhandsvisa nod</translation>
+    </message>
+    <message>
+      <source>Querying...</source>
+      <translation>Kör fråga...</translation>
+    </message>
+    <message>
+      <source>%1 matches; %2 invalid or ambiguous records skipped</source>
+      <translation>%1 träffar; %2 ogiltiga eller tvetydiga poster överhoppade</translation>
+    </message>
+    <message>
+      <source>Copy limit exceeded; narrow the query.</source>
+      <translation>Kopieringsgränsen överskreds; begränsa frågan.</translation>
+    </message>
+    <message>
+      <source>Best-effort formatting: %1</source>
+      <translation>Formatering efter bästa förmåga: %1</translation>
+    </message>
+    <message>
+      <source>JSON Preview</source>
+      <translation>JSON-förhandsvisning</translation>
+    </message>
+    <message>
+      <source>JSON index is not ready.</source>
+      <translation>JSON-indexet är inte klart än.</translation>
+    </message>
+    <message>
+      <source>JSON Lines compacted; %1 invalid records unchanged.</source>
+      <translation>JSON Lines komprimerad; %1 ogiltiga poster oförändrade.</translation>
+    </message>
+    <message>
+      <source>Validating...</source>
+      <translation>Validerar...</translation>
+    </message>
+    <message>
+      <source>Warning: %1</source>
+      <translation>Varning: %1</translation>
+    </message>
+    <message>
+      <source>Error: %1</source>
+      <translation>Fel: %1</translation>
+    </message>
+    <message>
+      <source>%1 issues</source>
+      <translation>%1 problem</translation>
+    </message>
+    <message>
+      <source>Select a comparison file.</source>
+      <translation>Välj en jämförelsefil.</translation>
+    </message>
+    <message>
+      <source>Comparing...</source>
+      <translation>Jämför...</translation>
     </message>
   </context>
 </TS>

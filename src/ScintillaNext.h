@@ -20,6 +20,7 @@
 #ifndef SCINTILLANEXT_H
 #define SCINTILLANEXT_H
 
+#include "JsonFormatter.h"
 #include "RangeAllocator.h"
 #include "ScintillaEdit.h"
 
@@ -27,6 +28,7 @@
 #include <QFile>
 #include <QFileInfo>
 #include <QMargins>
+#include <optional>
 
 
 
@@ -81,6 +83,8 @@ public:
 
     void deleteLeadingEmptyLines();
     void deleteTrailingEmptyLines();
+
+    std::optional<JsonFormatter::Result> formatJson(JsonFormatter::Mode mode);
 
     bool isFile() const;
     QFileInfo getFileInfo() const;

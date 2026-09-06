@@ -20,6 +20,7 @@
 #include "ScintillaNext.h"
 #include "Finder.h"
 #include "ScintillaCommenter.h"
+#include "UndoAction.h"
 
 #include "ByteArrayUtils.h"
 #include "uchardet.h"
@@ -550,6 +551,42 @@ void ScintillaNext::uncommentLineSelection()
 {
     ScintillaCommenter sc(this);
     sc.uncommentSelection();
+}
+
+std::optional<JsonFormatter::Result> ScintillaNext::formatJson(JsonFormatter::Mode mode)
+{
+    if (readOnly() || selectionIsRectangle() || selections() != 1 || textLength() == 0) {
+        return std::nullopt;
+    }
+
+    const bool selected = !selectionEmpty();
+    const bool forward = selectionNCaret(mainSelection()) >= selectionNAnchor(mainSelection());
+    const sptr_t start = selected ? selectionStart() : 0;
+    const sptr_t end = selected ? selectionEnd() : textLength();
+    const QByteArray input(reinterpret_cast<const char *>(characterPointer()) + start, end - start);
+    const sptr_t indentWidth = indent() > 0 ? indent() : tabWidth();
+    const QString indentation = useTabs() ? QStringLiteral("\t") : QString(qMax<sptr_t>(1, indentWidth), ' ');
+    const QString eol = QString::fromLatin1(eolString());
+    auto result = JsonFormatter::format(QString::fromUtf8(input), mode, indentation, eol);
+    if (!selected && (input.endsWith('\n') || input.endsWith('\r')) && !result.text.endsWith(eol)) {
+        result.text += eol;
+    }
+
+    const QByteArray replacement = result.text.toUtf8();
+    if (replacement != input) {
+        const UndoAction action(this);
+        setTargetRange(start, end);
+        replaceTarget(replacement.size(), replacement.constData());
+        if (selected) {
+            const sptr_t replacementEnd = start + replacement.size();
+            setSelection(forward ? replacementEnd : start, forward ? start : replacementEnd);
+        }
+        else {
+            setSelection(0, 0);
+        }
+        scrollCaret();
+    }
+    return result;
 }
 
 void ScintillaNext::removeDuplicateLines()

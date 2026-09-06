@@ -1867,6 +1867,52 @@
       <source>No updates are available at this time.</source>
       <translation>Şu anda kullanılabilir güncellemeler bulunmuyor.</translation>
     </message>
+    <message>
+      <source>Pretty Print JSON</source>
+      <translation>JSON Biçimlendir</translation>
+    </message>
+    <message>
+      <source>Compact JSON</source>
+      <translation>JSON Sıkıştır</translation>
+    </message>
+    <message>
+      <source>Toggle Pretty / Compact</source>
+      <translation>Biçimli / Sıkışık Geçişi</translation>
+    </message>
+    <message>
+      <source>JSON formatting requires a writable document and a single, non-rectangular selection.</source>
+      <translation>JSON biçimlendirmesi, yazılabilir bir belge ve dikdörtgen olmayan tek bir seçim gerektirir.</translation>
+    </message>
+    <message>
+      <source>Invalid JSON at line %1, column %2: %3
+Best-effort formatting was applied; syntax errors were not repaired.</source>
+      <translation>%1. satır, %2. sütunda geçersiz JSON: %3
+Mümkün olan biçimlendirme uygulandı; sözdizimi hataları onarılmadı.</translation>
+    </message>
+    <message>
+      <source>JSON Format Warning</source>
+      <translation>JSON Biçim Uyarısı</translation>
+    </message>
+    <message>
+      <source>JSON pretty-printed.</source>
+      <translation>JSON biçimlendirildi.</translation>
+    </message>
+    <message>
+      <source>JSON compacted.</source>
+      <translation>JSON sıkıştırıldı.</translation>
+    </message>
+    <message>
+      <source>Serialized JSON string decoded.</source>
+      <translation>Serileştirilmiş JSON dizesi çözümlendi.</translation>
+    </message>
+    <message>
+      <source>JSON Tools</source>
+      <translation>JSON Araçları</translation>
+    </message>
+    <message>
+      <source>Find JSON Path...</source>
+      <translation>JSON Yolu Bul...</translation>
+    </message>
   </context>
   <context>
     <name>PreferencesDialog</name>
@@ -2135,6 +2181,369 @@
       <location filename="../src/widgets/TabsQuickActionsBar.cpp" line="49"/>
       <source>Close the current file</source>
       <translation type="unfinished"/>
+    </message>
+  </context>
+  <context>
+    <name>JsonFormatter</name>
+    <message>
+      <source>Expected a single JSON value.</source>
+      <translation>Tek bir JSON değeri bekleniyor.</translation>
+    </message>
+  </context>
+  <context>
+    <name>JsonTools</name>
+    <message>
+      <source>Expected a single JSON value.</source>
+      <translation>Tek bir JSON değeri bekleniyor.</translation>
+    </message>
+    <message>
+      <source>JSON navigation limit exceeded.</source>
+      <translation>JSON gezinme sınırı aşıldı.</translation>
+    </message>
+    <message>
+      <source>Duplicate key: %1</source>
+      <translation>Yinelenen anahtar: %1</translation>
+    </message>
+    <message>
+      <source>Object</source>
+      <translation>Nesne</translation>
+    </message>
+    <message>
+      <source>Array</source>
+      <translation>Dizi</translation>
+    </message>
+    <message>
+      <source>String</source>
+      <translation>Dize</translation>
+    </message>
+    <message>
+      <source>Number</source>
+      <translation>Sayı</translation>
+    </message>
+    <message>
+      <source>Boolean</source>
+      <translation>Mantıksal</translation>
+    </message>
+    <message>
+      <source>Incomplete</source>
+      <translation>Eksik</translation>
+    </message>
+    <message>
+      <source>Enter a JSONPath or JSON Pointer.</source>
+      <translation>JSONPath veya JSON Pointer girin.</translation>
+    </message>
+    <message>
+      <source>Comparison requires valid JSON without duplicate keys.</source>
+      <translation>Karşılaştırma, yinelenen anahtar içermeyen geçerli JSON gerektirir.</translation>
+    </message>
+  </context>
+  <context>
+    <name>JsonTools::Session</name>
+    <message>
+      <source>JSON tools are limited to 32 MiB per document.</source>
+      <translation>JSON araçları belge başına 32 MiB ile sınırlıdır.</translation>
+    </message>
+    <message>
+      <source>Indexing JSON...</source>
+      <translation>JSON dizine ekleniyor...</translation>
+    </message>
+  </context>
+  <context>
+    <name>JsonTools::TreeModel</name>
+    <message>
+      <source>Record %1</source>
+      <translation>Kayıt %1</translation>
+    </message>
+    <message>
+      <source>%1 items</source>
+      <translation>%1 öğe</translation>
+    </message>
+    <message>
+      <source>Key</source>
+      <translation>Anahtar</translation>
+    </message>
+    <message>
+      <source>Value</source>
+      <translation>Değer</translation>
+    </message>
+    <message>
+      <source>Type</source>
+      <translation>Tür</translation>
+    </message>
+    <message>
+      <source>Line</source>
+      <translation>Satır</translation>
+    </message>
+  </context>
+  <context>
+    <name>JsonTools::Workbench</name>
+    <message>
+      <source>JSON Tools</source>
+      <translation>JSON Araçları</translation>
+    </message>
+    <message>
+      <source>Parent Node</source>
+      <translation>Üst Düğüm</translation>
+    </message>
+    <message>
+      <source>Previous Sibling</source>
+      <translation>Önceki Kardeş Düğüm</translation>
+    </message>
+    <message>
+      <source>Next Sibling</source>
+      <translation>Sonraki Kardeş Düğüm</translation>
+    </message>
+    <message>
+      <source>Pretty Print Node</source>
+      <translation>Düğümü Biçimlendir</translation>
+    </message>
+    <message>
+      <source>Compact Node</source>
+      <translation>Düğümü Sıkıştır</translation>
+    </message>
+    <message>
+      <source>Fold / Unfold Node</source>
+      <translation>Düğümü Daralt / Genişlet</translation>
+    </message>
+    <message>
+      <source>Refresh JSON</source>
+      <translation>JSON Yenile</translation>
+    </message>
+    <message>
+      <source>Structure</source>
+      <translation>Yapı</translation>
+    </message>
+    <message>
+      <source>Path</source>
+      <translation>Yol</translation>
+    </message>
+    <message>
+      <source>Key</source>
+      <translation>Anahtar</translation>
+    </message>
+    <message>
+      <source>Value</source>
+      <translation>Değer</translation>
+    </message>
+    <message>
+      <source>JSONPath or Search Text</source>
+      <translation>JSONPath veya Arama Metni</translation>
+    </message>
+    <message>
+      <source>Run Query</source>
+      <translation>Sorguyu Çalıştır</translation>
+    </message>
+    <message>
+      <source>Match Case</source>
+      <translation>Büyük/Küçük Harf Duyarlı</translation>
+    </message>
+    <message>
+      <source>Select Value</source>
+      <translation>Değeri Seç</translation>
+    </message>
+    <message>
+      <source>Select Key</source>
+      <translation>Anahtarı Seç</translation>
+    </message>
+    <message>
+      <source>Copy Results</source>
+      <translation>Sonuçları Kopyala</translation>
+    </message>
+    <message>
+      <source>Line</source>
+      <translation>Satır</translation>
+    </message>
+    <message>
+      <source>Type</source>
+      <translation>Tür</translation>
+    </message>
+    <message>
+      <source>Query</source>
+      <translation>Sorgu</translation>
+    </message>
+    <message>
+      <source>Schema file</source>
+      <translation>Şema dosyası</translation>
+    </message>
+    <message>
+      <source>Open Schema</source>
+      <translation>Şema Aç</translation>
+    </message>
+    <message>
+      <source>Validate JSON</source>
+      <translation>JSON Doğrula</translation>
+    </message>
+    <message>
+      <source>Issue</source>
+      <translation>Sorun</translation>
+    </message>
+    <message>
+      <source>Validation</source>
+      <translation>Doğrulama</translation>
+    </message>
+    <message>
+      <source>Comparison file</source>
+      <translation>Karşılaştırma dosyası</translation>
+    </message>
+    <message>
+      <source>Open Comparison File</source>
+      <translation>Karşılaştırma Dosyası Aç</translation>
+    </message>
+    <message>
+      <source>Compare JSON</source>
+      <translation>JSON Karşılaştır</translation>
+    </message>
+    <message>
+      <source>Ignore Object Key Order</source>
+      <translation>Nesne Anahtar Sırasını Yoksay</translation>
+    </message>
+    <message>
+      <source>Change</source>
+      <translation>Değişiklik</translation>
+    </message>
+    <message>
+      <source>Before</source>
+      <translation>Önce</translation>
+    </message>
+    <message>
+      <source>After</source>
+      <translation>Sonra</translation>
+    </message>
+    <message>
+      <source>Compare</source>
+      <translation>Karşılaştır</translation>
+    </message>
+    <message>
+      <source>Copy JSON Path</source>
+      <translation>JSON Yolunu Kopyala</translation>
+    </message>
+    <message>
+      <source>JSON files (*.json);;All files (*)</source>
+      <translation>JSON dosyaları (*.json);;Tüm dosyalar (*)</translation>
+    </message>
+    <message>
+      <source>%1 issues; %2 records validated</source>
+      <translation>%1 sorun; %2 kayıt doğrulandı</translation>
+    </message>
+    <message>
+      <source>JSON files (*.json *.jsonl *.ndjson);;All files (*)</source>
+      <translation>JSON dosyaları (*.json *.jsonl *.ndjson);;Tüm dosyalar (*)</translation>
+    </message>
+    <message>
+      <source>JSON Comparison</source>
+      <translation>JSON Karşılaştırması</translation>
+    </message>
+    <message>
+      <source>Added</source>
+      <translation>Eklendi</translation>
+    </message>
+    <message>
+      <source>Removed</source>
+      <translation>Kaldırıldı</translation>
+    </message>
+    <message>
+      <source>Modified</source>
+      <translation>Değiştirildi</translation>
+    </message>
+    <message>
+      <source>Key Order</source>
+      <translation>Anahtar Sırası</translation>
+    </message>
+    <message>
+      <source>Line %1: %2</source>
+      <translation>Satır %1: %2</translation>
+    </message>
+    <message>
+      <source>%1 differences</source>
+      <translation>%1 fark</translation>
+    </message>
+    <message>
+      <source>Results limited to 10000.</source>
+      <translation>Sonuçlar 10000 ile sınırlıdır.</translation>
+    </message>
+    <message>
+      <source>%1 nodes; %2 issues</source>
+      <translation>%1 düğüm; %2 sorun</translation>
+    </message>
+    <message>
+      <source>Ambiguous: %1</source>
+      <translation>Belirsiz: %1</translation>
+    </message>
+    <message>
+      <source>Duplicate keys: this path is not unique.</source>
+      <translation>Yinelenen anahtarlar: bu yol benzersiz değil.</translation>
+    </message>
+    <message>
+      <source>Copy JSON Pointer</source>
+      <translation>JSON Pointer Kopyala</translation>
+    </message>
+    <message>
+      <source>Copy Key</source>
+      <translation>Anahtarı Kopyala</translation>
+    </message>
+    <message>
+      <source>Copy JSON Value</source>
+      <translation>JSON Değerini Kopyala</translation>
+    </message>
+    <message>
+      <source>Copy Decoded String</source>
+      <translation>Çözümlenen Dizeyi Kopyala</translation>
+    </message>
+    <message>
+      <source>Preview Node</source>
+      <translation>Düğümü Önizle</translation>
+    </message>
+    <message>
+      <source>Querying...</source>
+      <translation>Sorgulanıyor...</translation>
+    </message>
+    <message>
+      <source>%1 matches; %2 invalid or ambiguous records skipped</source>
+      <translation>%1 eşleşme; %2 geçersiz veya belirsiz kayıt atlandı</translation>
+    </message>
+    <message>
+      <source>Copy limit exceeded; narrow the query.</source>
+      <translation>Kopyalama sınırı aşıldı; sorguyu daraltın.</translation>
+    </message>
+    <message>
+      <source>Best-effort formatting: %1</source>
+      <translation>Mümkün olan biçimlendirme: %1</translation>
+    </message>
+    <message>
+      <source>JSON Preview</source>
+      <translation>JSON Önizlemesi</translation>
+    </message>
+    <message>
+      <source>JSON index is not ready.</source>
+      <translation>JSON dizini henüz hazır değil.</translation>
+    </message>
+    <message>
+      <source>JSON Lines compacted; %1 invalid records unchanged.</source>
+      <translation>JSON Lines sıkıştırıldı; %1 geçersiz kayıt değiştirilmedi.</translation>
+    </message>
+    <message>
+      <source>Validating...</source>
+      <translation>Doğrulanıyor...</translation>
+    </message>
+    <message>
+      <source>Warning: %1</source>
+      <translation>Uyarı: %1</translation>
+    </message>
+    <message>
+      <source>Error: %1</source>
+      <translation>Hata: %1</translation>
+    </message>
+    <message>
+      <source>%1 issues</source>
+      <translation>%1 sorun</translation>
+    </message>
+    <message>
+      <source>Select a comparison file.</source>
+      <translation>Bir karşılaştırma dosyası seçin.</translation>
+    </message>
+    <message>
+      <source>Comparing...</source>
+      <translation>Karşılaştırılıyor...</translation>
     </message>
   </context>
 </TS>

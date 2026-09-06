@@ -1876,6 +1876,52 @@
       <source>No updates are available at this time.</source>
       <translation>Jelenleg nem érhetők el frissítések.</translation>
     </message>
+    <message>
+      <source>Pretty Print JSON</source>
+      <translation>JSON formázása</translation>
+    </message>
+    <message>
+      <source>Compact JSON</source>
+      <translation>JSON tömörítése</translation>
+    </message>
+    <message>
+      <source>Toggle Pretty / Compact</source>
+      <translation>Formázott / tömör nézet váltása</translation>
+    </message>
+    <message>
+      <source>JSON formatting requires a writable document and a single, non-rectangular selection.</source>
+      <translation>A JSON-formázáshoz írható dokumentum és egyetlen, nem téglalap alakú kijelölés szükséges.</translation>
+    </message>
+    <message>
+      <source>Invalid JSON at line %1, column %2: %3
+Best-effort formatting was applied; syntax errors were not repaired.</source>
+      <translation>Érvénytelen JSON a(z) %1. sor %2. oszlopában: %3
+A lehetőség szerinti formázás megtörtént; a szintaktikai hibák nem lettek javítva.</translation>
+    </message>
+    <message>
+      <source>JSON Format Warning</source>
+      <translation>JSON-formátum figyelmeztetés</translation>
+    </message>
+    <message>
+      <source>JSON pretty-printed.</source>
+      <translation>JSON formázva.</translation>
+    </message>
+    <message>
+      <source>JSON compacted.</source>
+      <translation>JSON tömörítve.</translation>
+    </message>
+    <message>
+      <source>Serialized JSON string decoded.</source>
+      <translation>Szerializált JSON-karakterlánc dekódolva.</translation>
+    </message>
+    <message>
+      <source>JSON Tools</source>
+      <translation>JSON-eszközök</translation>
+    </message>
+    <message>
+      <source>Find JSON Path...</source>
+      <translation>JSON-útvonal keresése...</translation>
+    </message>
   </context>
   <context>
     <name>PreferencesDialog</name>
@@ -2144,6 +2190,369 @@
       <location filename="../src/widgets/TabsQuickActionsBar.cpp" line="49"/>
       <source>Close the current file</source>
       <translation>Az aktuális fájl bezárása</translation>
+    </message>
+  </context>
+  <context>
+    <name>JsonFormatter</name>
+    <message>
+      <source>Expected a single JSON value.</source>
+      <translation>Egyetlen JSON-érték szükséges.</translation>
+    </message>
+  </context>
+  <context>
+    <name>JsonTools</name>
+    <message>
+      <source>Expected a single JSON value.</source>
+      <translation>Egyetlen JSON-érték szükséges.</translation>
+    </message>
+    <message>
+      <source>JSON navigation limit exceeded.</source>
+      <translation>A JSON-navigáció korlátja túllépve.</translation>
+    </message>
+    <message>
+      <source>Duplicate key: %1</source>
+      <translation>Ismétlődő kulcs: %1</translation>
+    </message>
+    <message>
+      <source>Object</source>
+      <translation>Objektum</translation>
+    </message>
+    <message>
+      <source>Array</source>
+      <translation>Tömb</translation>
+    </message>
+    <message>
+      <source>String</source>
+      <translation>Karakterlánc</translation>
+    </message>
+    <message>
+      <source>Number</source>
+      <translation>Szám</translation>
+    </message>
+    <message>
+      <source>Boolean</source>
+      <translation>Logikai érték</translation>
+    </message>
+    <message>
+      <source>Incomplete</source>
+      <translation>Hiányos</translation>
+    </message>
+    <message>
+      <source>Enter a JSONPath or JSON Pointer.</source>
+      <translation>Adjon meg JSONPath vagy JSON Pointer kifejezést.</translation>
+    </message>
+    <message>
+      <source>Comparison requires valid JSON without duplicate keys.</source>
+      <translation>Az összehasonlításhoz érvényes JSON szükséges ismétlődő kulcsok nélkül.</translation>
+    </message>
+  </context>
+  <context>
+    <name>JsonTools::Session</name>
+    <message>
+      <source>JSON tools are limited to 32 MiB per document.</source>
+      <translation>A JSON-eszközök dokumentumonként 32 MiB-ig használhatók.</translation>
+    </message>
+    <message>
+      <source>Indexing JSON...</source>
+      <translation>JSON indexelése...</translation>
+    </message>
+  </context>
+  <context>
+    <name>JsonTools::TreeModel</name>
+    <message>
+      <source>Record %1</source>
+      <translation>%1. rekord</translation>
+    </message>
+    <message>
+      <source>%1 items</source>
+      <translation>%1 elem</translation>
+    </message>
+    <message>
+      <source>Key</source>
+      <translation>Kulcs</translation>
+    </message>
+    <message>
+      <source>Value</source>
+      <translation>Érték</translation>
+    </message>
+    <message>
+      <source>Type</source>
+      <translation>Típus</translation>
+    </message>
+    <message>
+      <source>Line</source>
+      <translation>Sor</translation>
+    </message>
+  </context>
+  <context>
+    <name>JsonTools::Workbench</name>
+    <message>
+      <source>JSON Tools</source>
+      <translation>JSON-eszközök</translation>
+    </message>
+    <message>
+      <source>Parent Node</source>
+      <translation>Szülőcsomópont</translation>
+    </message>
+    <message>
+      <source>Previous Sibling</source>
+      <translation>Előző testvércsomópont</translation>
+    </message>
+    <message>
+      <source>Next Sibling</source>
+      <translation>Következő testvércsomópont</translation>
+    </message>
+    <message>
+      <source>Pretty Print Node</source>
+      <translation>Csomópont formázása</translation>
+    </message>
+    <message>
+      <source>Compact Node</source>
+      <translation>Csomópont tömörítése</translation>
+    </message>
+    <message>
+      <source>Fold / Unfold Node</source>
+      <translation>Csomópont összecsukása / kibontása</translation>
+    </message>
+    <message>
+      <source>Refresh JSON</source>
+      <translation>JSON frissítése</translation>
+    </message>
+    <message>
+      <source>Structure</source>
+      <translation>Szerkezet</translation>
+    </message>
+    <message>
+      <source>Path</source>
+      <translation>Útvonal</translation>
+    </message>
+    <message>
+      <source>Key</source>
+      <translation>Kulcs</translation>
+    </message>
+    <message>
+      <source>Value</source>
+      <translation>Érték</translation>
+    </message>
+    <message>
+      <source>JSONPath or Search Text</source>
+      <translation>JSONPath vagy keresett szöveg</translation>
+    </message>
+    <message>
+      <source>Run Query</source>
+      <translation>Lekérdezés futtatása</translation>
+    </message>
+    <message>
+      <source>Match Case</source>
+      <translation>Kis- és nagybetűk megkülönböztetése</translation>
+    </message>
+    <message>
+      <source>Select Value</source>
+      <translation>Érték kijelölése</translation>
+    </message>
+    <message>
+      <source>Select Key</source>
+      <translation>Kulcs kijelölése</translation>
+    </message>
+    <message>
+      <source>Copy Results</source>
+      <translation>Eredmények másolása</translation>
+    </message>
+    <message>
+      <source>Line</source>
+      <translation>Sor</translation>
+    </message>
+    <message>
+      <source>Type</source>
+      <translation>Típus</translation>
+    </message>
+    <message>
+      <source>Query</source>
+      <translation>Lekérdezés</translation>
+    </message>
+    <message>
+      <source>Schema file</source>
+      <translation>Sémafájl</translation>
+    </message>
+    <message>
+      <source>Open Schema</source>
+      <translation>Séma megnyitása</translation>
+    </message>
+    <message>
+      <source>Validate JSON</source>
+      <translation>JSON ellenőrzése</translation>
+    </message>
+    <message>
+      <source>Issue</source>
+      <translation>Probléma</translation>
+    </message>
+    <message>
+      <source>Validation</source>
+      <translation>Ellenőrzés</translation>
+    </message>
+    <message>
+      <source>Comparison file</source>
+      <translation>Összehasonlító fájl</translation>
+    </message>
+    <message>
+      <source>Open Comparison File</source>
+      <translation>Összehasonlító fájl megnyitása</translation>
+    </message>
+    <message>
+      <source>Compare JSON</source>
+      <translation>JSON összehasonlítása</translation>
+    </message>
+    <message>
+      <source>Ignore Object Key Order</source>
+      <translation>Objektumkulcsok sorrendjének mellőzése</translation>
+    </message>
+    <message>
+      <source>Change</source>
+      <translation>Változás</translation>
+    </message>
+    <message>
+      <source>Before</source>
+      <translation>Előtte</translation>
+    </message>
+    <message>
+      <source>After</source>
+      <translation>Utána</translation>
+    </message>
+    <message>
+      <source>Compare</source>
+      <translation>Összehasonlítás</translation>
+    </message>
+    <message>
+      <source>Copy JSON Path</source>
+      <translation>JSON-útvonal másolása</translation>
+    </message>
+    <message>
+      <source>JSON files (*.json);;All files (*)</source>
+      <translation>JSON-fájlok (*.json);;Minden fájl (*)</translation>
+    </message>
+    <message>
+      <source>%1 issues; %2 records validated</source>
+      <translation>%1 probléma; %2 rekord ellenőrizve</translation>
+    </message>
+    <message>
+      <source>JSON files (*.json *.jsonl *.ndjson);;All files (*)</source>
+      <translation>JSON-fájlok (*.json *.jsonl *.ndjson);;Minden fájl (*)</translation>
+    </message>
+    <message>
+      <source>JSON Comparison</source>
+      <translation>JSON-összehasonlítás</translation>
+    </message>
+    <message>
+      <source>Added</source>
+      <translation>Hozzáadva</translation>
+    </message>
+    <message>
+      <source>Removed</source>
+      <translation>Eltávolítva</translation>
+    </message>
+    <message>
+      <source>Modified</source>
+      <translation>Módosítva</translation>
+    </message>
+    <message>
+      <source>Key Order</source>
+      <translation>Kulcsok sorrendje</translation>
+    </message>
+    <message>
+      <source>Line %1: %2</source>
+      <translation>%1. sor: %2</translation>
+    </message>
+    <message>
+      <source>%1 differences</source>
+      <translation>%1 eltérés</translation>
+    </message>
+    <message>
+      <source>Results limited to 10000.</source>
+      <translation>Legfeljebb 10000 eredmény.</translation>
+    </message>
+    <message>
+      <source>%1 nodes; %2 issues</source>
+      <translation>%1 csomópont; %2 probléma</translation>
+    </message>
+    <message>
+      <source>Ambiguous: %1</source>
+      <translation>Nem egyértelmű: %1</translation>
+    </message>
+    <message>
+      <source>Duplicate keys: this path is not unique.</source>
+      <translation>Ismétlődő kulcsok: az útvonal nem egyedi.</translation>
+    </message>
+    <message>
+      <source>Copy JSON Pointer</source>
+      <translation>JSON Pointer másolása</translation>
+    </message>
+    <message>
+      <source>Copy Key</source>
+      <translation>Kulcs másolása</translation>
+    </message>
+    <message>
+      <source>Copy JSON Value</source>
+      <translation>JSON-érték másolása</translation>
+    </message>
+    <message>
+      <source>Copy Decoded String</source>
+      <translation>Dekódolt karakterlánc másolása</translation>
+    </message>
+    <message>
+      <source>Preview Node</source>
+      <translation>Csomópont előnézete</translation>
+    </message>
+    <message>
+      <source>Querying...</source>
+      <translation>Lekérdezés...</translation>
+    </message>
+    <message>
+      <source>%1 matches; %2 invalid or ambiguous records skipped</source>
+      <translation>%1 találat; %2 érvénytelen vagy nem egyértelmű rekord kihagyva</translation>
+    </message>
+    <message>
+      <source>Copy limit exceeded; narrow the query.</source>
+      <translation>Másolási korlát túllépve; szűkítse a lekérdezést.</translation>
+    </message>
+    <message>
+      <source>Best-effort formatting: %1</source>
+      <translation>Lehetőség szerinti formázás: %1</translation>
+    </message>
+    <message>
+      <source>JSON Preview</source>
+      <translation>JSON-előnézet</translation>
+    </message>
+    <message>
+      <source>JSON index is not ready.</source>
+      <translation>A JSON-index még nem áll készen.</translation>
+    </message>
+    <message>
+      <source>JSON Lines compacted; %1 invalid records unchanged.</source>
+      <translation>JSON Lines tömörítve; %1 érvénytelen rekord változatlan.</translation>
+    </message>
+    <message>
+      <source>Validating...</source>
+      <translation>Ellenőrzés...</translation>
+    </message>
+    <message>
+      <source>Warning: %1</source>
+      <translation>Figyelmeztetés: %1</translation>
+    </message>
+    <message>
+      <source>Error: %1</source>
+      <translation>Hiba: %1</translation>
+    </message>
+    <message>
+      <source>%1 issues</source>
+      <translation>%1 probléma</translation>
+    </message>
+    <message>
+      <source>Select a comparison file.</source>
+      <translation>Válasszon összehasonlító fájlt.</translation>
+    </message>
+    <message>
+      <source>Comparing...</source>
+      <translation>Összehasonlítás...</translation>
     </message>
   </context>
 </TS>

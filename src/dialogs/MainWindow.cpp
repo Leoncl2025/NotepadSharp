@@ -21,6 +21,7 @@
 #include "BookMarkDecorator.h"
 #include "compare/CompareSession.h"
 #include "compare/CompareToolBar.h"
+#include "json/JsonWorkbench.h"
 #include "DefaultDirectoryManager.h"
 #include "MarkerAppDecorator.h"
 #include "ScintillaSorter.h"
@@ -126,6 +127,30 @@ MainWindow::MainWindow(NotepadSharpApplication *app) :
     connect(dockedEditor, &DockedEditor::editorActivated, this, &MainWindow::activateEditor);
     connect(dockedEditor, &DockedEditor::contextMenuRequestedForEditor, this, &MainWindow::tabBarRightClicked);
     connect(dockedEditor, &DockedEditor::titleBarDoubleClicked, this, &MainWindow::newFile);
+
+    jsonWorkbench = new JsonTools::Workbench(this);
+    addDockWidget(Qt::RightDockWidgetArea, jsonWorkbench);
+    jsonWorkbench->hide();
+    ui->statusBar->addWidget(jsonWorkbench->pathWidget(), 2);
+    connect(this, &MainWindow::editorActivated, jsonWorkbench, &JsonTools::Workbench::setEditor);
+    connect(jsonWorkbench, &JsonTools::Workbench::message, this, [this](const QString &text) {
+        ui->statusBar->showMessage(text, 10000);
+    });
+    connect(jsonWorkbench, &JsonTools::Workbench::jsonLanguageRequested, this, [this]() {
+        if (currentEditor() && currentEditor()->languageName == QStringLiteral("Text")) {
+            setLanguage(currentEditor(), QStringLiteral("JSON"));
+        }
+    });
+    connect(jsonWorkbench, &JsonTools::Workbench::openDocument, this,
+            [this](const QByteArray &text, const QString &name, qsizetype start, qsizetype end) {
+        newFile();
+        ScintillaNext *editor = currentEditor();
+        editor->addText(text.size(), text.constData());
+        editor->setName(name);
+        setLanguage(editor, QStringLiteral("JSON"));
+        editor->setSelection(end, start);
+        editor->scrollRange(end, start);
+    });
 
     compareSession = new Compare::Session(app->getAppearanceManager(), this);
     QMenu *compareMenu = new QMenu(tr("&Compare"), this);
@@ -250,6 +275,18 @@ MainWindow::MainWindow(NotepadSharpApplication *app) :
     connectEditorAction(ui->actionToggleSingleLineComment, &ScintillaNext::toggleCommentSelection);
     connectEditorAction(ui->actionSingleLineComment, &ScintillaNext::commentLineSelection);
     connectEditorAction(ui->actionSingleLineUncomment, &ScintillaNext::uncommentLineSelection);
+
+    connect(ui->actionJsonPretty, &QAction::triggered, this, [this]() {
+        formatJson(JsonFormatter::Mode::Pretty);
+    });
+    connect(ui->actionJsonCompact, &QAction::triggered, this, [this]() {
+        formatJson(JsonFormatter::Mode::Compact);
+    });
+    connect(ui->actionJsonToggle, &QAction::triggered, this, [this]() {
+        formatJson(JsonFormatter::Mode::Toggle);
+    });
+    connect(ui->actionJsonTools, &QAction::triggered, jsonWorkbench, &JsonTools::Workbench::openTools);
+    connect(ui->actionJsonQuery, &QAction::triggered, jsonWorkbench, &JsonTools::Workbench::openQuery);
 
     connect(ui->actionBase64Encode, &QAction::triggered, this, [this]() {
         ScintillaNext *editor = currentEditor();
@@ -1071,6 +1108,48 @@ MainWindow::MainWindow(NotepadSharpApplication *app) :
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::formatJson(JsonFormatter::Mode mode)
+{
+    ScintillaNext *editor = currentEditor();
+    if (!editor) {
+        return;
+    }
+
+    if (jsonWorkbench->session()->jsonLines()) {
+        jsonWorkbench->formatLines(mode);
+        return;
+    }
+
+    const bool wholeDocument = editor->selectionEmpty();
+    const sptr_t start = wholeDocument ? 0 : editor->selectionStart();
+    const auto result = editor->formatJson(mode);
+    if (!result) {
+        ui->statusBar->showMessage(tr("JSON formatting requires a writable document and a single, non-rectangular selection."), 5000);
+        return;
+    }
+
+    if (wholeDocument && editor->languageName == QStringLiteral("Text")) {
+        setLanguage(editor, QStringLiteral("JSON"));
+    }
+
+    if (!result->isValid()) {
+        const sptr_t position = start + result->text.left(result->errorOffset).toUtf8().size();
+        const QString message = tr("Invalid JSON at line %1, column %2: %3\nBest-effort formatting was applied; syntax errors were not repaired.")
+            .arg(editor->lineFromPosition(position) + 1)
+            .arg(editor->column(position) + 1)
+            .arg(result->error);
+        ui->statusBar->showMessage(message.section('\n', 0, 0), 10000);
+        QMessageBox::warning(this, tr("JSON Format Warning"), message);
+        return;
+    }
+
+    QString message = result->mode == JsonFormatter::Mode::Pretty ? tr("JSON pretty-printed.") : tr("JSON compacted.");
+    if (result->decodedString) {
+        message += ' ' + tr("Serialized JSON string decoded.");
+    }
+    ui->statusBar->showMessage(message, 5000);
 }
 
 void MainWindow::applyCustomShortcuts()
@@ -1972,6 +2051,12 @@ void MainWindow::updateContentBasedUi(ScintillaNext *editor)
     ui->actionURLEncode->setEnabled(hasAnySelections);
     ui->actionBase64Decode->setEnabled(hasAnySelections);
     ui->actionURLDecode->setEnabled(hasAnySelections);
+
+    const bool canFormatJson = !editor->readOnly() && editor->textLength() > 0
+        && editor->selections() == 1 && !editor->selectionIsRectangle();
+    ui->actionJsonPretty->setEnabled(canFormatJson);
+    ui->actionJsonCompact->setEnabled(canFormatJson);
+    ui->actionJsonToggle->setEnabled(canFormatJson);
 }
 
 void MainWindow::detectLanguage(ScintillaNext *editor)
@@ -2341,6 +2426,7 @@ void MainWindow::addEditor(ScintillaNext *editor)
         }
 
         auto menu = buildMenu(actionNames);
+        jsonWorkbench->addContextMenu(menu, editor, contextMenuPos);
         menu->addSeparator();
         menu->addMenu(ui->menuMarkAllOccurrences);
         menu->addMenu(ui->menuClearMarks);

@@ -8,6 +8,8 @@ L.first_line = {
 
 L.extensions = {
 	"json",
+	"jsonl",
+	"ndjson",
 }
 
 L.properties = {

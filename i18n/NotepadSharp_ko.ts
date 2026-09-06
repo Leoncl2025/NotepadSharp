@@ -1861,6 +1861,52 @@
       <source>No updates are available at this time.</source>
       <translation type="unfinished"/>
     </message>
+    <message>
+      <source>Pretty Print JSON</source>
+      <translation>JSON 서식 정리</translation>
+    </message>
+    <message>
+      <source>Compact JSON</source>
+      <translation>JSON 압축</translation>
+    </message>
+    <message>
+      <source>Toggle Pretty / Compact</source>
+      <translation>서식 정리 / 압축 전환</translation>
+    </message>
+    <message>
+      <source>JSON formatting requires a writable document and a single, non-rectangular selection.</source>
+      <translation>JSON 서식 정리에는 쓰기 가능한 문서와 사각형이 아닌 단일 선택 영역이 필요합니다.</translation>
+    </message>
+    <message>
+      <source>Invalid JSON at line %1, column %2: %3
+Best-effort formatting was applied; syntax errors were not repaired.</source>
+      <translation>%1줄 %2열의 JSON이 유효하지 않습니다: %3
+가능한 범위에서 서식을 정리했으며 구문 오류는 수정하지 않았습니다.</translation>
+    </message>
+    <message>
+      <source>JSON Format Warning</source>
+      <translation>JSON 형식 경고</translation>
+    </message>
+    <message>
+      <source>JSON pretty-printed.</source>
+      <translation>JSON 서식이 정리되었습니다.</translation>
+    </message>
+    <message>
+      <source>JSON compacted.</source>
+      <translation>JSON이 압축되었습니다.</translation>
+    </message>
+    <message>
+      <source>Serialized JSON string decoded.</source>
+      <translation>직렬화된 JSON 문자열을 디코딩했습니다.</translation>
+    </message>
+    <message>
+      <source>JSON Tools</source>
+      <translation>JSON 도구</translation>
+    </message>
+    <message>
+      <source>Find JSON Path...</source>
+      <translation>JSON 경로 찾기...</translation>
+    </message>
   </context>
   <context>
     <name>PreferencesDialog</name>
@@ -2129,6 +2175,369 @@
       <location filename="../src/widgets/TabsQuickActionsBar.cpp" line="49"/>
       <source>Close the current file</source>
       <translation type="unfinished"/>
+    </message>
+  </context>
+  <context>
+    <name>JsonFormatter</name>
+    <message>
+      <source>Expected a single JSON value.</source>
+      <translation>단일 JSON 값이 필요합니다.</translation>
+    </message>
+  </context>
+  <context>
+    <name>JsonTools</name>
+    <message>
+      <source>Expected a single JSON value.</source>
+      <translation>단일 JSON 값이 필요합니다.</translation>
+    </message>
+    <message>
+      <source>JSON navigation limit exceeded.</source>
+      <translation>JSON 탐색 제한을 초과했습니다.</translation>
+    </message>
+    <message>
+      <source>Duplicate key: %1</source>
+      <translation>중복 키: %1</translation>
+    </message>
+    <message>
+      <source>Object</source>
+      <translation>객체</translation>
+    </message>
+    <message>
+      <source>Array</source>
+      <translation>배열</translation>
+    </message>
+    <message>
+      <source>String</source>
+      <translation>문자열</translation>
+    </message>
+    <message>
+      <source>Number</source>
+      <translation>숫자</translation>
+    </message>
+    <message>
+      <source>Boolean</source>
+      <translation>불리언</translation>
+    </message>
+    <message>
+      <source>Incomplete</source>
+      <translation>불완전</translation>
+    </message>
+    <message>
+      <source>Enter a JSONPath or JSON Pointer.</source>
+      <translation>JSONPath 또는 JSON Pointer를 입력하세요.</translation>
+    </message>
+    <message>
+      <source>Comparison requires valid JSON without duplicate keys.</source>
+      <translation>비교하려면 중복 키가 없는 유효한 JSON이 필요합니다.</translation>
+    </message>
+  </context>
+  <context>
+    <name>JsonTools::Session</name>
+    <message>
+      <source>JSON tools are limited to 32 MiB per document.</source>
+      <translation>JSON 도구는 문서당 32 MiB로 제한됩니다.</translation>
+    </message>
+    <message>
+      <source>Indexing JSON...</source>
+      <translation>JSON 인덱싱 중...</translation>
+    </message>
+  </context>
+  <context>
+    <name>JsonTools::TreeModel</name>
+    <message>
+      <source>Record %1</source>
+      <translation>레코드 %1</translation>
+    </message>
+    <message>
+      <source>%1 items</source>
+      <translation>%1개 항목</translation>
+    </message>
+    <message>
+      <source>Key</source>
+      <translation>키</translation>
+    </message>
+    <message>
+      <source>Value</source>
+      <translation>값</translation>
+    </message>
+    <message>
+      <source>Type</source>
+      <translation>유형</translation>
+    </message>
+    <message>
+      <source>Line</source>
+      <translation>줄</translation>
+    </message>
+  </context>
+  <context>
+    <name>JsonTools::Workbench</name>
+    <message>
+      <source>JSON Tools</source>
+      <translation>JSON 도구</translation>
+    </message>
+    <message>
+      <source>Parent Node</source>
+      <translation>상위 노드</translation>
+    </message>
+    <message>
+      <source>Previous Sibling</source>
+      <translation>이전 형제 노드</translation>
+    </message>
+    <message>
+      <source>Next Sibling</source>
+      <translation>다음 형제 노드</translation>
+    </message>
+    <message>
+      <source>Pretty Print Node</source>
+      <translation>노드 서식 정리</translation>
+    </message>
+    <message>
+      <source>Compact Node</source>
+      <translation>노드 압축</translation>
+    </message>
+    <message>
+      <source>Fold / Unfold Node</source>
+      <translation>노드 접기 / 펼치기</translation>
+    </message>
+    <message>
+      <source>Refresh JSON</source>
+      <translation>JSON 새로 고침</translation>
+    </message>
+    <message>
+      <source>Structure</source>
+      <translation>구조</translation>
+    </message>
+    <message>
+      <source>Path</source>
+      <translation>경로</translation>
+    </message>
+    <message>
+      <source>Key</source>
+      <translation>키</translation>
+    </message>
+    <message>
+      <source>Value</source>
+      <translation>값</translation>
+    </message>
+    <message>
+      <source>JSONPath or Search Text</source>
+      <translation>JSONPath 또는 검색 텍스트</translation>
+    </message>
+    <message>
+      <source>Run Query</source>
+      <translation>쿼리 실행</translation>
+    </message>
+    <message>
+      <source>Match Case</source>
+      <translation>대소문자 구분</translation>
+    </message>
+    <message>
+      <source>Select Value</source>
+      <translation>값 선택</translation>
+    </message>
+    <message>
+      <source>Select Key</source>
+      <translation>키 선택</translation>
+    </message>
+    <message>
+      <source>Copy Results</source>
+      <translation>결과 복사</translation>
+    </message>
+    <message>
+      <source>Line</source>
+      <translation>줄</translation>
+    </message>
+    <message>
+      <source>Type</source>
+      <translation>유형</translation>
+    </message>
+    <message>
+      <source>Query</source>
+      <translation>쿼리</translation>
+    </message>
+    <message>
+      <source>Schema file</source>
+      <translation>스키마 파일</translation>
+    </message>
+    <message>
+      <source>Open Schema</source>
+      <translation>스키마 열기</translation>
+    </message>
+    <message>
+      <source>Validate JSON</source>
+      <translation>JSON 검증</translation>
+    </message>
+    <message>
+      <source>Issue</source>
+      <translation>문제</translation>
+    </message>
+    <message>
+      <source>Validation</source>
+      <translation>검증</translation>
+    </message>
+    <message>
+      <source>Comparison file</source>
+      <translation>비교 파일</translation>
+    </message>
+    <message>
+      <source>Open Comparison File</source>
+      <translation>비교 파일 열기</translation>
+    </message>
+    <message>
+      <source>Compare JSON</source>
+      <translation>JSON 비교</translation>
+    </message>
+    <message>
+      <source>Ignore Object Key Order</source>
+      <translation>객체 키 순서 무시</translation>
+    </message>
+    <message>
+      <source>Change</source>
+      <translation>변경</translation>
+    </message>
+    <message>
+      <source>Before</source>
+      <translation>이전</translation>
+    </message>
+    <message>
+      <source>After</source>
+      <translation>이후</translation>
+    </message>
+    <message>
+      <source>Compare</source>
+      <translation>비교</translation>
+    </message>
+    <message>
+      <source>Copy JSON Path</source>
+      <translation>JSON 경로 복사</translation>
+    </message>
+    <message>
+      <source>JSON files (*.json);;All files (*)</source>
+      <translation>JSON 파일 (*.json);;모든 파일 (*)</translation>
+    </message>
+    <message>
+      <source>%1 issues; %2 records validated</source>
+      <translation>문제 %1개, 레코드 %2개 검증됨</translation>
+    </message>
+    <message>
+      <source>JSON files (*.json *.jsonl *.ndjson);;All files (*)</source>
+      <translation>JSON 파일 (*.json *.jsonl *.ndjson);;모든 파일 (*)</translation>
+    </message>
+    <message>
+      <source>JSON Comparison</source>
+      <translation>JSON 비교</translation>
+    </message>
+    <message>
+      <source>Added</source>
+      <translation>추가됨</translation>
+    </message>
+    <message>
+      <source>Removed</source>
+      <translation>제거됨</translation>
+    </message>
+    <message>
+      <source>Modified</source>
+      <translation>수정됨</translation>
+    </message>
+    <message>
+      <source>Key Order</source>
+      <translation>키 순서</translation>
+    </message>
+    <message>
+      <source>Line %1: %2</source>
+      <translation>%1줄: %2</translation>
+    </message>
+    <message>
+      <source>%1 differences</source>
+      <translation>%1개 차이</translation>
+    </message>
+    <message>
+      <source>Results limited to 10000.</source>
+      <translation>결과는 10000개로 제한됩니다.</translation>
+    </message>
+    <message>
+      <source>%1 nodes; %2 issues</source>
+      <translation>노드 %1개, 문제 %2개</translation>
+    </message>
+    <message>
+      <source>Ambiguous: %1</source>
+      <translation>모호함: %1</translation>
+    </message>
+    <message>
+      <source>Duplicate keys: this path is not unique.</source>
+      <translation>중복 키로 인해 이 경로가 고유하지 않습니다.</translation>
+    </message>
+    <message>
+      <source>Copy JSON Pointer</source>
+      <translation>JSON Pointer 복사</translation>
+    </message>
+    <message>
+      <source>Copy Key</source>
+      <translation>키 복사</translation>
+    </message>
+    <message>
+      <source>Copy JSON Value</source>
+      <translation>JSON 값 복사</translation>
+    </message>
+    <message>
+      <source>Copy Decoded String</source>
+      <translation>디코딩된 문자열 복사</translation>
+    </message>
+    <message>
+      <source>Preview Node</source>
+      <translation>노드 미리 보기</translation>
+    </message>
+    <message>
+      <source>Querying...</source>
+      <translation>쿼리 실행 중...</translation>
+    </message>
+    <message>
+      <source>%1 matches; %2 invalid or ambiguous records skipped</source>
+      <translation>%1개 일치, 유효하지 않거나 모호한 레코드 %2개 건너뜀</translation>
+    </message>
+    <message>
+      <source>Copy limit exceeded; narrow the query.</source>
+      <translation>복사 제한을 초과했습니다. 쿼리 범위를 줄이세요.</translation>
+    </message>
+    <message>
+      <source>Best-effort formatting: %1</source>
+      <translation>가능한 범위에서 서식 정리: %1</translation>
+    </message>
+    <message>
+      <source>JSON Preview</source>
+      <translation>JSON 미리 보기</translation>
+    </message>
+    <message>
+      <source>JSON index is not ready.</source>
+      <translation>JSON 인덱스가 아직 준비되지 않았습니다.</translation>
+    </message>
+    <message>
+      <source>JSON Lines compacted; %1 invalid records unchanged.</source>
+      <translation>JSON Lines를 압축했습니다. 유효하지 않은 레코드 %1개는 변경하지 않았습니다.</translation>
+    </message>
+    <message>
+      <source>Validating...</source>
+      <translation>검증 중...</translation>
+    </message>
+    <message>
+      <source>Warning: %1</source>
+      <translation>경고: %1</translation>
+    </message>
+    <message>
+      <source>Error: %1</source>
+      <translation>오류: %1</translation>
+    </message>
+    <message>
+      <source>%1 issues</source>
+      <translation>%1개 문제</translation>
+    </message>
+    <message>
+      <source>Select a comparison file.</source>
+      <translation>비교 파일을 선택하세요.</translation>
+    </message>
+    <message>
+      <source>Comparing...</source>
+      <translation>비교 중...</translation>
     </message>
   </context>
 </TS>

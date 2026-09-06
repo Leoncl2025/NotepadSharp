@@ -1871,6 +1871,52 @@
       <source>No updates are available at this time.</source>
       <translation>На цю мить не має ніяких оновлень.</translation>
     </message>
+    <message>
+      <source>Pretty Print JSON</source>
+      <translation>Форматувати JSON</translation>
+    </message>
+    <message>
+      <source>Compact JSON</source>
+      <translation>Стиснути JSON</translation>
+    </message>
+    <message>
+      <source>Toggle Pretty / Compact</source>
+      <translation>Перемкнути форматування / стиснення</translation>
+    </message>
+    <message>
+      <source>JSON formatting requires a writable document and a single, non-rectangular selection.</source>
+      <translation>Для форматування JSON потрібен доступний для запису документ і одне непрямокутне виділення.</translation>
+    </message>
+    <message>
+      <source>Invalid JSON at line %1, column %2: %3
+Best-effort formatting was applied; syntax errors were not repaired.</source>
+      <translation>Некоректний JSON у рядку %1, стовпці %2: %3
+Застосовано часткове форматування; синтаксичні помилки не виправлено.</translation>
+    </message>
+    <message>
+      <source>JSON Format Warning</source>
+      <translation>Попередження формату JSON</translation>
+    </message>
+    <message>
+      <source>JSON pretty-printed.</source>
+      <translation>JSON відформатовано.</translation>
+    </message>
+    <message>
+      <source>JSON compacted.</source>
+      <translation>JSON стиснуто.</translation>
+    </message>
+    <message>
+      <source>Serialized JSON string decoded.</source>
+      <translation>Серіалізований рядок JSON декодовано.</translation>
+    </message>
+    <message>
+      <source>JSON Tools</source>
+      <translation>Інструменти JSON</translation>
+    </message>
+    <message>
+      <source>Find JSON Path...</source>
+      <translation>Знайти шлях JSON...</translation>
+    </message>
   </context>
   <context>
     <name>PreferencesDialog</name>
@@ -2139,6 +2185,369 @@
       <location filename="../src/widgets/TabsQuickActionsBar.cpp" line="49"/>
       <source>Close the current file</source>
       <translation type="unfinished"/>
+    </message>
+  </context>
+  <context>
+    <name>JsonFormatter</name>
+    <message>
+      <source>Expected a single JSON value.</source>
+      <translation>Очікується одне значення JSON.</translation>
+    </message>
+  </context>
+  <context>
+    <name>JsonTools</name>
+    <message>
+      <source>Expected a single JSON value.</source>
+      <translation>Очікується одне значення JSON.</translation>
+    </message>
+    <message>
+      <source>JSON navigation limit exceeded.</source>
+      <translation>Перевищено межу навігації JSON.</translation>
+    </message>
+    <message>
+      <source>Duplicate key: %1</source>
+      <translation>Дубльований ключ: %1</translation>
+    </message>
+    <message>
+      <source>Object</source>
+      <translation>Об'єкт</translation>
+    </message>
+    <message>
+      <source>Array</source>
+      <translation>Масив</translation>
+    </message>
+    <message>
+      <source>String</source>
+      <translation>Рядок</translation>
+    </message>
+    <message>
+      <source>Number</source>
+      <translation>Число</translation>
+    </message>
+    <message>
+      <source>Boolean</source>
+      <translation>Логічне</translation>
+    </message>
+    <message>
+      <source>Incomplete</source>
+      <translation>Неповний</translation>
+    </message>
+    <message>
+      <source>Enter a JSONPath or JSON Pointer.</source>
+      <translation>Введіть JSONPath або JSON Pointer.</translation>
+    </message>
+    <message>
+      <source>Comparison requires valid JSON without duplicate keys.</source>
+      <translation>Для порівняння потрібен коректний JSON без дубльованих ключів.</translation>
+    </message>
+  </context>
+  <context>
+    <name>JsonTools::Session</name>
+    <message>
+      <source>JSON tools are limited to 32 MiB per document.</source>
+      <translation>Інструменти JSON підтримують до 32 MiB на документ.</translation>
+    </message>
+    <message>
+      <source>Indexing JSON...</source>
+      <translation>Індексування JSON...</translation>
+    </message>
+  </context>
+  <context>
+    <name>JsonTools::TreeModel</name>
+    <message>
+      <source>Record %1</source>
+      <translation>Запис %1</translation>
+    </message>
+    <message>
+      <source>%1 items</source>
+      <translation>Елементів: %1</translation>
+    </message>
+    <message>
+      <source>Key</source>
+      <translation>Ключ</translation>
+    </message>
+    <message>
+      <source>Value</source>
+      <translation>Значення</translation>
+    </message>
+    <message>
+      <source>Type</source>
+      <translation>Тип</translation>
+    </message>
+    <message>
+      <source>Line</source>
+      <translation>Рядок</translation>
+    </message>
+  </context>
+  <context>
+    <name>JsonTools::Workbench</name>
+    <message>
+      <source>JSON Tools</source>
+      <translation>Інструменти JSON</translation>
+    </message>
+    <message>
+      <source>Parent Node</source>
+      <translation>Батьківський вузол</translation>
+    </message>
+    <message>
+      <source>Previous Sibling</source>
+      <translation>Попередній сусідній вузол</translation>
+    </message>
+    <message>
+      <source>Next Sibling</source>
+      <translation>Наступний сусідній вузол</translation>
+    </message>
+    <message>
+      <source>Pretty Print Node</source>
+      <translation>Форматувати вузол</translation>
+    </message>
+    <message>
+      <source>Compact Node</source>
+      <translation>Стиснути вузол</translation>
+    </message>
+    <message>
+      <source>Fold / Unfold Node</source>
+      <translation>Згорнути / розгорнути вузол</translation>
+    </message>
+    <message>
+      <source>Refresh JSON</source>
+      <translation>Оновити JSON</translation>
+    </message>
+    <message>
+      <source>Structure</source>
+      <translation>Структура</translation>
+    </message>
+    <message>
+      <source>Path</source>
+      <translation>Шлях</translation>
+    </message>
+    <message>
+      <source>Key</source>
+      <translation>Ключ</translation>
+    </message>
+    <message>
+      <source>Value</source>
+      <translation>Значення</translation>
+    </message>
+    <message>
+      <source>JSONPath or Search Text</source>
+      <translation>JSONPath або текст пошуку</translation>
+    </message>
+    <message>
+      <source>Run Query</source>
+      <translation>Виконати запит</translation>
+    </message>
+    <message>
+      <source>Match Case</source>
+      <translation>Враховувати регістр</translation>
+    </message>
+    <message>
+      <source>Select Value</source>
+      <translation>Виділити значення</translation>
+    </message>
+    <message>
+      <source>Select Key</source>
+      <translation>Виділити ключ</translation>
+    </message>
+    <message>
+      <source>Copy Results</source>
+      <translation>Копіювати результати</translation>
+    </message>
+    <message>
+      <source>Line</source>
+      <translation>Рядок</translation>
+    </message>
+    <message>
+      <source>Type</source>
+      <translation>Тип</translation>
+    </message>
+    <message>
+      <source>Query</source>
+      <translation>Запит</translation>
+    </message>
+    <message>
+      <source>Schema file</source>
+      <translation>Файл схеми</translation>
+    </message>
+    <message>
+      <source>Open Schema</source>
+      <translation>Відкрити схему</translation>
+    </message>
+    <message>
+      <source>Validate JSON</source>
+      <translation>Перевірити JSON</translation>
+    </message>
+    <message>
+      <source>Issue</source>
+      <translation>Проблема</translation>
+    </message>
+    <message>
+      <source>Validation</source>
+      <translation>Перевірка</translation>
+    </message>
+    <message>
+      <source>Comparison file</source>
+      <translation>Файл для порівняння</translation>
+    </message>
+    <message>
+      <source>Open Comparison File</source>
+      <translation>Відкрити файл для порівняння</translation>
+    </message>
+    <message>
+      <source>Compare JSON</source>
+      <translation>Порівняти JSON</translation>
+    </message>
+    <message>
+      <source>Ignore Object Key Order</source>
+      <translation>Ігнорувати порядок ключів</translation>
+    </message>
+    <message>
+      <source>Change</source>
+      <translation>Зміна</translation>
+    </message>
+    <message>
+      <source>Before</source>
+      <translation>До</translation>
+    </message>
+    <message>
+      <source>After</source>
+      <translation>Після</translation>
+    </message>
+    <message>
+      <source>Compare</source>
+      <translation>Порівняння</translation>
+    </message>
+    <message>
+      <source>Copy JSON Path</source>
+      <translation>Копіювати шлях JSON</translation>
+    </message>
+    <message>
+      <source>JSON files (*.json);;All files (*)</source>
+      <translation>Файли JSON (*.json);;Усі файли (*)</translation>
+    </message>
+    <message>
+      <source>%1 issues; %2 records validated</source>
+      <translation>Проблем: %1; перевірено записів: %2</translation>
+    </message>
+    <message>
+      <source>JSON files (*.json *.jsonl *.ndjson);;All files (*)</source>
+      <translation>Файли JSON (*.json *.jsonl *.ndjson);;Усі файли (*)</translation>
+    </message>
+    <message>
+      <source>JSON Comparison</source>
+      <translation>Порівняння JSON</translation>
+    </message>
+    <message>
+      <source>Added</source>
+      <translation>Додано</translation>
+    </message>
+    <message>
+      <source>Removed</source>
+      <translation>Видалено</translation>
+    </message>
+    <message>
+      <source>Modified</source>
+      <translation>Змінено</translation>
+    </message>
+    <message>
+      <source>Key Order</source>
+      <translation>Порядок ключів</translation>
+    </message>
+    <message>
+      <source>Line %1: %2</source>
+      <translation>Рядок %1: %2</translation>
+    </message>
+    <message>
+      <source>%1 differences</source>
+      <translation>Відмінностей: %1</translation>
+    </message>
+    <message>
+      <source>Results limited to 10000.</source>
+      <translation>Результати обмежено 10000 записами.</translation>
+    </message>
+    <message>
+      <source>%1 nodes; %2 issues</source>
+      <translation>Вузлів: %1; проблем: %2</translation>
+    </message>
+    <message>
+      <source>Ambiguous: %1</source>
+      <translation>Неоднозначно: %1</translation>
+    </message>
+    <message>
+      <source>Duplicate keys: this path is not unique.</source>
+      <translation>Дубльовані ключі: шлях не є унікальним.</translation>
+    </message>
+    <message>
+      <source>Copy JSON Pointer</source>
+      <translation>Копіювати JSON Pointer</translation>
+    </message>
+    <message>
+      <source>Copy Key</source>
+      <translation>Копіювати ключ</translation>
+    </message>
+    <message>
+      <source>Copy JSON Value</source>
+      <translation>Копіювати значення JSON</translation>
+    </message>
+    <message>
+      <source>Copy Decoded String</source>
+      <translation>Копіювати декодований рядок</translation>
+    </message>
+    <message>
+      <source>Preview Node</source>
+      <translation>Перегляд вузла</translation>
+    </message>
+    <message>
+      <source>Querying...</source>
+      <translation>Виконання запиту...</translation>
+    </message>
+    <message>
+      <source>%1 matches; %2 invalid or ambiguous records skipped</source>
+      <translation>Збігів: %1; пропущено некоректних або неоднозначних записів: %2</translation>
+    </message>
+    <message>
+      <source>Copy limit exceeded; narrow the query.</source>
+      <translation>Перевищено межу копіювання; звузьте запит.</translation>
+    </message>
+    <message>
+      <source>Best-effort formatting: %1</source>
+      <translation>Часткове форматування: %1</translation>
+    </message>
+    <message>
+      <source>JSON Preview</source>
+      <translation>Перегляд JSON</translation>
+    </message>
+    <message>
+      <source>JSON index is not ready.</source>
+      <translation>Індекс JSON ще не готовий.</translation>
+    </message>
+    <message>
+      <source>JSON Lines compacted; %1 invalid records unchanged.</source>
+      <translation>JSON Lines стиснуто; некоректних записів без змін: %1.</translation>
+    </message>
+    <message>
+      <source>Validating...</source>
+      <translation>Перевірка...</translation>
+    </message>
+    <message>
+      <source>Warning: %1</source>
+      <translation>Попередження: %1</translation>
+    </message>
+    <message>
+      <source>Error: %1</source>
+      <translation>Помилка: %1</translation>
+    </message>
+    <message>
+      <source>%1 issues</source>
+      <translation>Проблем: %1</translation>
+    </message>
+    <message>
+      <source>Select a comparison file.</source>
+      <translation>Виберіть файл для порівняння.</translation>
+    </message>
+    <message>
+      <source>Comparing...</source>
+      <translation>Порівняння...</translation>
     </message>
   </context>
 </TS>

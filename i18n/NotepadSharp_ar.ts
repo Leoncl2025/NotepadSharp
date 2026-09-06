@@ -1861,6 +1861,52 @@
       <source>No updates are available at this time.</source>
       <translation type="unfinished"/>
     </message>
+    <message>
+      <source>Pretty Print JSON</source>
+      <translation>تنسيق JSON</translation>
+    </message>
+    <message>
+      <source>Compact JSON</source>
+      <translation>ضغط JSON</translation>
+    </message>
+    <message>
+      <source>Toggle Pretty / Compact</source>
+      <translation>التبديل بين التنسيق والضغط</translation>
+    </message>
+    <message>
+      <source>JSON formatting requires a writable document and a single, non-rectangular selection.</source>
+      <translation>يتطلب تنسيق JSON مستندًا قابلاً للكتابة وتحديدًا واحدًا غير مستطيل.</translation>
+    </message>
+    <message>
+      <source>Invalid JSON at line %1, column %2: %3
+Best-effort formatting was applied; syntax errors were not repaired.</source>
+      <translation>JSON غير صالح في السطر %1، العمود %2: %3
+تم التنسيق قدر الإمكان؛ لم تُصلح أخطاء الصياغة.</translation>
+    </message>
+    <message>
+      <source>JSON Format Warning</source>
+      <translation>تحذير تنسيق JSON</translation>
+    </message>
+    <message>
+      <source>JSON pretty-printed.</source>
+      <translation>تم تنسيق JSON.</translation>
+    </message>
+    <message>
+      <source>JSON compacted.</source>
+      <translation>تم ضغط JSON.</translation>
+    </message>
+    <message>
+      <source>Serialized JSON string decoded.</source>
+      <translation>تم فك ترميز سلسلة JSON المتسلسلة.</translation>
+    </message>
+    <message>
+      <source>JSON Tools</source>
+      <translation>أدوات JSON</translation>
+    </message>
+    <message>
+      <source>Find JSON Path...</source>
+      <translation>البحث عن مسار JSON...</translation>
+    </message>
   </context>
   <context>
     <name>PreferencesDialog</name>
@@ -2129,6 +2175,369 @@
       <location filename="../src/widgets/TabsQuickActionsBar.cpp" line="49"/>
       <source>Close the current file</source>
       <translation type="unfinished"/>
+    </message>
+  </context>
+  <context>
+    <name>JsonFormatter</name>
+    <message>
+      <source>Expected a single JSON value.</source>
+      <translation>يُتوقع وجود قيمة JSON واحدة.</translation>
+    </message>
+  </context>
+  <context>
+    <name>JsonTools</name>
+    <message>
+      <source>Expected a single JSON value.</source>
+      <translation>يُتوقع وجود قيمة JSON واحدة.</translation>
+    </message>
+    <message>
+      <source>JSON navigation limit exceeded.</source>
+      <translation>تم تجاوز حد التنقل في JSON.</translation>
+    </message>
+    <message>
+      <source>Duplicate key: %1</source>
+      <translation>مفتاح مكرر: %1</translation>
+    </message>
+    <message>
+      <source>Object</source>
+      <translation>كائن</translation>
+    </message>
+    <message>
+      <source>Array</source>
+      <translation>مصفوفة</translation>
+    </message>
+    <message>
+      <source>String</source>
+      <translation>سلسلة نصية</translation>
+    </message>
+    <message>
+      <source>Number</source>
+      <translation>رقم</translation>
+    </message>
+    <message>
+      <source>Boolean</source>
+      <translation>قيمة منطقية</translation>
+    </message>
+    <message>
+      <source>Incomplete</source>
+      <translation>غير مكتمل</translation>
+    </message>
+    <message>
+      <source>Enter a JSONPath or JSON Pointer.</source>
+      <translation>أدخل JSONPath أو JSON Pointer.</translation>
+    </message>
+    <message>
+      <source>Comparison requires valid JSON without duplicate keys.</source>
+      <translation>تتطلب المقارنة JSON صالحًا دون مفاتيح مكررة.</translation>
+    </message>
+  </context>
+  <context>
+    <name>JsonTools::Session</name>
+    <message>
+      <source>JSON tools are limited to 32 MiB per document.</source>
+      <translation>تقتصر أدوات JSON على 32 MiB لكل مستند.</translation>
+    </message>
+    <message>
+      <source>Indexing JSON...</source>
+      <translation>جارٍ فهرسة JSON...</translation>
+    </message>
+  </context>
+  <context>
+    <name>JsonTools::TreeModel</name>
+    <message>
+      <source>Record %1</source>
+      <translation>السجل %1</translation>
+    </message>
+    <message>
+      <source>%1 items</source>
+      <translation>%1 عناصر</translation>
+    </message>
+    <message>
+      <source>Key</source>
+      <translation>المفتاح</translation>
+    </message>
+    <message>
+      <source>Value</source>
+      <translation>القيمة</translation>
+    </message>
+    <message>
+      <source>Type</source>
+      <translation>النوع</translation>
+    </message>
+    <message>
+      <source>Line</source>
+      <translation>السطر</translation>
+    </message>
+  </context>
+  <context>
+    <name>JsonTools::Workbench</name>
+    <message>
+      <source>JSON Tools</source>
+      <translation>أدوات JSON</translation>
+    </message>
+    <message>
+      <source>Parent Node</source>
+      <translation>العقدة الأصل</translation>
+    </message>
+    <message>
+      <source>Previous Sibling</source>
+      <translation>العقدة الشقيقة السابقة</translation>
+    </message>
+    <message>
+      <source>Next Sibling</source>
+      <translation>العقدة الشقيقة التالية</translation>
+    </message>
+    <message>
+      <source>Pretty Print Node</source>
+      <translation>تنسيق العقدة</translation>
+    </message>
+    <message>
+      <source>Compact Node</source>
+      <translation>ضغط العقدة</translation>
+    </message>
+    <message>
+      <source>Fold / Unfold Node</source>
+      <translation>طي / توسيع العقدة</translation>
+    </message>
+    <message>
+      <source>Refresh JSON</source>
+      <translation>تحديث JSON</translation>
+    </message>
+    <message>
+      <source>Structure</source>
+      <translation>البنية</translation>
+    </message>
+    <message>
+      <source>Path</source>
+      <translation>المسار</translation>
+    </message>
+    <message>
+      <source>Key</source>
+      <translation>المفتاح</translation>
+    </message>
+    <message>
+      <source>Value</source>
+      <translation>القيمة</translation>
+    </message>
+    <message>
+      <source>JSONPath or Search Text</source>
+      <translation>JSONPath أو نص البحث</translation>
+    </message>
+    <message>
+      <source>Run Query</source>
+      <translation>تشغيل الاستعلام</translation>
+    </message>
+    <message>
+      <source>Match Case</source>
+      <translation>مطابقة حالة الأحرف</translation>
+    </message>
+    <message>
+      <source>Select Value</source>
+      <translation>تحديد القيمة</translation>
+    </message>
+    <message>
+      <source>Select Key</source>
+      <translation>تحديد المفتاح</translation>
+    </message>
+    <message>
+      <source>Copy Results</source>
+      <translation>نسخ النتائج</translation>
+    </message>
+    <message>
+      <source>Line</source>
+      <translation>السطر</translation>
+    </message>
+    <message>
+      <source>Type</source>
+      <translation>النوع</translation>
+    </message>
+    <message>
+      <source>Query</source>
+      <translation>الاستعلام</translation>
+    </message>
+    <message>
+      <source>Schema file</source>
+      <translation>ملف المخطط</translation>
+    </message>
+    <message>
+      <source>Open Schema</source>
+      <translation>فتح المخطط</translation>
+    </message>
+    <message>
+      <source>Validate JSON</source>
+      <translation>التحقق من JSON</translation>
+    </message>
+    <message>
+      <source>Issue</source>
+      <translation>المشكلة</translation>
+    </message>
+    <message>
+      <source>Validation</source>
+      <translation>التحقق</translation>
+    </message>
+    <message>
+      <source>Comparison file</source>
+      <translation>ملف المقارنة</translation>
+    </message>
+    <message>
+      <source>Open Comparison File</source>
+      <translation>فتح ملف المقارنة</translation>
+    </message>
+    <message>
+      <source>Compare JSON</source>
+      <translation>مقارنة JSON</translation>
+    </message>
+    <message>
+      <source>Ignore Object Key Order</source>
+      <translation>تجاهل ترتيب مفاتيح الكائن</translation>
+    </message>
+    <message>
+      <source>Change</source>
+      <translation>التغيير</translation>
+    </message>
+    <message>
+      <source>Before</source>
+      <translation>قبل</translation>
+    </message>
+    <message>
+      <source>After</source>
+      <translation>بعد</translation>
+    </message>
+    <message>
+      <source>Compare</source>
+      <translation>المقارنة</translation>
+    </message>
+    <message>
+      <source>Copy JSON Path</source>
+      <translation>نسخ مسار JSON</translation>
+    </message>
+    <message>
+      <source>JSON files (*.json);;All files (*)</source>
+      <translation>ملفات JSON (*.json);;كل الملفات (*)</translation>
+    </message>
+    <message>
+      <source>%1 issues; %2 records validated</source>
+      <translation>%1 مشكلات؛ تم التحقق من %2 سجلات</translation>
+    </message>
+    <message>
+      <source>JSON files (*.json *.jsonl *.ndjson);;All files (*)</source>
+      <translation>ملفات JSON (*.json *.jsonl *.ndjson);;كل الملفات (*)</translation>
+    </message>
+    <message>
+      <source>JSON Comparison</source>
+      <translation>مقارنة JSON</translation>
+    </message>
+    <message>
+      <source>Added</source>
+      <translation>مضاف</translation>
+    </message>
+    <message>
+      <source>Removed</source>
+      <translation>محذوف</translation>
+    </message>
+    <message>
+      <source>Modified</source>
+      <translation>معدّل</translation>
+    </message>
+    <message>
+      <source>Key Order</source>
+      <translation>ترتيب المفاتيح</translation>
+    </message>
+    <message>
+      <source>Line %1: %2</source>
+      <translation>السطر %1: %2</translation>
+    </message>
+    <message>
+      <source>%1 differences</source>
+      <translation>%1 اختلافات</translation>
+    </message>
+    <message>
+      <source>Results limited to 10000.</source>
+      <translation>النتائج محدودة بـ 10000.</translation>
+    </message>
+    <message>
+      <source>%1 nodes; %2 issues</source>
+      <translation>%1 عقد؛ %2 مشكلات</translation>
+    </message>
+    <message>
+      <source>Ambiguous: %1</source>
+      <translation>ملتبس: %1</translation>
+    </message>
+    <message>
+      <source>Duplicate keys: this path is not unique.</source>
+      <translation>مفاتيح مكررة: هذا المسار ليس فريدًا.</translation>
+    </message>
+    <message>
+      <source>Copy JSON Pointer</source>
+      <translation>نسخ JSON Pointer</translation>
+    </message>
+    <message>
+      <source>Copy Key</source>
+      <translation>نسخ المفتاح</translation>
+    </message>
+    <message>
+      <source>Copy JSON Value</source>
+      <translation>نسخ قيمة JSON</translation>
+    </message>
+    <message>
+      <source>Copy Decoded String</source>
+      <translation>نسخ السلسلة المفكوكة</translation>
+    </message>
+    <message>
+      <source>Preview Node</source>
+      <translation>معاينة العقدة</translation>
+    </message>
+    <message>
+      <source>Querying...</source>
+      <translation>جارٍ الاستعلام...</translation>
+    </message>
+    <message>
+      <source>%1 matches; %2 invalid or ambiguous records skipped</source>
+      <translation>%1 نتائج؛ تم تخطي %2 سجلات غير صالحة أو ملتبسة</translation>
+    </message>
+    <message>
+      <source>Copy limit exceeded; narrow the query.</source>
+      <translation>تم تجاوز حد النسخ؛ ضيّق نطاق الاستعلام.</translation>
+    </message>
+    <message>
+      <source>Best-effort formatting: %1</source>
+      <translation>تنسيق قدر الإمكان: %1</translation>
+    </message>
+    <message>
+      <source>JSON Preview</source>
+      <translation>معاينة JSON</translation>
+    </message>
+    <message>
+      <source>JSON index is not ready.</source>
+      <translation>فهرس JSON غير جاهز بعد.</translation>
+    </message>
+    <message>
+      <source>JSON Lines compacted; %1 invalid records unchanged.</source>
+      <translation>تم ضغط JSON Lines؛ بقيت %1 سجلات غير صالحة دون تغيير.</translation>
+    </message>
+    <message>
+      <source>Validating...</source>
+      <translation>جارٍ التحقق...</translation>
+    </message>
+    <message>
+      <source>Warning: %1</source>
+      <translation>تحذير: %1</translation>
+    </message>
+    <message>
+      <source>Error: %1</source>
+      <translation>خطأ: %1</translation>
+    </message>
+    <message>
+      <source>%1 issues</source>
+      <translation>%1 مشكلات</translation>
+    </message>
+    <message>
+      <source>Select a comparison file.</source>
+      <translation>اختر ملفًا للمقارنة.</translation>
+    </message>
+    <message>
+      <source>Comparing...</source>
+      <translation>جارٍ المقارنة...</translation>
     </message>
   </context>
 </TS>

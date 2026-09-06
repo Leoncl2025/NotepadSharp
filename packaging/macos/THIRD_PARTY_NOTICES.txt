@@ -34,6 +34,13 @@ editorconfig-core-qt
 Source: https://github.com/editorconfig/editorconfig-core-qt/tree/ab62f0554abf2bbe4d45427b36a8b2f81ca7b4ab
 License: MIT
 
+jsoncons 1.9.0
+-------------
+Source: https://github.com/danielaparker/jsoncons/tree/v1.9.0
+License: Boost Software License 1.0
+Bundled license: licenses/jsoncons-Boost-1.0.txt
+Use: JSONPath queries and offline JSON Schema validation
+
 Lua 5.3.4
 ---------
 Source: https://www.lua.org/ftp/lua-5.3.4.tar.gz

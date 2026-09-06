@@ -1,0 +1,9 @@
+{
+    "message": "first line\nsecond line",
+    "a.b": {"/~": "literal key"},
+    "users": [
+        {"name": "Alice", "age": 22},
+        {"name": "Bob", "age": 18},
+        {"name": "Carol", "age": 25}
+    ]
+}

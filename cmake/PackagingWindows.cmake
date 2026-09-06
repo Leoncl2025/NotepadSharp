@@ -61,6 +61,8 @@ add_custom_target(package
 	COMMAND "${CMAKE_COMMAND}" -E copy_if_different
 		"${NOTEPADSHARP_EDITORCONFIG_LICENSE}" "${PACKAGE_LICENSE_DIR}/editorconfig-core-qt-MIT.txt"
 	COMMAND "${CMAKE_COMMAND}" -E copy_if_different
+		"${NOTEPADSHARP_JSONCONS_LICENSE}" "${PACKAGE_LICENSE_DIR}/jsoncons-Boost-1.0.txt"
+	COMMAND "${CMAKE_COMMAND}" -E copy_if_different
 		"${CMAKE_SOURCE_DIR}/packaging/windows/LICENSE-Lua-5.3.4.txt" "${PACKAGE_LICENSE_DIR}/Lua-5.3.4-MIT.txt"
 	COMMAND "${CMAKE_COMMAND}" -E copy_if_different
 		"${CMAKE_SOURCE_DIR}/thirdparty/scintilla/License.txt" "${PACKAGE_LICENSE_DIR}/Scintilla-License.txt"

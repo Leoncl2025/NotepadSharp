@@ -1,3 +1,64 @@
+qt_add_executable(JsonToolsTests
+    JsonToolsTests.cpp
+)
+target_include_directories(JsonToolsTests PRIVATE ${CMAKE_SOURCE_DIR}/src)
+target_link_libraries(JsonToolsTests PRIVATE Qt6::Core Qt6::Test notepadsharp_json notepadsharp_jsoncons)
+add_test(NAME JsonToolsTests COMMAND JsonToolsTests)
+set_tests_properties(JsonToolsTests PROPERTIES TIMEOUT 30)
+
+qt_add_executable(JsonWorkbenchTests
+    JsonWorkbenchTests.cpp
+    ${CMAKE_SOURCE_DIR}/src/resources.qrc
+    ${CMAKE_SOURCE_DIR}/src/JsonFormatter.cpp
+    ${CMAKE_SOURCE_DIR}/src/QRegexSearch.cpp
+    ${CMAKE_SOURCE_DIR}/src/RangeAllocator.cpp
+    ${CMAKE_SOURCE_DIR}/src/ScintillaCommenter.cpp
+    ${CMAKE_SOURCE_DIR}/src/ScintillaNext.cpp
+    ${CMAKE_SOURCE_DIR}/src/ScintillaNext.h
+    ${CMAKE_SOURCE_DIR}/src/SelectionTracker.cpp
+    ${CMAKE_SOURCE_DIR}/src/UndoAction.cpp
+)
+target_link_libraries(JsonWorkbenchTests PRIVATE
+    notepadsharp_json_widgets Qt6::Test Qt6::Core5Compat uchardet
+)
+add_test(NAME JsonWorkbenchTests COMMAND JsonWorkbenchTests)
+set_tests_properties(JsonWorkbenchTests PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen" TIMEOUT 60)
+
+qt_add_executable(JsonFormatterTests
+    JsonFormatterTests.cpp
+    ${CMAKE_SOURCE_DIR}/src/JsonFormatter.cpp
+    ${CMAKE_SOURCE_DIR}/src/JsonFormatter.h
+)
+
+target_include_directories(JsonFormatterTests PRIVATE ${CMAKE_SOURCE_DIR}/src)
+target_link_libraries(JsonFormatterTests PRIVATE Qt6::Core Qt6::Test)
+
+add_test(NAME JsonFormatterTests COMMAND JsonFormatterTests)
+set_tests_properties(JsonFormatterTests PROPERTIES TIMEOUT 30)
+
+qt_add_executable(JsonEditorTests
+    JsonEditorTests.cpp
+    ${CMAKE_SOURCE_DIR}/src/JsonFormatter.cpp
+    ${CMAKE_SOURCE_DIR}/src/QRegexSearch.cpp
+    ${CMAKE_SOURCE_DIR}/src/RangeAllocator.cpp
+    ${CMAKE_SOURCE_DIR}/src/ScintillaCommenter.cpp
+    ${CMAKE_SOURCE_DIR}/src/ScintillaNext.cpp
+    ${CMAKE_SOURCE_DIR}/src/ScintillaNext.h
+    ${CMAKE_SOURCE_DIR}/src/SelectionTracker.cpp
+    ${CMAKE_SOURCE_DIR}/src/UndoAction.cpp
+)
+
+target_include_directories(JsonEditorTests PRIVATE ${CMAKE_SOURCE_DIR}/src)
+target_link_libraries(JsonEditorTests PRIVATE
+    Qt6::Core Qt6::Core5Compat Qt6::Gui Qt6::Test Qt6::Widgets scintilla uchardet
+)
+
+add_test(NAME JsonEditorTests COMMAND JsonEditorTests)
+set_tests_properties(JsonEditorTests PROPERTIES
+    ENVIRONMENT "QT_QPA_PLATFORM=offscreen"
+    TIMEOUT 30
+)
+
 qt_add_executable(AppearanceManagerTests
     AppearanceManagerTests.cpp
     ${CMAKE_SOURCE_DIR}/src/AppearanceManager.cpp
@@ -85,6 +146,8 @@ set_tests_properties(CompareEngineTests PROPERTIES TIMEOUT 90)
 
 qt_add_executable(CompareSessionTests
     CompareSessionTests.cpp
+    ${CMAKE_SOURCE_DIR}/src/JsonFormatter.cpp
+    ${CMAKE_SOURCE_DIR}/src/JsonFormatter.h
     ${CMAKE_SOURCE_DIR}/src/DockedEditor.cpp
     ${CMAKE_SOURCE_DIR}/src/DockedEditor.h
     ${CMAKE_SOURCE_DIR}/src/DockedEditorTitleBar.h

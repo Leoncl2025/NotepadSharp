@@ -1876,6 +1876,52 @@
       <source>No updates are available at this time.</source>
       <translation>Aucune mise à jour n’est disponible pour le moment.</translation>
     </message>
+    <message>
+      <source>Pretty Print JSON</source>
+      <translation>Formater JSON</translation>
+    </message>
+    <message>
+      <source>Compact JSON</source>
+      <translation>Compacter JSON</translation>
+    </message>
+    <message>
+      <source>Toggle Pretty / Compact</source>
+      <translation>Basculer formaté / compact</translation>
+    </message>
+    <message>
+      <source>JSON formatting requires a writable document and a single, non-rectangular selection.</source>
+      <translation>Le formatage JSON nécessite un document modifiable et une sélection unique non rectangulaire.</translation>
+    </message>
+    <message>
+      <source>Invalid JSON at line %1, column %2: %3
+Best-effort formatting was applied; syntax errors were not repaired.</source>
+      <translation>JSON invalide à la ligne %1, colonne %2 : %3
+Le formatage a été appliqué au mieux ; les erreurs de syntaxe n'ont pas été corrigées.</translation>
+    </message>
+    <message>
+      <source>JSON Format Warning</source>
+      <translation>Avertissement de format JSON</translation>
+    </message>
+    <message>
+      <source>JSON pretty-printed.</source>
+      <translation>JSON formaté.</translation>
+    </message>
+    <message>
+      <source>JSON compacted.</source>
+      <translation>JSON compacté.</translation>
+    </message>
+    <message>
+      <source>Serialized JSON string decoded.</source>
+      <translation>Chaîne JSON sérialisée décodée.</translation>
+    </message>
+    <message>
+      <source>JSON Tools</source>
+      <translation>Outils JSON</translation>
+    </message>
+    <message>
+      <source>Find JSON Path...</source>
+      <translation>Rechercher un chemin JSON...</translation>
+    </message>
   </context>
   <context>
     <name>PreferencesDialog</name>
@@ -2144,6 +2190,369 @@
       <location filename="../src/widgets/TabsQuickActionsBar.cpp" line="49"/>
       <source>Close the current file</source>
       <translation>Fermer le fichier actuel</translation>
+    </message>
+  </context>
+  <context>
+    <name>JsonFormatter</name>
+    <message>
+      <source>Expected a single JSON value.</source>
+      <translation>Une seule valeur JSON est attendue.</translation>
+    </message>
+  </context>
+  <context>
+    <name>JsonTools</name>
+    <message>
+      <source>Expected a single JSON value.</source>
+      <translation>Une seule valeur JSON est attendue.</translation>
+    </message>
+    <message>
+      <source>JSON navigation limit exceeded.</source>
+      <translation>Limite de navigation JSON dépassée.</translation>
+    </message>
+    <message>
+      <source>Duplicate key: %1</source>
+      <translation>Clé en double : %1</translation>
+    </message>
+    <message>
+      <source>Object</source>
+      <translation>Objet</translation>
+    </message>
+    <message>
+      <source>Array</source>
+      <translation>Tableau</translation>
+    </message>
+    <message>
+      <source>String</source>
+      <translation>Chaîne</translation>
+    </message>
+    <message>
+      <source>Number</source>
+      <translation>Nombre</translation>
+    </message>
+    <message>
+      <source>Boolean</source>
+      <translation>Booléen</translation>
+    </message>
+    <message>
+      <source>Incomplete</source>
+      <translation>Incomplet</translation>
+    </message>
+    <message>
+      <source>Enter a JSONPath or JSON Pointer.</source>
+      <translation>Saisissez un JSONPath ou un JSON Pointer.</translation>
+    </message>
+    <message>
+      <source>Comparison requires valid JSON without duplicate keys.</source>
+      <translation>La comparaison nécessite un JSON valide sans clés en double.</translation>
+    </message>
+  </context>
+  <context>
+    <name>JsonTools::Session</name>
+    <message>
+      <source>JSON tools are limited to 32 MiB per document.</source>
+      <translation>Les outils JSON sont limités à 32 MiB par document.</translation>
+    </message>
+    <message>
+      <source>Indexing JSON...</source>
+      <translation>Indexation du JSON...</translation>
+    </message>
+  </context>
+  <context>
+    <name>JsonTools::TreeModel</name>
+    <message>
+      <source>Record %1</source>
+      <translation>Enregistrement %1</translation>
+    </message>
+    <message>
+      <source>%1 items</source>
+      <translation>%1 éléments</translation>
+    </message>
+    <message>
+      <source>Key</source>
+      <translation>Clé</translation>
+    </message>
+    <message>
+      <source>Value</source>
+      <translation>Valeur</translation>
+    </message>
+    <message>
+      <source>Type</source>
+      <translation>Type</translation>
+    </message>
+    <message>
+      <source>Line</source>
+      <translation>Ligne</translation>
+    </message>
+  </context>
+  <context>
+    <name>JsonTools::Workbench</name>
+    <message>
+      <source>JSON Tools</source>
+      <translation>Outils JSON</translation>
+    </message>
+    <message>
+      <source>Parent Node</source>
+      <translation>Nœud parent</translation>
+    </message>
+    <message>
+      <source>Previous Sibling</source>
+      <translation>Nœud frère précédent</translation>
+    </message>
+    <message>
+      <source>Next Sibling</source>
+      <translation>Nœud frère suivant</translation>
+    </message>
+    <message>
+      <source>Pretty Print Node</source>
+      <translation>Formater le nœud</translation>
+    </message>
+    <message>
+      <source>Compact Node</source>
+      <translation>Compacter le nœud</translation>
+    </message>
+    <message>
+      <source>Fold / Unfold Node</source>
+      <translation>Replier / déplier le nœud</translation>
+    </message>
+    <message>
+      <source>Refresh JSON</source>
+      <translation>Actualiser JSON</translation>
+    </message>
+    <message>
+      <source>Structure</source>
+      <translation>Structure</translation>
+    </message>
+    <message>
+      <source>Path</source>
+      <translation>Chemin</translation>
+    </message>
+    <message>
+      <source>Key</source>
+      <translation>Clé</translation>
+    </message>
+    <message>
+      <source>Value</source>
+      <translation>Valeur</translation>
+    </message>
+    <message>
+      <source>JSONPath or Search Text</source>
+      <translation>JSONPath ou texte recherché</translation>
+    </message>
+    <message>
+      <source>Run Query</source>
+      <translation>Exécuter la requête</translation>
+    </message>
+    <message>
+      <source>Match Case</source>
+      <translation>Respecter la casse</translation>
+    </message>
+    <message>
+      <source>Select Value</source>
+      <translation>Sélectionner la valeur</translation>
+    </message>
+    <message>
+      <source>Select Key</source>
+      <translation>Sélectionner la clé</translation>
+    </message>
+    <message>
+      <source>Copy Results</source>
+      <translation>Copier les résultats</translation>
+    </message>
+    <message>
+      <source>Line</source>
+      <translation>Ligne</translation>
+    </message>
+    <message>
+      <source>Type</source>
+      <translation>Type</translation>
+    </message>
+    <message>
+      <source>Query</source>
+      <translation>Requête</translation>
+    </message>
+    <message>
+      <source>Schema file</source>
+      <translation>Fichier de schéma</translation>
+    </message>
+    <message>
+      <source>Open Schema</source>
+      <translation>Ouvrir un schéma</translation>
+    </message>
+    <message>
+      <source>Validate JSON</source>
+      <translation>Valider JSON</translation>
+    </message>
+    <message>
+      <source>Issue</source>
+      <translation>Problème</translation>
+    </message>
+    <message>
+      <source>Validation</source>
+      <translation>Validation</translation>
+    </message>
+    <message>
+      <source>Comparison file</source>
+      <translation>Fichier de comparaison</translation>
+    </message>
+    <message>
+      <source>Open Comparison File</source>
+      <translation>Ouvrir un fichier de comparaison</translation>
+    </message>
+    <message>
+      <source>Compare JSON</source>
+      <translation>Comparer JSON</translation>
+    </message>
+    <message>
+      <source>Ignore Object Key Order</source>
+      <translation>Ignorer l'ordre des clés</translation>
+    </message>
+    <message>
+      <source>Change</source>
+      <translation>Modification</translation>
+    </message>
+    <message>
+      <source>Before</source>
+      <translation>Avant</translation>
+    </message>
+    <message>
+      <source>After</source>
+      <translation>Après</translation>
+    </message>
+    <message>
+      <source>Compare</source>
+      <translation>Comparer</translation>
+    </message>
+    <message>
+      <source>Copy JSON Path</source>
+      <translation>Copier le chemin JSON</translation>
+    </message>
+    <message>
+      <source>JSON files (*.json);;All files (*)</source>
+      <translation>Fichiers JSON (*.json);;Tous les fichiers (*)</translation>
+    </message>
+    <message>
+      <source>%1 issues; %2 records validated</source>
+      <translation>%1 problèmes ; %2 enregistrements validés</translation>
+    </message>
+    <message>
+      <source>JSON files (*.json *.jsonl *.ndjson);;All files (*)</source>
+      <translation>Fichiers JSON (*.json *.jsonl *.ndjson);;Tous les fichiers (*)</translation>
+    </message>
+    <message>
+      <source>JSON Comparison</source>
+      <translation>Comparaison JSON</translation>
+    </message>
+    <message>
+      <source>Added</source>
+      <translation>Ajouté</translation>
+    </message>
+    <message>
+      <source>Removed</source>
+      <translation>Supprimé</translation>
+    </message>
+    <message>
+      <source>Modified</source>
+      <translation>Modifié</translation>
+    </message>
+    <message>
+      <source>Key Order</source>
+      <translation>Ordre des clés</translation>
+    </message>
+    <message>
+      <source>Line %1: %2</source>
+      <translation>Ligne %1 : %2</translation>
+    </message>
+    <message>
+      <source>%1 differences</source>
+      <translation>%1 différences</translation>
+    </message>
+    <message>
+      <source>Results limited to 10000.</source>
+      <translation>Résultats limités à 10000.</translation>
+    </message>
+    <message>
+      <source>%1 nodes; %2 issues</source>
+      <translation>%1 nœuds ; %2 problèmes</translation>
+    </message>
+    <message>
+      <source>Ambiguous: %1</source>
+      <translation>Ambigu : %1</translation>
+    </message>
+    <message>
+      <source>Duplicate keys: this path is not unique.</source>
+      <translation>Clés en double : ce chemin n'est pas unique.</translation>
+    </message>
+    <message>
+      <source>Copy JSON Pointer</source>
+      <translation>Copier le JSON Pointer</translation>
+    </message>
+    <message>
+      <source>Copy Key</source>
+      <translation>Copier la clé</translation>
+    </message>
+    <message>
+      <source>Copy JSON Value</source>
+      <translation>Copier la valeur JSON</translation>
+    </message>
+    <message>
+      <source>Copy Decoded String</source>
+      <translation>Copier la chaîne décodée</translation>
+    </message>
+    <message>
+      <source>Preview Node</source>
+      <translation>Aperçu du nœud</translation>
+    </message>
+    <message>
+      <source>Querying...</source>
+      <translation>Exécution de la requête...</translation>
+    </message>
+    <message>
+      <source>%1 matches; %2 invalid or ambiguous records skipped</source>
+      <translation>%1 résultats ; %2 enregistrements invalides ou ambigus ignorés</translation>
+    </message>
+    <message>
+      <source>Copy limit exceeded; narrow the query.</source>
+      <translation>Limite de copie dépassée ; affinez la requête.</translation>
+    </message>
+    <message>
+      <source>Best-effort formatting: %1</source>
+      <translation>Formatage au mieux : %1</translation>
+    </message>
+    <message>
+      <source>JSON Preview</source>
+      <translation>Aperçu JSON</translation>
+    </message>
+    <message>
+      <source>JSON index is not ready.</source>
+      <translation>L'index JSON n'est pas encore prêt.</translation>
+    </message>
+    <message>
+      <source>JSON Lines compacted; %1 invalid records unchanged.</source>
+      <translation>JSON Lines compacté ; %1 enregistrements invalides inchangés.</translation>
+    </message>
+    <message>
+      <source>Validating...</source>
+      <translation>Validation...</translation>
+    </message>
+    <message>
+      <source>Warning: %1</source>
+      <translation>Avertissement : %1</translation>
+    </message>
+    <message>
+      <source>Error: %1</source>
+      <translation>Erreur : %1</translation>
+    </message>
+    <message>
+      <source>%1 issues</source>
+      <translation>%1 problèmes</translation>
+    </message>
+    <message>
+      <source>Select a comparison file.</source>
+      <translation>Sélectionnez un fichier de comparaison.</translation>
+    </message>
+    <message>
+      <source>Comparing...</source>
+      <translation>Comparaison...</translation>
     </message>
   </context>
 </TS>

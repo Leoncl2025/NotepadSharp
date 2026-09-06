@@ -50,6 +50,10 @@ namespace Compare {
 class Session;
 }
 
+namespace JsonTools {
+class Workbench;
+}
+
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -173,6 +177,7 @@ private:
     }
     void applyStyleSheet();
     void applyCustomShortcuts();
+    void formatJson(JsonFormatter::Mode mode);
     void compareWithPrevious();
     void compareWith();
     void initUpdateCheck();
@@ -204,6 +209,7 @@ private:
     ShiftMiddleClickBlocker *shiftMiddleClickBlocker;
     ShiftWheelToHorizontalScrollFilter *shiftWheelToHorizontalScrollFilter;
     Compare::Session *compareSession = Q_NULLPTR;
+    JsonTools::Workbench *jsonWorkbench = Q_NULLPTR;
     QAction *comparePreviousSeparator = Q_NULLPTR;
     QAction *comparePreviousAction = Q_NULLPTR;
     int zoomLevel = 0;
