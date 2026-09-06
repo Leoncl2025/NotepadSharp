@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.21)
 
 project(NotepadSharp
-    VERSION 0.15.3
+    VERSION 0.16.0
     DESCRIPTION "Compliance-focused text editor"
     LANGUAGES CXX
 )
